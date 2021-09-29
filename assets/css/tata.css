@@ -1,0 +1,14 @@
+﻿
+.tata{
+    width:auto !important;
+}
+
+.tata .tata-icon {
+    margin-right: 15px !important;
+}
+
+.tata .tata-title {
+    font-family: 'Cairo', sans-serif !important; 
+    margin-bottom: 5px !important;
+    font-size: .9em !important;
+}

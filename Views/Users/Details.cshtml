@@ -1,0 +1,235 @@
+﻿@model Transfer.City.Models.ViewModels.UserViewModel
+<!--begin::Toolbar-->
+<div class="toolbar" id="kt_toolbar">
+    <!--begin::Container-->
+    <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+        <!--begin::Page title-->
+        <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+            <!--begin::Title-->
+            <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">User Details</h1>
+            <!--end::Title-->
+            <!--begin::Separator-->
+            <span class="h-20px border-gray-200 border-start mx-4"></span>
+            <!--end::Separator-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">
+                    <a href="/home/index" class="text-muted text-hover-primary">Home</a>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">Users</li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-dark">User Details</li>
+                <!--end::Item-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title-->
+        <!--begin::Actions-->
+        <!--end::Actions-->
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::Toolbar-->
+<!--begin::Post-->
+<div class="post d-flex flex-column-fluid" id="kt_post">
+    <!--begin::Container-->
+    <div id="kt_content_container" class="container">
+
+        <!--begin::Form-->
+        <form class="form" id="edit_form" action="">
+            <input name="User.ID" type="hidden" value="@Model.User.ID" />
+            <div class="card">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>User data</h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+                <div class="card-body pt-0">
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Name</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid DisplayName" placeholder="Display Name" name="User.DisplayName" value="@Model.User.DisplayName" readonly/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+
+                    </div>
+
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">UserName</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid UserName" placeholder="UserName" name="User.UserName" value="@Model.User.UserName" readonly/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Email Address</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid EmailAddress" placeholder="Email Address" name="User.EmailAddress" value="@Model.User.EmailAddress" readonly/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <div class="form-check form-check-custom form-check-solid">
+                                @if (Model.User.IsActive)
+                                {
+                                    <input class="form-check-input IsActive" type="checkbox" value="true" name="User.IsActive" id="IsActive" checked="checked" disabled/>
+                                }
+                                else
+                                {
+                                    <input class="form-check-input IsActive" type="checkbox" value="true" name="User.IsActive" id="IsActive" disabled/>
+                                }
+                                <label class="form-check-label fs-6 fw-bold" for="IsActive">
+                                    Is Active
+                                </label>
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <div class="form-check form-check-custom form-check-solid">
+                                @if (Model.User.IsActive)
+                                {
+                                    <input class="form-check-input IsEnabled" type="checkbox" value="true" id="IsEnabled" name="User.IsEnabled" checked="checked"  disabled/>
+                                }
+                                else
+                                {
+                                    <input class="form-check-input IsEnabled" type="checkbox" value="true" id="IsEnabled" name="User.IsEnabled" disabled/>
+                                }
+                                <label class="form-check-label fs-6 fw-bold" for="IsEnabled">
+                                    Is Enabled
+                                </label>
+                            </div>
+                        </div>
+                        <!--end::Col-->
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card mt-10">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>User Permissions</h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+
+                <div class="card-body pt-0">
+                  
+                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="PermissionsTable">
+                        <!--begin::Table head-->
+                        <thead>
+                            <!--begin::Table row-->
+                            <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                <th class="min-w-125px">Name</th>
+                                <th class="min-w-125px">Rule</th>
+                                <th class="text-end min-w-70px">Actions</th>
+                            </tr>
+                            <!--end::Table row-->
+                        </thead>
+                        <!--end::Table head-->
+                        <!--begin::Table body-->
+                        <tbody class="fw-bold text-gray-600">
+                            @foreach(var item in Model.UserPermissions)
+                            {
+                            <tr>
+                                <td>@item.PermissionName</td>
+                                <td>@item.RuleName</td>
+                                @if (item.Enabled)
+                                {
+                                    <td>
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                            <input disabled class="form-check-input" type="checkbox" checked='checked' value="1" />
+                                        </div>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                            <input disabled class="form-check-input" type="checkbox" value="1" />
+                                        </div>
+                                    </td>
+                                }
+
+
+                            </tr>
+                            }
+                        </tbody>
+                        <!--end::Table body-->
+                    </table>
+                </div>
+            </div>
+
+            <div class="card mt-10">
+                <div class="card-body">
+                    <!--begin::Button-->
+                    <a  href="/Users" class="btn btn-white me-3">Back To List</a>
+                    <!--end::Button-->
+                    <!--begin::Button-->
+                    <a href="/users/update/@Model.User.ID" id="edit_submit" class="btn btn-primary">
+                        <span class="indicator-label">Edit</span>
+                        <span class="indicator-progress">
+                            Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span>
+                    </a>
+                    <!--end::Button-->
+                   
+                </div>
+            </div>
+
+        </form>
+        <!--end::Form-->
+
+        
+
+
+
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::Post-->
+
+
+
+@section Scripts
+{
+
+  
+}

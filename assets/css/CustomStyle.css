@@ -1,0 +1,21 @@
+﻿.ActionContainer
+{
+    position:relative;
+}
+
+.ActionMenu
+{
+    position:absolute;
+}
+
+
+.tbl-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+}
+
+.table-start-group td {
+    background-color: #f0f0f0 !important;
+    padding: 10px !important;
+}

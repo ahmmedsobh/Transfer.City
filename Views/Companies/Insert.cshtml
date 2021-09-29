@@ -1,0 +1,377 @@
+﻿
+    <!--begin::Toolbar-->
+    <div class="toolbar" id="kt_toolbar">
+        <!--begin::Container-->
+        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+            <!--begin::Page title-->
+            <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                <!--begin::Title-->
+                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Add Company</h1>
+                <!--end::Title-->
+                <!--begin::Separator-->
+                <span class="h-20px border-gray-200 border-start mx-4"></span>
+                <!--end::Separator-->
+                <!--begin::Breadcrumb-->
+                <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-muted">
+                        <a href="/home/index" class="text-muted text-hover-primary">Home</a>
+                    </li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                    </li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-muted">Companies</li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                    </li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-dark">Add Company</li>
+                    <!--end::Item-->
+                </ul>
+                <!--end::Breadcrumb-->
+            </div>
+            <!--end::Page title-->
+            <!--begin::Actions-->
+            <!--end::Actions-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Toolbar-->
+    <!--begin::Post-->
+    <div class="post d-flex flex-column-fluid" id="kt_post">
+        <!--begin::Container-->
+        <div id="kt_content_container" class="container">
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h2>Add New Company</h2>
+                    </div>
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <!--begin::Form-->
+                    <form class="form" id="add_form" action="">
+
+                        <div class="row g-9 mb-7">
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-bold mb-2">Name</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid Company_Name" placeholder="Company Name" name="Company_Name" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-bold mb-2">Trade Name</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid Trading_Name" placeholder="Company Trade Name" name="Trading_Name" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <div class="row g-9 mb-7">
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-bold mb-2">Admin Email</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid Admin_Email" placeholder="Admin Email" name="Admin_Email" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-bold mb-2">Finance Email</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid Finance_Email" placeholder="Finance Email" name="Finance_Email" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <div class="row g-9 mb-7">
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-5 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                        <span class="required">Choose Country</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Select-->
+                                    <select name="Country" data-control="select2" data-placeholder="Select Country..." class="form-select form-select-solid Country">
+                                        <option value="">Select Country...</option>
+                                        @foreach (var item in Model.Countries)
+                                        {
+                                            <option value="@item.Value">@item.Name</option>
+                                        }
+                                    </select>
+                                    <!--end::Select-->
+                                </div>
+                                <!--end::Input group-->
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-bold mb-2">Phone</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid Phone" placeholder="Phone" name="Phone" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <div class="row g-9 mb-7">
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-bold mb-2">WebSite</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid WebSite" placeholder="WebSite" name="WebSite" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-bold mb-2">Billing_Address</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid Billing_Address" placeholder="Billing_Address" name="Billing_Address" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <div class="row g-9 mb-7">
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-bold mb-2">Registration Number</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid Registration_Number" placeholder="Registration Number" name="Registration_Number" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <!--begin::Input group-->
+                                <div class="d-flex flex-column mb-5 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                        <span class="required">Currency</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Select-->
+                                    <select name="Currency" data-control="select2" data-placeholder="Select Currency..." class="form-select form-select-solid Currency">
+                                        <option value="">Select Currency...</option>
+                                        @foreach (var item in Model.Currencies)
+                                        {
+                                            <option value="@item.Value">@item.Name</option>
+                                        }
+                                    </select>
+                                    <!--end::Select-->
+                                </div>
+                                <!--end::Input group-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <div class="row g-9 mb-7">
+                            <!--begin::Col-->
+                            <div class="col-md-12 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-bold mb-2">VAT Number</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid VAT_Number" placeholder="VAT Number" name="VAT_Number" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+
+                        </div>
+                        <div class="row g-9 mb-7">
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-bold mb-2">Account Administrator</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid Account_Administrator" placeholder="Account Administrator" name="Account_Administrator" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-bold mb-2">Account Administrator Email</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid Account_Administrator_Email" placeholder="Account Administrator Email" name="Account_Administrator_Email" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <div class="row g-9 mb-7">
+                            <!--begin::Col-->
+                            <div class="col-md-4 fv-row">
+                                <div class="form-check form-check-custom form-check-solid">
+                                    <input class="form-check-input IsActive" type="checkbox" value="true" name="IsActive" id="IsActive" />
+                                    <label class="form-check-label fs-6 fw-bold" for="IsActive">
+                                        Is Active
+                                    </label>
+                                </div>
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-md-4 fv-row">
+                                <div class="form-check form-check-custom form-check-solid">
+                                    <input class="form-check-input IsEnabled" type="checkbox" value="true" id="IsEnabled" name="IsEnabled" />
+                                    <label class="form-check-label fs-6 fw-bold" for="IsEnabled">
+                                        Is Enabled
+                                    </label>
+                                </div>
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-md-4 fv-row">
+                                <div class="form-check form-check-custom form-check-solid">
+                                    <input class="form-check-input IsApproved" type="checkbox" value="true" id="IsApproved" name="IsApproved" />
+                                    <label class="form-check-label fs-6 fw-bold" for="IsApproved">
+                                        Is Approved
+                                    </label>
+                                </div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <div class="row g-9 mb-7">
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-bold mb-2">Password</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid Password" placeholder="Password" name="Password" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col-md-6 fv-row">
+                                <!--begin::Label-->
+                                <label class="required fs-6 fw-bold mb-2">Confirm Password</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid ConfirmPassword" placeholder="Confirm Password" name="ConfirmPassword" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--begin::Modal footer-->
+                        <div class="card-footer m-auto flex-center">
+                            <!--begin::Button-->
+                            <button type="reset" id="add_cancel" class="btn btn-white me-3">Discard</button>
+                            <!--end::Button-->
+                            <!--begin::Button-->
+                            <button type="button" id="add_submit" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">
+                                    Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
+                            </button>
+                            <!--end::Button-->
+                        </div>
+                        <!--end::Modal footer-->
+                    </form>
+                    <!--end::Form-->
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+            
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Post-->
+
+
+
+@section Scripts
+{
+
+    <script>
+
+        $(function () {
+            $(document).on("click", "#add_submit", function () {
+                Insert();
+            });
+
+        });
+
+        function Insert() {
+
+            //if (!Validation('#add_modal')) {
+            //    e.preventDefault();
+            //    return;
+            //}
+
+
+            var FormData = $("#add_form").serialize();
+            $.ajax({
+                type: 'POST',
+                url: `@Url.Action("Insert", "Companies")`,
+                processData: false,
+                dataType: false,
+                data: FormData,
+                //beforeSend: function () {
+
+                //},
+
+            success: function (data) {
+
+                if (data.Message.Title != null && data.Message.Title != "") {
+                    var title = data.Message.Title;
+                    var body = data.Message.Description;
+                    var type = data.Message.Type;
+                    ShowMessage(title, body, type);
+                }
+
+                if (data.Message.Type == 0) {
+                    location.href = '/Companies/Index';
+                }
+
+                
+                },
+                error: function (ex) {
+
+                    var r = jQuery.parseJSON(response.responseText);
+                    alert("Message: " + r.Message);
+                    alert("StackTrace: " + r.StackTrace);
+                    alert("ExceptionType: " + r.ExceptionType);
+                }
+            });
+
+        }
+
+    </script>
+}

@@ -1,0 +1,454 @@
+﻿@model Transfer.City.Models.Users
+<!--begin::Toolbar-->
+<div class="toolbar" id="kt_toolbar">
+    <!--begin::Container-->
+    <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+        <!--begin::Page title-->
+        <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+            <!--begin::Title-->
+            <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Edit User</h1>
+            <!--end::Title-->
+            <!--begin::Separator-->
+            <span class="h-20px border-gray-200 border-start mx-4"></span>
+            <!--end::Separator-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">
+                    <a href="/home/index" class="text-muted text-hover-primary">Home</a>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">Users</li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-dark">Edit User</li>
+                <!--end::Item-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title-->
+        <!--begin::Actions-->
+        <!--end::Actions-->
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::Toolbar-->
+<!--begin::Post-->
+<div class="post d-flex flex-column-fluid" id="kt_post">
+    <!--begin::Container-->
+    <div id="kt_content_container" class="container">
+
+        <!--begin::Form-->
+        <form class="form" id="edit_form" action="">
+            <input name="User.ID" type="hidden" value="@Model.ID"/>
+            <div class="card">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>User data</h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+                <div class="card-body pt-0">
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Name</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid DisplayName" placeholder="Display Name" name="User.DisplayName" value="@Model.DisplayName" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+
+                    </div>
+
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">UserName</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid UserName" placeholder="UserName" name="User.UserName" value="@Model.UserName" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Email Address</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid EmailAddress" placeholder="Email Address" name="User.EmailAddress" value="@Model.EmailAddress" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <div class="form-check form-check-custom form-check-solid">
+                                @if (Model.IsActive)
+                                {
+                                    <input class="form-check-input IsActive" type="checkbox" value="true" name="User.IsActive" id="IsActive" checked="checked" />
+                                }
+                                else
+                                {
+                                    <input class="form-check-input IsActive" type="checkbox" value="true" name="User.IsActive" id="IsActive" />
+                                }
+                                <label class="form-check-label fs-6 fw-bold" for="IsActive">
+                                    Is Active
+                                </label>
+                            </div>
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <div class="form-check form-check-custom form-check-solid">
+                                @if (Model.IsActive)
+                                {
+                                    <input class="form-check-input IsEnabled" type="checkbox" value="true" id="IsEnabled" name="User.IsEnabled" checked="checked" />
+                                }
+                                else
+                                {
+                                    <input class="form-check-input IsEnabled" type="checkbox" value="true" id="IsEnabled" name="User.IsEnabled" />
+                                }
+                                <label class="form-check-label fs-6 fw-bold" for="IsEnabled">
+                                    Is Enabled
+                                </label>
+                            </div>
+                        </div>
+                        <!--end::Col-->
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card mt-10">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>User Permissions</h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+
+                <div class="card-body pt-0">
+                    <!--begin::Search-->
+                    <div class="d-flex align-items-center position-relative my-1">
+                        <!--begin::Svg Icon | path: icons/duotone/General/Search.svg-->
+                        <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                    <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
+                                </g>
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                        <input type="text" id="PermissionsTableSearchInput" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-15" placeholder="Search" />
+                    </div>
+                    <!--end::Search-->
+                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="PermissionsTable">
+                        <!--begin::Table head-->
+                        <thead>
+                            <!--begin::Table row-->
+                            <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                <th class="min-w-125px">Name</th>
+                                <th class="min-w-125px">Rule</th>
+                                <th class="text-end min-w-70px">Actions</th>
+                            </tr>
+                            <!--end::Table row-->
+                        </thead>
+                        <!--end::Table head-->
+                        <!--begin::Table body-->
+                        <tbody class="fw-bold text-gray-600">
+                        </tbody>
+                        <!--end::Table body-->
+                    </table>
+                </div>
+            </div>
+
+            <div class="card mt-10">
+                <div class="card-body">
+                    <!--begin::Button-->
+                    <button type="reset" id="edit_cancel" class="btn btn-white me-3">Discard</button>
+                    <!--end::Button-->
+                    <!--begin::Button-->
+                    <button type="button" id="edit_submit" class="btn btn-primary">
+                        <span class="indicator-label">Submit</span>
+                        <span class="indicator-progress">
+                            Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span>
+                    </button>
+                    <!--end::Button-->
+                    <!--begin::Button-->
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#add_modal" class="btn btn-primary">
+                        <span class="indicator-label">Change Password</span>
+                        <span class="indicator-progress">
+                            Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span>
+                    </button>
+                    <!--end::Button-->
+                </div>
+            </div>
+
+        </form>
+        <!--end::Form-->
+
+        <div class="modal fade" id="add_modal" tabindex="-1" aria-hidden="true">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Form-->
+                    <form class="form" id="modal_add_form" action="">
+                        <!--begin::Modal header-->
+                        <div class="modal-header" id="modal_add_header">
+                            <!--begin::Modal title-->
+                            <h2 class="fw-bolder">Change Password</h2>
+                            <!--end::Modal title-->
+                            <!--begin::Close-->
+                            <div id="modal_add_close" class="btn btn-icon btn-sm btn-active-icon-primary " data-bs-dismiss="modal">
+                                <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
+                                <span class="svg-icon svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+                                            <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
+                                            <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
+                                        </g>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </div>
+                            <!--end::Close-->
+                        </div>
+                        <!--end::Modal header-->
+                        <!--begin::Modal body-->
+                        <div class="modal-body py-10 px-lg-17">
+                            <!--begin::Scroll-->
+                            <div class="scroll-y me-n7 pe-7" id="modal_add_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#modal_add_header" data-kt-scroll-wrappers="#modal_add_scroll" data-kt-scroll-offset="300px">
+                                <div class="row g-9 mb-7">
+                                    
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">New Password</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid NewPassword" placeholder="New Password" name="NewPassword" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">Confirm Password</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid ConfirmPassword" placeholder="Confirm Password" name="ConfirmPassword" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+
+                                </div>
+                                
+                            </div>
+                            <!--end::Scroll-->
+                        </div>
+                        <!--end::Modal body-->
+                        <!--begin::Modal footer-->
+                        <div class="modal-footer flex-center">
+                            <!--begin::Button-->
+                            <button type="reset" id="modal_add_cancel" class="btn btn-white me-3">Discard</button>
+                            <!--end::Button-->
+                            <!--begin::Button-->
+                            <button type="button" id="modal_add_submit" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">
+                                    Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
+                            </button>
+                            <!--end::Button-->
+                        </div>
+                        <!--end::Modal footer-->
+                    </form>
+                    <!--end::Form-->
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::Post-->
+
+
+
+@section Scripts
+{
+
+    <script>
+
+        $(function () {
+            FillPermissionsTable(@Model.ID);
+            $(document).on("click", "#edit_submit", function () {
+                Update();
+            });
+
+            $(document).on("keyup", `#PermissionsTableSearchInput`, function () {
+                $("#PermissionsTable").DataTable().search($(this).val()).draw();
+            });
+
+            $(document).on("click", "#modal_add_submit", function () {
+                var UserId = @Model.ID;
+                var NewPassword = $("#modal_add_form .NewPassword").val();
+                var ConfirmPassword = $("#modal_add_form .ConfirmPassword").val();
+
+                ChangePassword(UserId, NewPassword, ConfirmPassword);
+            });
+
+        });
+
+        function Update() {
+
+            //if (!Validation('#add_modal')) {
+            //    e.preventDefault();
+            //    return;
+            //}
+
+
+            var FormData = $("#edit_form").serialize();
+            $.ajax({
+                type: 'POST',
+                url: `@Url.Action("Update", "Users")`,
+                processData: false,
+                dataType: false,
+                data: FormData,
+                //beforeSend: function () {
+
+                //},
+
+            success: function (data) {
+
+                if (data.Message.Title != null && data.Message.Title != "") {
+                    var title = data.Message.Title;
+                    var body = data.Message.Description;
+                    var type = data.Message.Type;
+                    ShowMessage(title, body, type);
+                }
+
+                if (data.Message.Type == 0) {
+                    location.href = '/Users/Index';
+                }
+
+
+                },
+                error: function (ex) {
+
+                    var r = jQuery.parseJSON(response.responseText);
+                    alert("Message: " + r.Message);
+                    alert("StackTrace: " + r.StackTrace);
+                    alert("ExceptionType: " + r.ExceptionType);
+                }
+            });
+
+        }
+
+        function FillPermissionsTable(UserId) {
+            var Url = "@Url.Action("PermissionsList", "Users")";
+            var Columns = [
+                { data: 'PermissionName' },
+                { data: 'RuleName' },
+                {
+                    data: null, render: function (data, type, row) {
+
+                        var ApproveBtn = ``;
+                        if (data.Enabled) {
+                            ApproveBtn = `<div class="form-check form-check-sm form-check-custom form-check-solid">
+                                            <input class="form-check-input ApprovePermissionBtn" name="UserPermissions[${data.RowNumber-1}].Enabled"  type="checkbox" checked='checked' value="true" />
+                                            <input type="hidden" name="UserPermissions[${data.RowNumber - 1}].PermissionID" value="${data.PermissionID}"/>
+                                        </div>`;
+                        }
+                        else {
+                            ApproveBtn = `<div class="form-check form-check-sm form-check-custom form-check-solid">
+                                            <input class="form-check-input ApprovePermissionBtn" name="UserPermissions[${data.RowNumber - 1}].Enabled" type="checkbox" value="true" />
+                                            <input type="hidden" name="UserPermissions[${data.RowNumber-1}].PermissionID" value="${data.PermissionID}"/>
+                                          </div>`;
+                        }
+
+                        return ApproveBtn;
+                    }
+                },
+            ];
+
+            var data = {
+                UserId: UserId
+            };
+
+            rowGroup = 'RuleName';
+
+            BuildAjaxDataTable($("#PermissionsTable"), Url, Columns, data, "", false, rowGroup);
+        }
+
+        function ChangePassword(UserId,NewPassword,ConfirmPassword) {
+            $.ajax({
+                type: 'POST',
+                url: `@Url.Action("ChangePassword", "Users")`,
+                data: {
+                    UserId: UserId,
+                    NewPassword: NewPassword,
+                    ConfirmPassword: ConfirmPassword
+                },
+                //beforeSend: function () {
+
+                //},
+
+            success: function (data) {
+
+                if (data.Message.Title != null && data.Message.Title != "") {
+                    var title = data.Message.Title;
+                    var body = data.Message.Description;
+                    var type = data.Message.Type;
+                    ShowMessage(title, body, type);
+                }
+
+                if (data.Message.Type == 0) {
+                    $("#add_modal").modal('hide');
+                }
+
+                },
+                error: function (ex) {
+
+                    var r = jQuery.parseJSON(response.responseText);
+                    alert("Message: " + r.Message);
+                    alert("StackTrace: " + r.StackTrace);
+                    alert("ExceptionType: " + r.ExceptionType);
+                }
+            });
+        }
+
+    </script>
+}

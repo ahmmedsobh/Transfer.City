@@ -1,0 +1,477 @@
+﻿@model Transfer.City.Models.ViewModels.CompanyViewModel
+
+<!--begin::Toolbar-->
+<div class="toolbar" id="kt_toolbar">
+    <!--begin::Container-->
+    <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+        <!--begin::Page title-->
+        <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+            <!--begin::Title-->
+            <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Company Details</h1>
+            <!--end::Title-->
+            <!--begin::Separator-->
+            <span class="h-20px border-gray-200 border-start mx-4"></span>
+            <!--end::Separator-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">
+                    <a href="/home/index" class="text-muted text-hover-primary">Home</a>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">Companies</li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-dark">Company Details</li>
+                <!--end::Item-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title-->
+        <!--begin::Actions-->
+        <!--end::Actions-->
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::Toolbar-->
+<!--begin::Post-->
+<div class="post d-flex flex-column-fluid" id="kt_post">
+    <!--begin::Container-->
+    <div id="kt_content_container" class="container">
+        <!--begin::Form-->
+        <div>
+            <input type="hidden" name="ID" value="@Model.Company.ID" />
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h2>Company Details</h2>
+                    </div>
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+
+
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Name</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Company_Name" readonly value="@Model.Company.Company_Name" placeholder="Company Name" name="Company_Name" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Trade Name</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Trading_Name" readonly value="@Model.Company.Trading_Name" placeholder="Company Trade Name" name="Trading_Name" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Admin Email</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Admin_Email" readonly value="@Model.Company.Admin_Email" placeholder="Admin Email" name="Admin_Email" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Finance Email</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Finance_Email" readonly value="@Model.Company.Finance_Email" placeholder="Finance Email" name="Finance_Email" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Input group-->
+                            <div class="d-flex flex-column mb-5 fv-row">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                    <span class="required">Choose Country</span>
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Select-->
+                                <select name="Country" data-control="select2" disabled data-placeholder="Select Country..." class="form-select form-select-solid Country">
+                                    <option value="">Select Country...</option>
+                                    @foreach (var item in Model.Countries)
+                                    {
+                                        if (item.Value == Model.Company.Country)
+                                        {
+                                            <option selected value="@item.Value">@item.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Value">@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                                <!--end::Select-->
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Phone</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Phone" readonly value="@Model.Company.Phone" placeholder="Phone" name="Phone" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">WebSite</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid WebSite" value="@Model.Company.WebSite" readonly placeholder="WebSite" name="WebSite" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Billing Address</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Billing_Address" readonly value="@Model.Company.Billing_Address" placeholder="Billing Address" name="Billing_Address" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Registration Number</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Registration_Number" readonly value="@Model.Company.Registration_Number" placeholder="Registration Number" name="Registration_Number" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Input group-->
+                            <div class="d-flex flex-column mb-5 fv-row">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                    <span class="required">Currency</span>
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Select-->
+                                <select name="Currency" data-control="select2" disabled data-placeholder="Select Currency..." class="form-select form-select-solid Currency">
+                                    <option value="">Select Currency...</option>
+                                    @foreach (var item in Model.Currencies)
+                                    {
+                                        if (item.Value == Model.Company.Currency)
+                                        {
+                                            <option selected value="@item.Value">@item.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Value">@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                                <!--end::Select-->
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">VAT Number</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid VAT_Number" readonly value="@Model.Company.VAT_Number" placeholder="VAT Number" name="VAT_Number" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+
+                            <div class="form-check form-check-custom form-check-solid mt-10">
+                                @if (Model.Company.ApprovedDate != null)
+                                {
+                                    <input class="form-check-input IsApproved" type="checkbox" disabled value="true" id="IsApproved" checked="checked" name="IsApproved" />
+                                }
+                                else
+                                {
+                                    <input class="form-check-input IsApproved" type="checkbox" disabled value="true" id="IsApproved" name="IsApproved" />
+                                }
+                                <label class="form-check-label fs-6 fw-bold" for="IsApproved">
+                                    Is Approved
+                                </label>
+                            </div>
+                        </div>
+                        <!--end::Col-->
+
+                    </div>
+
+
+
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+
+            <div class="card mt-10">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>Company Cars</h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+
+                <div class="card-body pt-0">
+                    <table class="table">
+                        <tr>
+                            <th>Car Name</th>
+                            <th>Max Passengers</th>
+                            <th>Max Suitcases</th>
+                            <th>Enabled</th>
+                        </tr>
+
+                        @foreach (var item in Model.Cars)
+                        {
+                            <tr>
+                                <td>@item.CarName</td>
+                                <td>@item.Max_Passengers</td>
+                                <td>@item.Max_Suitcases</td>
+                                @if (item.Approved)
+                                {
+                                    <td>
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                            <input disabled class="form-check-input" type="checkbox" checked='checked' value="1" />
+                                        </div>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                            <input disabled class="form-check-input" type="checkbox" value="1" />
+                                        </div>
+                                    </td>
+                                }
+
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+
+            <div class="card mt-10">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>Company Locations</h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+
+                <div class="card-body pt-0">
+                    <table class="table">
+                        <tr>
+                            <th>Location Name</th>
+                            <th>Location Type</th>
+                            <th>Country</th>
+                            <th>Enabled</th>
+                        </tr>
+
+                        @foreach (var item in Model.Locations)
+                        {
+                            <tr>
+                                <td>@item.LocationName</td>
+                                <td>@item.LocationTypeName</td>
+                                <td>@item.CountryName</td>
+                                @if (item.Enabled)
+                                {
+                                    <td>
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                            <input disabled class="form-check-input" type="checkbox" checked='checked' value="1" />
+                                        </div>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                            <input disabled class="form-check-input" type="checkbox" value="1" />
+                                        </div>
+                                    </td>
+                                }
+
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+            <div class="card mt-10" id="PricesSection">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>Company Prices</h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+
+                <div class="card-body pt-0 ">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="d-flex flex-column mb-5 fv-row">
+                                <select id="CarId" data-control="select2" data-placeholder="Select Car..." class="form-select form-select-solid Country">
+                                    <option value="0">Choose Car</option>
+                                    @foreach (var item in Model.Cars)
+                                    {
+                                        <option value="@item.ID">@item.CarName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="PricesTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>Location To</th>
+                                <th>Location From</th>
+                                <th>Price</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card mt-10">
+                <div class="card-body">
+                    <!--begin::Button-->
+                    <a href="/Companies" class="btn btn-white me-3">Back To List</a>
+                    <!--end::Button-->
+                    <!--begin::Button-->
+                    <a href="/Companies/Update/@Model.Company.ID" class="btn btn-primary">
+                        <span class="indicator-label">Edit</span>
+                        <span class="indicator-progress">
+                            Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span>
+                    </a>
+                    <!--end::Button-->
+                </div>
+            </div>
+
+        </div>
+        <!--end::Form-->
+
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::Post-->
+
+
+
+@section Scripts
+{
+
+    <script>
+        $(function () {
+
+            $(document).on("change", "#PricesSection #CarId", function () {
+
+                var CarId = $(this).val();
+                var CompanyId = @Model.Company.ID;
+                FillPricesTable(CompanyId, CarId);
+            });
+
+        });
+     function FillPricesTable(CompanyId , CarId ) {
+             $.ajax({
+                type: 'POST',
+                url: `@Url.Action("ApprovedTransfersList", "Companies")`,
+                data: {
+                    CompanyId: CompanyId,
+                    CarId : CarId
+
+                },
+                //beforeSend: function () {
+
+                //},
+
+                 success: function (data) {
+
+                $("#PricesSection #PricesTable tbody tr").remove();
+
+                if (data.TransfersList.length > 0) {
+
+                    var rows = ``;
+                    $.each(data.TransfersList, function (index, item) {
+                        rows += `<tr>
+                                    <td>${item.FromLocation}</td>
+                                    <td>${item.ToLocation}</td>
+                                    <td>${item.Price}</td>
+                                </tr>
+                                `;
+                    });
+
+                    $("#PricesSection #PricesTable tbody").append(rows);
+                }
+
+                },
+                error: function (ex) {
+
+                    var r = jQuery.parseJSON(response.responseText);
+                    alert("Message: " + r.Message);
+                    alert("StackTrace: " + r.StackTrace);
+                    alert("ExceptionType: " + r.ExceptionType);
+                }
+            });
+        }
+
+    </script>
+}
