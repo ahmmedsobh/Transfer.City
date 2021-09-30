@@ -82,6 +82,11 @@ namespace Transfer.City.BusinessLayer
             return _dataObject.SelectByID(businessObject); 
         }
 
+        public Users GetByUserNameAndPassword(Users businessObject)
+        {
+            return _dataObject.SelectByUserNameAndPassword(businessObject);
+        }
+
         public Users GetByUserNameOrEmail(Users businessObject)
         {
             return _dataObject.SelectByUserNameOrEmail(businessObject);

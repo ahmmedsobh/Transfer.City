@@ -204,6 +204,48 @@ namespace Transfer.City.DataLayer
 
         }
 
+        public Users SelectByUserNameAndPassword(Users businessObject)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[Users_SelectByUserNameAndPassword]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+
+                sqlCommand.Parameters.Add(new SqlParameter("@UserName", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.UserName));
+                sqlCommand.Parameters.Add(new SqlParameter("@Password", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Password));
+
+
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                if (dataReader.Read())
+                {
+                    PopulateBusinessObjectFromReader(businessObject, dataReader);
+
+                    return businessObject;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
         public Users SelectByUserNameOrEmail(Users businessObject)
         {
             SqlCommand sqlCommand = new SqlCommand();

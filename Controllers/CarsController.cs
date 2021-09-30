@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Transfer.City.Filter;
 using Transfer.City.Helpers;
 using Transfer.City.Models;
 
 namespace Transfer.City.Controllers
 {
+    [CustomAuthenticationFilter]
     public class CarsController : BaseController
     {
+        [CustomAuthorize("perm 3", "perm 2")]
         // GET: Cars
         public ActionResult Index()
         {
