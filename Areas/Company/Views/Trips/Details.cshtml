@@ -1,0 +1,296 @@
+﻿@model Transfer.City.Models.ViewModels.TripsViewModel
+
+<!--begin::Toolbar-->
+<div class="toolbar" id="kt_toolbar">
+    <!--begin::Container-->
+    <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+        <!--begin::Page title-->
+        <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+            <!--begin::Title-->
+            <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Trip Details</h1>
+            <!--end::Title-->
+            <!--begin::Separator-->
+            <span class="h-20px border-gray-200 border-start mx-4"></span>
+            <!--end::Separator-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">
+                    <a href="/home/index" class="text-muted text-hover-primary">Home</a>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">Trips</li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-dark">Trip Details</li>
+                <!--end::Item-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title-->
+        <!--begin::Actions-->
+        <!--end::Actions-->
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::Toolbar-->
+<!--begin::Post-->
+<div class="post d-flex flex-column-fluid" id="kt_post">
+    <!--begin::Container-->
+    <div id="kt_content_container" class="container">
+        <!--begin::Form-->
+        <div>
+
+
+            <div class="card mt-10">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>Direction</h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>From Location:</label>
+                            <h6 class="d-inline-block">@Model.Trip.LocationFrom</h6>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>From To:</label>
+                            <h6 class="d-inline-block">@Model.Trip.LocationTo</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-10">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>Car</h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label>Name:</label>
+                            <h6 class="d-inline-block">@Model.Car.Name</h6>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Max Passengers:</label>
+                            <h6 class="d-inline-block">@Model.Car.Max_Passengers</h6>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Max Suitcases:</label>
+                            <h6 class="d-inline-block">@Model.Car.Max_Suitcases</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-10">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>Extras</h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+
+                <div class="card-body pt-0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Fees</th>
+                                <th>Info</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model.Trip_Extars)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.Fees</td>
+                                    <td>@item.Info</td>
+                                </tr>
+                            }
+                        </tbody>
+
+
+                    </table>
+                </div>
+            </div>
+
+            <div class="card mt-10">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>Contact Information</h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Name:</label>
+                            <h6 class="d-inline-block">@Model.Trip.ContactName</h6>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Sur Name:</label>
+                            <h6 class="d-inline-block">@Model.Trip.ContactSurname</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Email:</label>
+                            <h6 class="d-inline-block">@Model.Trip.EmailAddress</h6>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Phone number:</label>
+                            <h6 class="d-inline-block"> @Model.Trip.LeadPassengerMobile</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-10">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>Outward: @Model.Trip.LocationFrom To @Model.Trip.LocationTo </h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Airline:</label>
+                            <h6 class="d-inline-block">@Model.Trip.FromAirline</h6>
+                        </div>
+                        <div class="col-lg-12">
+                            <label>Flight number:</label>
+                            <h6 class="d-inline-block">@Model.Trip.FromFlightNumber</h6>
+                        </div>
+                        <div class="col-lg-12">
+                            <label>Originating airport:</label>
+                            <h6 class="d-inline-block">@Model.Trip.FromOriginatingAirport</h6>
+                        </div>
+                        <div class="col-lg-12">
+                            <label>Flight arrival time:</label>
+                            <h6 class="d-inline-block">@Model.Trip.FromFlightArrivalTime</h6>
+                        </div>
+                        <div class="col-lg-12">
+                            <label>Drop-off point :</label>
+                            <h6 class="d-inline-block">@Model.Trip.ToDropOfPoint</h6>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card mt-10">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>Customer Details</h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Name:</label>
+                            <h6 class="d-inline-block">@Model.Trip.CustomerFirstName</h6>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Familly Name:</label>
+                            <h6 class="d-inline-block">@Model.Trip.CustomerLastName</h6>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Phone number:</label>
+                            <h6 class="d-inline-block">@Model.Trip.CustomerPhone</h6>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card mt-10">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>Trip Invitations</h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+
+                <div class="card-body pt-0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Agent Fees</th>
+                                <th>Lateing Time</th>
+                                <th>Acceptation Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model.TransferInvitations)
+                            {
+                                <tr>
+                                    <td>@item.AgentFees</td>
+                                    <td>@item.LatingTime</td>
+                                    <td>@item.AcceptionStatusTitle</td>
+                                </tr>
+                            }
+                        </tbody>
+
+
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="card mt-10">
+                <div class="card-body">
+                    <!--begin::Button-->
+                    <a href="/Company/Trips" class="btn btn-white me-3">Back To List</a>
+                    <!--end::Button-->
+
+                </div>
+            </div>
+
+        </div>
+        <!--end::Form-->
+
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::Post-->

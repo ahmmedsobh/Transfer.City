@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using cn = Transfer.City.Areas.Company.Models.ViewModel;
 using Transfer.City.Controllers;
 using Transfer.City.Helpers;
 using Transfer.City.Models;
@@ -17,12 +18,73 @@ namespace Transfer.City.Areas.Company.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult Login(LoginViewModel model)
+        {
+            var Message = new Message("Login", "An error occurred, please try", MessageType.warning);
+            if (model.IsValid)
+            {
+                var user = Users.GetByUserNameAndPassword(new Users { UserName = model.UserName, Password = model.Password });
 
+                if (user != null)
+                {
+                    if(user.IsEnabled)
+                    {
+                        Session["UserName"] = user.UserName;
+                        Session["UserId"] = user.ID;
+                        Message = new Message("Login", "Logined Successfully", MessageType.success);
+                        return Json(new
+                        {
+                            Message = Message,
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        Message = new Message("Login", "This account is unactive", MessageType.warning);
+                        return Json(new
+                        {
+                            Message = Message,
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    
+                }
+                else
+                {
+                    Message = new Message("Login", "Invalid User Name or Password", MessageType.warning);
+                    return Json(new
+                    {
+                        Message = Message,
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                var messageDescription = "An error occurred, please try";
+                if (model.BrokenRulesList[0] != null)
+                {
+                    messageDescription = model.BrokenRulesList[0].Description;
+                }
+                Message = new Message("Login", messageDescription, MessageType.warning);
+            }
+
+            return Json(new
+            {
+                Message = Message,
+            }, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Register()
         {
-            return View();
-        }
+            CompanyViewModel model = new CompanyViewModel();
 
+            model.Countries = (from c in Countries.GetAll()
+                               select new DropdownViewModel<int>
+                               { Name = c.Name, Value = c.ID }).ToList();
+
+            model.Currencies = (from c in Currencies.GetAll()
+                                select new DropdownViewModel<int>
+                                { Name = c.Name, Value = c.ID }).ToList();
+            return View(model);
+        }
         [HttpPost]
         public ActionResult Register(Companies company)
         {
@@ -91,23 +153,35 @@ namespace Transfer.City.Areas.Company.Controllers
                 Message = Message,
             }, JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult CompanyData(int Id = 0)
+        public ActionResult CompanyData()
         {
-            if(Id == 0)
+
+            var UserId = Convert.ToInt32(Session["UserId"]);
+            //var UserId = 7;
+            if(UserId == 0)
             {
                 return HttpNotFound();
             }
 
-            var company = Companies.GetByID(new Models.Companies {ID= Id });
+            CompanyViewModel model = new CompanyViewModel();
 
-            return View(company);
+            var Company = new Companies() { UserID = UserId };
+            Company = Companies.GetByUserId(Company);
+
+            model.Company = Company;
+            model.Countries = (from c in Countries.GetAll()
+                               select new DropdownViewModel<int>
+                               { Name = c.Name, Value = c.ID }).ToList();
+
+            model.Currencies = (from c in Currencies.GetAll()
+                                select new DropdownViewModel<int>
+                                { Name = c.Name, Value = c.ID }).ToList();
+
+            return View(model);
         }
-
         [HttpPost]
         public ActionResult CompanyData(Companies company)
         {
-            company.Account_Administrator_Email = "a@g.com";
             company.Password = "gggggggggg$F1";
             company.RegisteredDate = DateTime.Now;
 
@@ -115,10 +189,21 @@ namespace Transfer.City.Areas.Company.Controllers
 
             if (company.IsValid)
             {
-                var OldCompany = Companies.GetByID(new Models.Companies { ID = company.ID });
+                var UserId = Convert.ToInt32(Session["UserId"]);
+                //var UserId = 7;
+                if (UserId == 0)
+                {
+                    return Json(new
+                    {
+                        Message = Message,
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+                var OldCompany = Companies.GetByUserId(new Companies { UserID = UserId });
                 if(OldCompany != null)
                 {
                     company.ApprovedDate = OldCompany.ApprovedDate;
+                    company.ID = OldCompany.ID;
 
                     if (Companies.Update(company))
                     {
@@ -145,22 +230,15 @@ namespace Transfer.City.Areas.Company.Controllers
                 Message = Message,
             }, JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult ChangePassword(ChangePasswordViewModel model)
+        public ActionResult ChangePassword(cn.ChangePasswordViewModel model)
         {
             var Message = new Message("Change password", "An error occurred, please try", MessageType.warning);
 
             if (model.IsValid)
             {
-                if (model.UserId == 0)
-                {
-                    return Json(new
-                    {
-                        Message = Message,
-                    }, JsonRequestBehavior.AllowGet);
-                }
+                
 
-                var user = Users.GetByID(new Models.Users { ID = model.UserId });
+                var user = Users.GetByUserNameAndPassword(new Users { UserName = model.UserName,Password = model.OldPassword });
                 if (user == null)
                 {
                     return Json(new

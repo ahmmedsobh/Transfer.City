@@ -43,7 +43,9 @@ namespace Transfer.City.Models
 			LocationTo,
 			TripStatusTitle,
 			LocationFromId,
-			LocationToId
+			LocationToId,
+			CarName,
+			CompanyId
 
 		}
 		#endregion
@@ -86,6 +88,8 @@ namespace Transfer.City.Models
 			string _tripStatusTitle;
 			int _locationFromId;
 			int _locationToId;
+		string _carName;
+		int _companyId;
 
 		#endregion
 
@@ -555,6 +559,31 @@ namespace Transfer.City.Models
 				{
 					_locationToId = value;
 					PropertyHasChanged("LocationToId");
+				}
+			}
+		}
+
+		public string CarName
+		{
+			get { return _carName; }
+			set
+			{
+				if (_carName != value)
+				{
+					_carName = value;
+					PropertyHasChanged("CarName");
+				}
+			}
+		}
+		public int CompanyId
+		{
+			get { return _companyId; }
+			set
+			{
+				if (_companyId != value)
+				{
+					_companyId = value;
+					PropertyHasChanged("CompanyId");
 				}
 			}
 		}

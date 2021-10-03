@@ -181,6 +181,46 @@ namespace Transfer.City.DataLayer
 
         }
 
+        public Companies SelectByUserId(Companies businessObject)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[Companies_SelectByUserId]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+
+                sqlCommand.Parameters.Add(new SqlParameter("@UserId", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.UserID));
+
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                if (dataReader.Read())
+                {
+                    PopulateBusinessObjectFromReader(businessObject, dataReader);
+
+                    return businessObject;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
         /// <summary>
         /// Select all rescords
         /// </summary>

@@ -1,0 +1,502 @@
+﻿@model Transfer.City.Models.ViewModels.CompanyViewModel
+
+<!--begin::Toolbar-->
+<div class="toolbar" id="kt_toolbar">
+    <!--begin::Container-->
+    <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+        <!--begin::Page title-->
+        <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+            <!--begin::Title-->
+            <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Company Data</h1>
+            <!--end::Title-->
+            <!--begin::Separator-->
+            <span class="h-20px border-gray-200 border-start mx-4"></span>
+            <!--end::Separator-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">
+                    <a href="company/home/index" class="text-muted text-hover-primary">Home</a>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">Account</li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-dark">Company Data</li>
+                <!--end::Item-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title-->
+        <!--begin::Actions-->
+        <!--end::Actions-->
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::Toolbar-->
+<!--begin::Post-->
+<div class="post d-flex flex-column-fluid" id="kt_post">
+    <!--begin::Container-->
+    <div id="kt_content_container" class="container">
+        <form class="form" id="edit_form" action="">
+            <div class="card mt-10">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>Company Info</h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+
+                <div class="card-body pt-0">
+
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Name</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Company_Name" placeholder="Company Name" name="Company_Name" value="@Model.Company.Company_Name"/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Trade Name</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Trading_Name" placeholder="Company Trade Name" name="Trading_Name" value="@Model.Company.Trading_Name"/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Admin Email</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Admin_Email" placeholder="Admin Email" name="Admin_Email" value="@Model.Company.Admin_Email"/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Finance Email</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Finance_Email" placeholder="Finance Email" name="Finance_Email" value="@Model.Company.Finance_Email"/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Input group-->
+                            <div class="d-flex flex-column mb-5 fv-row">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                    <span class="required">Choose Country</span>
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Select-->
+                                <select name="Country" data-control="select2" data-placeholder="Select Country..." class="form-select form-select-solid Country">
+                                    <option value="">Select Country...</option>
+                                    @foreach (var item in Model.Countries)
+                                    {
+                                        if (Model.Company.Country == item.Value)
+                                        {
+                                            <option selected value="@item.Value">@item.Name</option>
+
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Value">@item.Name</option>
+
+                                        }
+                                    }
+                                </select>
+                                <!--end::Select-->
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Phone</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Phone" placeholder="Phone" name="Phone" value="@Model.Company.Phone"/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">WebSite</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid WebSite" placeholder="WebSite" name="WebSite" value="@Model.Company.WebSite"/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Account Administrator</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Account_Administrator" placeholder="Account Administrator" name="Account_Administrator" value="@Model.Company.Account_Administrator"/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Account Administrator Email</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Account_Administrator_Email" placeholder="Account Administrator Email" name="Account_Administrator_Email" value="@Model.Company.Account_Administrator_Email"/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="card mt-10">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h3>Billing Info</h3>
+                    </div>
+                </div>
+                <!--end::Card header-->
+
+                <div class="card-body pt-0">
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Registration Number</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Registration_Number" placeholder="Registration Number" name="Registration_Number" value="@Model.Company.Registration_Number"/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Input group-->
+                            <div class="d-flex flex-column mb-5 fv-row">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                    <span class="required">Currency</span>
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Select-->
+                                <select name="Currency" data-control="select2" data-placeholder="Select Currency..." class="form-select form-select-solid Currency">
+                                    <option value="">Select Currency...</option>
+                                    @foreach (var item in Model.Currencies)
+                                    {
+                                        if (Model.Company.Currency == item.Value)
+                                        {
+                                            <option selected value="@item.Value">@item.Name</option>
+
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Value">@item.Name</option>
+
+                                        }
+                                    }
+                                </select>
+                                <!--end::Select-->
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row g-9 mb-7">
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">VAT Number</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid VAT_Number" placeholder="VAT Number" name="VAT_Number" value="@Model.Company.VAT_Number"/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-md-6 fv-row">
+                            <!--begin::Label-->
+                            <label class="required fs-6 fw-bold mb-2">Billing_Address</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input class="form-control form-control-solid Billing_Address" placeholder="Billing Address" name="Billing_Address" value="@Model.Company.VAT_Number"/>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                </div>
+            </div>
+            <div class="mt-10">
+                <!--begin::Button-->
+                <button type="reset" id="add_cancel" class="btn btn-white me-3">Discard</button>
+                <!--end::Button-->
+                <!--begin::Button-->
+                <button type="button" id="edit_submit" class="btn btn-primary">
+                    <span class="indicator-label">Submit</span>
+                    <span class="indicator-progress">
+                        Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+                </button>
+                <!--end::Button-->
+                <!--begin::Button-->
+                <button type="button" data-bs-toggle="modal" data-bs-target="#add_modal" class="btn btn-primary">
+                    <span class="indicator-label">Change Password</span>
+                    <span class="indicator-progress">
+                        Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+                </button>
+                <!--end::Button-->
+            </div>
+
+
+        </form>
+
+        <div class="modal fade" id="add_modal" tabindex="-1" aria-hidden="true">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Form-->
+                    <form class="form" id="modal_add_form" action="">
+                        <!--begin::Modal header-->
+                        <div class="modal-header" id="modal_add_header">
+                            <!--begin::Modal title-->
+                            <h2 class="fw-bolder">Change Password</h2>
+                            <!--end::Modal title-->
+                            <!--begin::Close-->
+                            <div id="modal_add_close" class="btn btn-icon btn-sm btn-active-icon-primary " data-bs-dismiss="modal">
+                                <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
+                                <span class="svg-icon svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+                                            <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
+                                            <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
+                                        </g>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </div>
+                            <!--end::Close-->
+                        </div>
+                        <!--end::Modal header-->
+                        <!--begin::Modal body-->
+                        <div class="modal-body py-10 px-lg-17">
+                            <!--begin::Scroll-->
+                            <div class="scroll-y me-n7 pe-7" id="modal_add_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#modal_add_header" data-kt-scroll-wrappers="#modal_add_scroll" data-kt-scroll-offset="300px">
+                                <div class="row g-9 mb-7">
+
+                                    <!--begin::Col-->
+                                    <div class="col-md-4 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">Old Password</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid OldPassword" placeholder="Old Password" name="OldPassword" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-4 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">New Password</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid NewPassword" placeholder="New Password" name="NewPassword" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-4 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">Confirm Password</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid ConfirmPassword" placeholder="Confirm Password" name="ConfirmPassword" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+
+                                </div>
+
+                            </div>
+                            <!--end::Scroll-->
+                        </div>
+                        <!--end::Modal body-->
+                        <!--begin::Modal footer-->
+                        <div class="modal-footer flex-center">
+                            <!--begin::Button-->
+                            <button type="reset" id="modal_add_cancel" class="btn btn-white me-3">Discard</button>
+                            <!--end::Button-->
+                            <!--begin::Button-->
+                            <button type="button" id="modal_add_submit" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">
+                                    Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
+                            </button>
+                            <!--end::Button-->
+                            
+                        </div>
+                        <!--end::Modal footer-->
+                    </form>
+                    <!--end::Form-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::Post-->
+
+
+
+@section Scripts
+{
+
+    <script>
+
+        $(function () {
+            $(document).on("click", "#edit_submit", function () {
+                Update();
+            });
+
+            $(document).on("click", "#modal_add_submit", function () {
+                var UserName = "@Model.Company.Account_Administrator";
+                var OldPassword = $("#modal_add_form .OldPassword").val();
+                var NewPassword = $("#modal_add_form .NewPassword").val();
+                var ConfirmPassword = $("#modal_add_form .ConfirmPassword").val();
+
+                ChangePassword(UserName, OldPassword, NewPassword, ConfirmPassword);
+            });
+
+        });
+
+        function Update() {
+
+            //if (!Validation('#add_modal')) {
+            //    e.preventDefault();
+            //    return;
+            //}
+
+
+            var FormData = $("#edit_form").serialize();
+            $.ajax({
+                type: 'POST',
+                url: `@Url.Action("CompanyData", "Account")`,
+                processData: false,
+                dataType: false,
+                data: FormData,
+                //beforeSend: function () {
+
+                //},
+
+            success: function (data) {
+
+                if (data.Message.Title != null && data.Message.Title != "") {
+                    var title = data.Message.Title;
+                    var body = data.Message.Description;
+                    var type = data.Message.Type;
+                    ShowMessage(title, body, type);
+                }
+
+                if (data.Message.Type == 0) {
+                    location.href = '/Company/Account/CompanyData';
+                }
+
+
+                },
+                error: function (ex) {
+
+                    var r = jQuery.parseJSON(response.responseText);
+                    alert("Message: " + r.Message);
+                    alert("StackTrace: " + r.StackTrace);
+                    alert("ExceptionType: " + r.ExceptionType);
+                }
+            });
+
+        }
+
+        function ChangePassword(UserName,OldPassword,NewPassword,ConfirmPassword) {
+            $.ajax({
+                type: 'POST',
+                url: `@Url.Action("ChangePassword", "Account")`,
+                data: {
+                    UserName: UserName,
+                    OldPassword: OldPassword,
+                    NewPassword: NewPassword,
+                    ConfirmPassword: ConfirmPassword
+                },
+                //beforeSend: function () {
+
+                //},
+
+            success: function (data) {
+
+                if (data.Message.Title != null && data.Message.Title != "") {
+                    var title = data.Message.Title;
+                    var body = data.Message.Description;
+                    var type = data.Message.Type;
+                    ShowMessage(title, body, type);
+                }
+
+                if (data.Message.Type == 0) {
+                    $("#add_modal").modal('hide');
+                }
+
+                },
+                error: function (ex) {
+
+                    var r = jQuery.parseJSON(response.responseText);
+                    alert("Message: " + r.Message);
+                    alert("StackTrace: " + r.StackTrace);
+                    alert("ExceptionType: " + r.ExceptionType);
+                }
+            });
+        }
+
+
+
+    </script>
+}

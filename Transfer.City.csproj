@@ -129,6 +129,8 @@
     <Compile Include="Areas\Company\CompanyAreaRegistration.cs" />
     <Compile Include="Areas\Company\Controllers\AccountController.cs" />
     <Compile Include="Areas\Company\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Company\Controllers\TripsController.cs" />
+    <Compile Include="Areas\Company\Models\ViewModel\ChangePasswordViewModel.cs" />
     <Compile Include="BussinessLayer\CarsFactory.cs" />
     <Compile Include="BussinessLayer\CompaniesFactory.cs" />
     <Compile Include="BussinessLayer\Company_CarsFactory.cs" />
@@ -2393,6 +2395,10 @@
     <Content Include="Areas\Company\Views\Shared\_WrapperFooter.cshtml" />
     <Content Include="Areas\Company\Views\Shared\_WrapperHeader.cshtml" />
     <Content Include="Areas\Company\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Company\Views\Account\Register.cshtml" />
+    <Content Include="Areas\Company\Views\Account\CompanyData.cshtml" />
+    <Content Include="Areas\Company\Views\Trips\Index.cshtml" />
+    <Content Include="Areas\Company\Views\Trips\Details.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

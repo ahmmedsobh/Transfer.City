@@ -565,24 +565,6 @@
 
             FillTable();
 
-
-
-           
-
-            $(document).on("click", ".EditBtn", function () {
-                var Id = $(this).attr("Value");
-                UpdateGet(Id);
-            });
-
-            $(document).on("click", "#modal_edit_submit", function () {
-                UpdatePost();
-            });
-
-            $(document).on("click", ".ViewBtn", function () {
-                var Id = $(this).attr("Value");
-                View(Id);
-            });
-
             $(document).on("click", ".DeleteBtn", function () {
                 var Id = $(this).attr("Value");
                 var Name = $(this).attr("NameValue")
@@ -646,17 +628,6 @@
                 var CarId = $(this).val();
 
                 FillPricesTable(CompanyId, CarId);
-
-            });
-
-            $(document).on("click", ".ApproveLocationBtn", function () {
-
-                var CompanyId = $("#add_location_modal #CompanyId").val();
-                var LocationId = $(this).attr("LocationId");
-
-
-
-                AddLocationToCompany(CompanyId, LocationId);
 
             });
 

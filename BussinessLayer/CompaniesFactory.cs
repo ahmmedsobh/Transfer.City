@@ -72,6 +72,11 @@ namespace Transfer.City.BusinessLayer
             return _dataObject.SelectByID(businessObject); 
         }
 
+        public Companies GetByUserId(Companies businessObject)
+        {
+            return _dataObject.SelectByUserId(businessObject);
+        }
+
         /// <summary>
         /// get list of all Companiess
         /// </summary>

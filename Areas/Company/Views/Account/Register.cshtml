@@ -1,0 +1,460 @@
+﻿@model Transfer.City.Models.ViewModels.CompanyViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<!--
+Author: Keenthemes
+Product Name: Metronic - #1 Selling Bootstrap 5 HTML Multi-demo Admin Dashboard Theme
+Purchase: https://1.envato.market/EA4JP
+Website: http://www.keenthemes.com
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
+-->
+<html lang="en">
+<!--begin::Head-->
+<head>
+    <base href="../../">
+    <meta charset="utf-8" />
+    <title>Metronic Bootstrap 5 Theme | Keenthemes</title>
+    <meta name="description" content="Metronic admin dashboard live demo. Check out all the features of the admin panel. A large number of settings, additional services and widgets." />
+    <meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular 11, VueJs, React, Laravel, admin themes, web design, figma, web development, ree admin themes, bootstrap admin, bootstrap dashboard" />
+    <link rel="canonical" href="Https://preview.keenthemes.com/metronic8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+    <!--end::Fonts-->
+    <!--begin::Global Stylesheets Bundle(used by all pages)-->
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <!--end::Global Stylesheets Bundle-->
+    <style>
+        .flex-root {
+            background-color: #f3f6f9;
+        }
+
+        /*.text-center {
+            text-align: unset !important;
+        }*/
+    </style>
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+<body id="kt_body" class="bg-white header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed toolbar-tablet-and-mobile-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
+    <!--begin::Main-->
+    <div class="d-flex flex-column flex-root">
+        <!--begin::Authentication - Signup Welcome Message -->
+        <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(assets/media/illustrations/progress-hd.png)">
+            <!--begin::Content-->
+            <div class="d-flex flex-column flex-column-fluid  p-10 py-lg-20">
+                <!--begin::Logo-->
+                <a href="index.html" class="text-center" >
+                    <img alt="Logo" src="assets/media/logos/logo-2-dark.svg" class="h-50px mb-5" />
+                </a>
+                <!--end::Logo-->
+                <!--begin::Wrapper-->
+                <div class="pt-lg-10 text-right">
+                    <!--begin::Logo-->
+                    <h1 class="fw-bolder fs-2qx text-dark mb-7 text-center">Create your agency account</h1>
+                    <form class="form" id="add_form" action="">
+                        <div class="card mt-10">
+                            <!--begin::Card header-->
+                            <div class="card-header border-0 pt-6">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h3>Company Info</h3>
+                                </div>
+                            </div>
+                            <!--end::Card header-->
+
+                            <div class="card-body pt-0">
+
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">Name</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid Company_Name" placeholder="Company Name" name="Company_Name" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">Trade Name</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid Trading_Name" placeholder="Company Trade Name" name="Trading_Name" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">Admin Email</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid Admin_Email" placeholder="Admin Email" name="Admin_Email" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">Finance Email</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid Finance_Email" placeholder="Finance Email" name="Finance_Email" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-5 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                <span class="required">Choose Country</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Select-->
+                                            <select name="Country" data-control="select2" data-placeholder="Select Country..." class="form-select form-select-solid Country">
+                                                <option value="">Select Country...</option>
+                                                @foreach (var item in Model.Countries)
+                                                {
+                                                    <option value="@item.Value">@item.Name</option>
+                                                }
+                                            </select>
+                                            <!--end::Select-->
+                                        </div>
+                                        <!--end::Input group-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">Phone</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid Phone" placeholder="Phone" name="Phone" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">WebSite</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid WebSite" placeholder="WebSite" name="WebSite" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">Account Administrator</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid Account_Administrator" placeholder="Account Administrator" name="Account_Administrator" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">Account Administrator Email</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid Account_Administrator_Email" placeholder="Account Administrator Email" name="Account_Administrator_Email" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">Password</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid Password" placeholder="Password" name="Password" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">Confirm Password</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid ConfirmPassword" placeholder="Confirm Password" name="ConfirmPassword" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card mt-10">
+                            <!--begin::Card header-->
+                            <div class="card-header border-0 pt-6">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h3>Billing Info</h3>
+                                </div>
+                            </div>
+                            <!--end::Card header-->
+
+                            <div class="card-body pt-0">
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">Registration Number</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid Registration_Number" placeholder="Registration Number" name="Registration_Number" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Input group-->
+                                        <div class="d-flex flex-column mb-5 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                <span class="required">Currency</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Select-->
+                                            <select name="Currency" data-control="select2" data-placeholder="Select Currency..." class="form-select form-select-solid Currency">
+                                                <option value="">Select Currency...</option>
+                                                @foreach (var item in Model.Currencies)
+                                                {
+                                                    <option value="@item.Value">@item.Name</option>
+                                                }
+                                            </select>
+                                            <!--end::Select-->
+                                        </div>
+                                        <!--end::Input group-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">VAT Number</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid VAT_Number" placeholder="VAT Number" name="VAT_Number" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="required fs-6 fw-bold mb-2">Billing_Address</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid Billing_Address" placeholder="Billing_Address" name="Billing_Address" />
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-10">
+                            <!--begin::Button-->
+                            <button type="reset" id="add_cancel" class="btn btn-white me-3">Discard</button>
+                            <!--end::Button-->
+                            <!--begin::Button-->
+                            <button type="button" id="add_submit" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">
+                                    Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
+                            </button>
+                            <!--end::Button-->
+                        </div>
+                            
+                      
+                    </form>
+
+                                    <!--end::Logo-->
+                                    <!--begin::Message-->
+                                    <!--<div class="fw-bold fs-3 text-gray-400 mb-15">
+                        Plan your blog post by choosing a topic creating
+                        <br />an outline and checking facts.
+                    </div>-->
+                                    <!--end::Message-->
+                                    <!--begin::Action-->
+                                    <!--<div class="text-center">
+                        <a href="index.html" class="btn btn-lg btn-primary fw-bolder">Go to homepage</a>
+                    </div>-->
+                    <!--end::Action-->
+                </div>
+                <!--end::Wrapper-->
+            </div>
+            <!--end::Content-->
+            <!--begin::Footer-->
+            <!--<div class="d-flex flex-center flex-column-auto p-10">-->
+                <!--begin::Links-->
+                <!--<div class="d-flex align-items-center fw-bold fs-6">
+                    <a href="https://keenthemes.com" class="text-muted text-hover-primary px-2">About</a>
+                    <a href="mailto:support@keenthemes.com" class="text-muted text-hover-primary px-2">Contact</a>
+                    <a href="https://1.envato.market/EA4JP" class="text-muted text-hover-primary px-2">Contact Us</a>
+                </div>-->
+                <!--end::Links-->
+            <!--</div>-->
+            <!--end::Footer-->
+        </div>
+        <!--end::Authentication - Signup Welcome Message-->
+    </div>
+    <!--end::Main-->
+    <!--begin::Javascript-->
+    <!--begin::Global Javascript Bundle(used by all pages)-->
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="~/assets/js/scripts.bundle.js"></script>
+    <script src="~/assets/js/custom/tata.js"></script>
+
+    <script>
+
+        $(function () {
+            $(document).on("click", "#add_submit", function () {
+                Insert();
+            });
+
+        });
+
+        function Insert() {
+
+            //if (!Validation('#add_modal')) {
+            //    e.preventDefault();
+            //    return;
+            //}
+
+
+            var FormData = $("#add_form").serialize();
+            $.ajax({
+                type: 'POST',
+                url: `@Url.Action("Register", "Account")`,
+                processData: false,
+                dataType: false,
+                data: FormData,
+                //beforeSend: function () {
+
+                //},
+
+            success: function (data) {
+
+                if (data.Message.Title != null && data.Message.Title != "") {
+                    var title = data.Message.Title;
+                    var body = data.Message.Description;
+                    var type = data.Message.Type;
+                    ShowMessage(title, body, type);
+                }
+
+                if (data.Message.Type == 0) {
+                    location.href = '/Company/Home/Index';
+                }
+
+
+                },
+                error: function (ex) {
+
+                    var r = jQuery.parseJSON(response.responseText);
+                    alert("Message: " + r.Message);
+                    alert("StackTrace: " + r.StackTrace);
+                    alert("ExceptionType: " + r.ExceptionType);
+                }
+            });
+
+        }
+
+        const MessageType = {
+            Success: 0,
+            Information: 1,
+            Error: 2,
+            Warning: 3,
+        }
+
+        function GetMessageTypeValue(messageTypeText) {
+            switch (messageTypeText) {
+                case "success":
+                    return MessageType.Success;
+                    break;
+                case "info":
+                    return MessageType.Information;
+                    break;
+                case "error":
+                    return MessageType.Error;
+                    break;
+                case "warning":
+                    return MessageType.Warning;
+                    break;
+                default:
+            }
+        }
+
+        function ShowMessage(title, body, messageType, postion = 'tm', duration = 3000, closeButton = false, modalSelector = "") {
+
+
+            $(".modal-content").animate({
+                top: "+=70",
+            }, 500);
+
+
+            var options = {
+                position: postion,
+                duration: duration,
+                closeBtn: closeButton,
+                onClose: function () {
+                    $(".modal-content").animate({
+                        top: "-=70",
+                    }, 1000)
+                },
+            }
+
+            switch (messageType) {
+                case MessageType.Information:
+                    tata.info(title, body, options)
+                    break;
+                case MessageType.Success:
+                    tata.success(title, body, options)
+                    break;
+                case MessageType.Warning:
+                    tata.warn(title, body, options)
+                    break;
+                case MessageType.Error:
+                    tata.error(title, body, options)
+                    break;
+                default:
+            }
+        }
+    </script>
+    <!--end::Global Javascript Bundle-->
+    <!--end::Javascript-->
+</body>
+<!--end::Body-->
+</html>
+

@@ -28,6 +28,13 @@ namespace Transfer.City.Controllers
         public UserPermissionsFactory UserPermissions = new UserPermissionsFactory();
         public PermissionsFactory Permissions = new PermissionsFactory();
 
+        public int UserId()
+        {
+            var userId = Convert.ToInt32(Session["UserId"]);
+            return userId;
+        }
+            
+
 
         public List<DropdownViewModel<int>> TripStatus = new List<DropdownViewModel<int>>()
         {

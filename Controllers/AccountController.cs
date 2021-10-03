@@ -15,7 +15,6 @@ namespace Transfer.City.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
@@ -58,7 +57,6 @@ namespace Transfer.City.Controllers
                 Message = Message,
             }, JsonRequestBehavior.AllowGet);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Logout()
@@ -67,8 +65,6 @@ namespace Transfer.City.Controllers
             Session["UserId"] = string.Empty;
             return RedirectToAction("Index", "Home");
         }
-
-
         public ActionResult UnAuthorized()
         {
             return View();

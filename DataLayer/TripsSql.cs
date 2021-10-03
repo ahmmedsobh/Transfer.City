@@ -241,12 +241,43 @@ namespace Transfer.City.DataLayer
 
         }
 
-        /// <summary>
-        /// Delete by primary key
-        /// </summary>
-        /// <param name="keys">primary keys</param>
-        /// <returns>true for successfully deleted</returns>
-        public bool Delete(Trips businessObject)
+		public List<Trips> SelectByCompanyId(Trips businessObject)
+		{
+			SqlCommand sqlCommand = new SqlCommand();
+			sqlCommand.CommandText = "dbo.[Trips_SelectByCompanyId]";
+			sqlCommand.CommandType = CommandType.StoredProcedure;
+
+			// Use connection object of base class
+			sqlCommand.Connection = MainConnection;
+
+			try
+			{
+				sqlCommand.Parameters.Add(new SqlParameter("@CompanyId", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CompanyId));
+
+				MainConnection.Open();
+
+				IDataReader dataReader = sqlCommand.ExecuteReader();
+
+				return PopulateObjectsFromReader(dataReader);
+
+			}
+			catch (Exception ex)
+			{
+				return null;
+			}
+			finally
+			{
+				MainConnection.Close();
+				sqlCommand.Dispose();
+			}
+
+		}
+		/// <summary>
+		/// Delete by primary key
+		/// </summary>
+		/// <param name="keys">primary keys</param>
+		/// <returns>true for successfully deleted</returns>
+		public bool Delete(Trips businessObject)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[Trips_Delete]";
@@ -431,6 +462,8 @@ namespace Transfer.City.DataLayer
 				businessObject.TripStatusTitle = dataReader.GetString(dataReader.GetOrdinal(Trips.TripsFields.TripStatusTitle.ToString()));
 				businessObject.LocationFromId = dataReader.GetInt32(dataReader.GetOrdinal(Trips.TripsFields.LocationFromId.ToString()));
 				businessObject.LocationToId = dataReader.GetInt32(dataReader.GetOrdinal(Trips.TripsFields.LocationToId.ToString()));
+				businessObject.CarName = dataReader.GetString(dataReader.GetOrdinal(Trips.TripsFields.CarName.ToString()));
+				businessObject.CompanyId = dataReader.GetInt32(dataReader.GetOrdinal(Trips.TripsFields.CompanyId.ToString()));
 
 		}
 
