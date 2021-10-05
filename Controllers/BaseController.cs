@@ -27,6 +27,8 @@ namespace Transfer.City.Controllers
         public TransferInvitationsFactory TripsInvitations = new TransferInvitationsFactory();
         public UserPermissionsFactory UserPermissions = new UserPermissionsFactory();
         public PermissionsFactory Permissions = new PermissionsFactory();
+        public FindTransferFactory FindTransfers = new FindTransferFactory();
+
 
         public int UserId()
         {

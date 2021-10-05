@@ -158,10 +158,10 @@ namespace Transfer.City.Areas.Company.Controllers
 
             var UserId = Convert.ToInt32(Session["UserId"]);
             //var UserId = 7;
-            if(UserId == 0)
-            {
-                return HttpNotFound();
-            }
+            //if(UserId == 0)
+            //{
+            //    return HttpNotFound();
+            //}
 
             CompanyViewModel model = new CompanyViewModel();
 

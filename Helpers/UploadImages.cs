@@ -9,6 +9,14 @@ namespace Transfer.City.Helpers
     public class UploadImages
     {
         public string MapPath { get; set; }
+        public UploadImages()
+        {
+                
+        }
+        public UploadImages(string MapPath)
+        {
+            this.MapPath = MapPath;
+        }
         public string AddImage(HttpPostedFileBase file, string ImgNewName)
         {
             if (file != null && MapPath != null && ImgNewName != null)

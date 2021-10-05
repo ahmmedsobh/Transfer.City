@@ -364,7 +364,8 @@
             return [
                 {
                     data: null, name: 'RowNumber', render: function (data, type, row) {
-                        return `${++Index}`;
+                        Index = Index + 1;
+                        return `${Index}`;
                     }
                 },
                 {

@@ -15,7 +15,9 @@ namespace Transfer.City.Models
 			ID,
 			Name,
 			Max_Passengers,
-			Max_Suitcases
+			Max_Suitcases,
+			Img,
+			File
 		}
 		#endregion
 
@@ -26,7 +28,8 @@ namespace Transfer.City.Models
 		string _name;
 		int _max_Passengers;
 		int _max_Suitcases;
-
+		string _img;
+		HttpPostedFileBase _file;
 		#endregion
 
 		#region Properties
@@ -96,6 +99,31 @@ namespace Transfer.City.Models
 			}
 		}
 
+		public string Img
+		{
+			get { return _img; }
+			set
+			{
+				if (_img != value)
+				{
+					_img = value;
+					PropertyHasChanged("Img");
+				}
+			}
+		}
+
+		public HttpPostedFileBase File
+		{
+			get { return _file; }
+			set
+			{
+				if (_file != value)
+				{
+					_file = value;
+					PropertyHasChanged("File");
+				}
+			}
+		}
 
 		#endregion
 

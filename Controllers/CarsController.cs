@@ -9,16 +9,16 @@ using Transfer.City.Models;
 
 namespace Transfer.City.Controllers
 {
-    [CustomAuthenticationFilter]
+    //[CustomAuthenticationFilter]
     public class CarsController : BaseController
     {
-        [CustomAuthorize("perm 3", "perm 2")]
+        UploadImages UploadImages = new UploadImages();
+        //[CustomAuthorize("perm 3", "perm 2")]
         // GET: Cars
         public ActionResult Index()
         {
             return View();
         }
-
         public ActionResult CarsList()
         {
             var CarsList = Cars.GetAll();
@@ -27,15 +27,16 @@ namespace Transfer.City.Controllers
                 CarsList = CarsList
             }, JsonRequestBehavior.AllowGet);
         }
-
         [HttpPost]
         public ActionResult Insert(Cars car)
         {
+            UploadImages.MapPath = Server.MapPath("~/Content/Images/Cars");
             var CarsList = Cars.GetAll();
             var Message = new Message("Aadding process", "An error occurred, please try", MessageType.warning);
 
             if (car.IsValid)
             {
+                car.Img = UploadImages.AddImage(car.File,Guid.NewGuid().ToString());
                 if (Cars.Insert(car))
                 {
                     Message = new Message("Aadding process", "Added successfully", MessageType.success);
@@ -76,12 +77,24 @@ namespace Transfer.City.Controllers
         [HttpPost]
         public ActionResult UpdatePost(Cars car)
         {
+            UploadImages.MapPath = Server.MapPath("~/Content/Images/Cars");
 
             var CarsList = Cars.GetAll();
             var Message = new Message("Updating process", "An error occurred, please try", MessageType.warning);
 
+            var CarToUpdate = Cars.GetByID(new Models.Cars {ID = car.ID});
+            if(CarToUpdate == null)
+            {
+                return Json(new
+                {
+                    Message = Message,
+                    CarsList = CarsList
+                }, JsonRequestBehavior.AllowGet);
+            }
+
             if (car.IsValid)
             {
+                car.Img = UploadImages.UpdataImage(car.File, Guid.NewGuid().ToString(),CarToUpdate.Img);
                 if (Cars.Update(car))
                 {
                     Message = new Message("Updating process", "Edited successfully", MessageType.success);
@@ -109,10 +122,10 @@ namespace Transfer.City.Controllers
                 CarsList = CarsList
             }, JsonRequestBehavior.AllowGet);
         }
-
         [HttpPost]
         public ActionResult Delete(int Id = 0)
         {
+            UploadImages.MapPath = Server.MapPath("~/Content/Images/Cars");
             var CarsList = Cars.GetAll();
             var Message = new Message("Deleting process", "An error occurred, please try", MessageType.warning);
 
@@ -125,7 +138,8 @@ namespace Transfer.City.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-            var car = new Cars() { ID = Id };
+            var car = Cars.GetByID(new Models.Cars {ID = Id });
+            UploadImages.DeleteImage(car.Img);
             var result = Cars.Delete(car);
             if (result)
             {

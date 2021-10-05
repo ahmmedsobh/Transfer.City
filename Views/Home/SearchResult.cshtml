@@ -1,0 +1,334 @@
+﻿@model List<List<Transfer.City.Models.FindTransfer>>
+@{
+    ViewBag.Title = "Search Result";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<style>
+    .select2-selection__arrow {
+        height: 48px !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 48px !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 48px !important;
+    }
+
+    .advanced-search
+    {
+        margin-top:80px;
+    }
+</style>
+<!-- Search -->
+<div class="advanced-search color" id="booking">
+    <div class="wrap">
+        <form role="form" id="SearchForm" action="@Url.Action("SearchResult","Home")" method="post">
+            <!-- Row -->
+            <div class="f-row">
+                <div class="form-group datepicker one-third">
+                    <label for="dep-date">Departure date and time</label>
+                    <input type="text" id="dep-date" class="DateTime1" name="DateAndLocations[0].DateTime" />
+                    <span class="DateTime1Validation"></span>
+                </div>
+                <div class="form-group one-third">
+                    <label>Pick up location</label>
+                    <select type="text" class="Location LocationFrom1" name="DateAndLocations[0].LocationFrom">
+                    </select>
+                    <span class="LocationFrom1Validation"></span>
+                </div>
+                <div class="form-group  one-third">
+                    <label>Drop off location</label>
+                    <select type="text" class="Location LocationTo1" name="DateAndLocations[0].LocationTo">
+                    </select>
+                    <span class="LocationTo1Validation"></span>
+                </div>
+            </div>
+            <!-- //Row -->
+            <!-- Row -->
+            <div class="f-row">
+                <div class="form-group datepicker one-third">
+                    <label for="ret-date">Return date and time</label>
+                    <input type="text" id="ret-date" class="DateTime2" name="DateAndLocations[1].DateTime" />
+                    <span class="DateTime2Validation"></span>
+                </div>
+                <div class="form-group select one-third">
+                    <label>Pick up location</label>
+                    <select class="Location LocationFrom2" name="DateAndLocations[1].LocationFrom">
+                    </select>
+                    <span class="LocationFrom2Validation"></span>
+                </div>
+                <div class="form-group select one-third">
+                    <label>Drop off location</label>
+                    <select class="Location LocationTo2" name="DateAndLocations[1].LocationTo">
+                    </select>
+                    <span class="LocationTo2Validation"></span>
+                </div>
+            </div>
+            <!-- //Row -->
+            <!-- Row -->
+            <div class="f-row">
+                <div class="form-group spinner">
+                    <label for="people">How many people <small>(including children)</small>?</label>
+                    <input type="number" id="people" min="1" />
+                </div>
+                <div class="form-group radios">
+                    <div>
+                        <input type="radio" name="TripType" id="return" value="return" class="TripType" />
+                        <label for="return">Return</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="TripType" id="oneway" value="oneway" checked class="TripType" />
+                        <label for="oneway">One way</label>
+                    </div>
+                </div>
+                <div class="form-group right">
+                    <button type="submit" name="PassngersCount" id="FindTransferBtn" class="btn large black">Find a transfer</button>
+                </div>
+            </div>
+            <!--// Row -->
+        </form>
+    </div>
+</div>
+<!-- //Search -->
+
+<div class="wrap">
+    <div class="row">
+        <!--- Content -->
+        <div class="full-width content">
+            <h2>Select transfer type for your DEPARTURE</h2>
+
+            <div class="results">
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model[0])
+                    {
+                        <!-- Item -->
+                        <article class="result">
+                            <div class="one-fourth heightfix"><img src="/Content/Images/Cars/@item.Img" alt="" /></div>
+                            <div class="one-half heightfix">
+                                <h3>@item.Name <a href="javascript:void(0)" class="trigger color" title="Read more">?</a></h3>
+                                <ul>
+                                    <li>
+                                        <span class="icon icon-themeenergy_user-3"></span>
+                                        <p>Max <strong>@item.Max_Passengers people</strong> <br />per vehicle</p>
+                                    </li>
+                                    <li>
+                                        <span class="icon icon-themeenergy_travel-bag"></span>
+                                        <p>Max <strong>@item.Max_Suitcases suitcases</strong> <br />per vehicle</p>
+                                    </li>
+                                    <li>
+                                        <span class="icon icon-themeenergy_clock"></span>
+                                        <p>Estimated time <br /><strong>@item.EstimatedTime mins</strong></p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="one-fourth heightfix">
+                                <div>
+                                    <div class="price">@item.SellingPrice <small>USD</small></div>
+                                    <span class="meta">per passenger</span>
+                                    <a href="booking-step1.html" class="btn grey large">select</a>
+                                </div>
+                            </div>
+                            <div class="full-width information">
+                                <a href="javascript:void(0)" class="close color" title="Close">x</a>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                            </div>
+                        </article>
+                        <!-- //Item -->
+                    }
+                }
+            </div>
+
+            <h2>Select transfer for your RETURN</h2>
+
+            <div class="results">
+
+                @if (Model.Count > 1)
+                {
+                    foreach (var item in Model[1])
+                    {
+                        <!-- Item -->
+                        <article class="result">
+                            <div class="one-fourth heightfix"><img src="/Content/Images/Cars/@item.Img" alt="" /></div>
+                            <div class="one-half heightfix">
+                                <h3>@item.Name <a href="javascript:void(0)" class="trigger color" title="Read more">?</a></h3>
+                                <ul>
+                                    <li>
+                                        <span class="icon icon-themeenergy_user-3"></span>
+                                        <p>Max <strong>@item.Max_Passengers people</strong> <br />per vehicle</p>
+                                    </li>
+                                    <li>
+                                        <span class="icon icon-themeenergy_travel-bag"></span>
+                                        <p>Max <strong>@item.Max_Suitcases suitcases</strong> <br />per vehicle</p>
+                                    </li>
+                                    <li>
+                                        <span class="icon icon-themeenergy_clock"></span>
+                                        <p>Estimated time <br /><strong>@item.EstimatedTime mins</strong></p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="one-fourth heightfix">
+                                <div>
+                                    <div class="price">@item.SellingPrice <small>USD</small></div>
+                                    <span class="meta">per passenger</span>
+                                    <a href="booking-step1.html" class="btn grey large">select</a>
+                                </div>
+                            </div>
+                            <div class="full-width information">
+                                <a href="javascript:void(0)" class="close color" title="Close">x</a>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                            </div>
+                        </article>
+                        <!-- //Item -->
+                    }
+                }
+            </div>
+
+        </div>
+    </div>
+    <!--- //Content -->
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            FillDropdowns();
+
+            $("#SearchForm").on("submit", function (e) {
+                if (!Validations()) {
+                    e.preventDefault();
+                    return;
+                }
+            })
+        });
+
+        function FillDropdowns() {
+
+
+            $(".Location").closest("div").removeClass("selector");
+            $(".Location").closest("div").find("span:first-of-type").attr("style","display:none");
+
+
+
+            $(".Location").select2({
+                minimumInputLength: 2,
+                //tags: [],
+                ajax: {
+                    url: `@Url.Action("LocationsList", "Home")`,
+                    dataType: 'json',
+                    type: "POST",
+                    quietMillis: 50,
+                    data: function (param) {
+                        return {
+                            term: param.term
+                        };
+                    },
+                    processResults: function (response) {
+                        return {
+                            results: response.Locations
+                        };
+                    },
+                    /*cache: true*/
+                }
+            });
+
+
+        }
+
+        function Validations() {
+            var TripType = $(".TripType:checked").val();
+            if (TripType == "oneway") {
+                var DateTime1 = $(".DateTime1").val();
+                var LocationFrom1 = $(".LocationFrom1").val();
+                var LocationTo1 = $(".LocationTo1").val();
+
+                console.log(DateTime1);
+                console.log(LocationFrom1);
+                console.log(LocationTo1);
+
+                if (DateTime1 == "") {
+                    $(".DateTime1").focus();
+                    return false;
+                }
+
+
+                if (LocationFrom1 == 0 || LocationFrom1 == null) {
+                    $(".LocationFrom1Validation").text("Pick up location required");
+                    return false;
+
+                }
+                else {
+                    $(".LocationFrom1Validation").text("");
+
+                }
+
+                if (LocationTo1 == 0 || LocationTo1 == null) {
+                    $(".LocationTo1Validation").text("Drop off location required");
+                    return false;
+                }
+                else {
+                    $(".LocationTo1Validation").text("");
+                }
+            }
+            else if (TripType == "return") {
+                var DateTime1 = $(".DateTime1").val();
+                var LocationFrom1 = $(".LocationFrom1").val();
+                var LocationTo1 = $(".LocationTo1").val();
+                var DateTime2 = $(".DateTime2").val();
+                var LocationFrom2 = $(".LocationFrom2").val();
+                var LocationTo2 = $(".LocationTo2").val();
+
+                if (DateTime1 == "") {
+                    $(".DateTime1").focus();
+                    return false;
+                }
+
+
+                if (LocationFrom1 == 0 || LocationFrom1 == null) {
+                    $(".LocationFrom1Validation").text("Pick up location required");
+                    return false;
+                }
+                else {
+                    $(".LocationFrom1Validation").text("");
+                }
+
+                if (LocationTo1 == 0 || LocationTo1 == null) {
+                    $(".LocationTo1Validation").text("Drop off location required");
+                    return false;
+                }
+                else {
+                    $(".LocationTo2Validation").text("");
+
+                }
+
+                if (DateTime2 == "") {
+                    $(".DateTime2").focus();
+                    return false;
+                }
+
+
+                if (LocationFrom2 == 0 || LocationFrom2 == null) {
+                    $(".LocationFrom2Validation").text("Pick up location required");
+                    return false;
+                }
+                else {
+                    $(".LocationFrom2Validation").text("");
+                }
+                if (LocationTo2 == 0 || LocationTo2 == null) {
+                    $(".LocationTo2Validation").text("Drop off location required");
+                    return false;
+                }
+                else {
+                    $(".LocationTo1Validation").text("");
+                }
+            }
+
+            return true;
+        }
+    </script>
+}
+

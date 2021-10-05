@@ -128,6 +128,7 @@
                         <thead>
                             <!--begin::Table row-->
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                <th></th>
                                 <th class="min-w-125px">Name</th>
                                 <th class="min-w-125px">Max Passengers</th>
                                 <th class="min-w-125px">Max Suitcases</th>
@@ -185,7 +186,17 @@
                                 <div class="scroll-y me-n7 pe-7" id="modal_add_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#modal_add_header" data-kt-scroll-wrappers="#modal_add_scroll" data-kt-scroll-offset="300px">
                                     <div class="row g-9 mb-7">
                                         <!--begin::Col-->
-                                        <div class="col-md-12 fv-row">
+                                        <div class="col-md-6 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="required fs-6 fw-bold mb-2">Upload Icon</label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input type="file" class="form-control form-control-solid File" id="File" placeholder="Upload Icon" name="File" />
+                                            <!--end::Input-->
+                                        </div>
+                                        <!--end::Col-->
+                                        <!--begin::Col-->
+                                        <div class="col-md-6 fv-row">
                                             <!--begin::Label-->
                                             <label class="required fs-6 fw-bold mb-2">Name</label>
                                             <!--end::Label-->
@@ -194,7 +205,7 @@
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Col-->
-                                       
+
                                     </div>
                                     <div class="row g-9 mb-7">
 
@@ -284,7 +295,17 @@
                                 <div class="scroll-y me-n7 pe-7" id="modal_add_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#modal_add_header" data-kt-scroll-wrappers="#modal_add_scroll" data-kt-scroll-offset="300px">
                                     <div class="row g-9 mb-7">
                                         <!--begin::Col-->
-                                        <div class="col-md-12 fv-row">
+                                        <div class="col-md-6 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="required fs-6 fw-bold mb-2">Upload Icon</label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input type="file" class="form-control form-control-solid File" id="File" placeholder="Upload Icon" name="File" />
+                                            <!--end::Input-->
+                                        </div>
+                                        <!--end::Col-->
+                                        <!--begin::Col-->
+                                        <div class="col-md-6 fv-row">
                                             <!--begin::Label-->
                                             <label class="required fs-6 fw-bold mb-2">Name</label>
                                             <!--end::Label-->
@@ -566,7 +587,20 @@
         function FillTable() {
             var Url = "@Url.Action("CarsList", "Cars")";
             var Columns = [
-                
+                {
+                    data: null, render: function (data, type, row) {
+
+                        var img = '';
+                        if (data.Img == "false") {
+                            img = `<img src="/Content/Images/default.png" class="tbl-img"/>`
+                        }
+                        else {
+                            img = `<img src="/Content/Images/Cars/${data.Img}" class="tbl-img"/>`
+                        }
+
+                        return img;
+                    }
+                },
                 {
                     data: null, render: function (data, type, row) {
                         return `<a href="#" class="text-gray-800 text-hover-primary mb-1 ViewBtn" Value="${data.ID}">${data.Name}</a>`;
@@ -615,18 +649,33 @@
             //    return;
             //}
 
+            //Create FormData object
+            var fileData = new FormData();
+
+            var SerializedData = $("#modal_add_form").serializeArray();
+
+
+            var fileUpload = $("#add_modal #File").get(0);
+            if (fileUpload != null && fileUpload != undefined) {
+                var file = fileUpload.files[0];
+                fileData.append('File', file);
+            }
+
+
+            $.each(SerializedData, function (index, item) {
+                fileData.append(item.name, item.value);
+            });
 
 
 
 
 
-            var FormData = $("#modal_add_form").serialize();
             $.ajax({
                 type: 'POST',
                 url: `@Url.Action("Insert", "Cars")`,
                 processData: false,
-                dataType: false,
-                data: FormData,
+                contentType: false,
+                data: fileData,
                 //beforeSend: function () {
 
                 //},
@@ -660,13 +709,30 @@
 
         function UpdatePost() {
 
-            var FormData = $("#modal_edit_form").serialize();
+
+            //Create FormData object
+            var fileData = new FormData();
+
+            var SerializedData = $("#modal_edit_form").serializeArray();
+
+
+            var fileUpload = $("#edit_modal #File").get(0);
+            if (fileUpload != null && fileUpload != undefined) {
+                var file = fileUpload.files[0];
+                fileData.append('File', file);
+            }
+
+
+            $.each(SerializedData, function (index, item) {
+                fileData.append(item.name, item.value);
+            });
+
             $.ajax({
                 type: 'POST',
                 url: `@Url.Action("UpdatePost", "Cars")`,
                 processData: false,
-                dataType: false,
-                data: FormData,
+                contentType: false,
+                data: fileData,
                 //beforeSend: function () {
 
                 //},

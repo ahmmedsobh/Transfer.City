@@ -46,6 +46,7 @@ namespace Transfer.City.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@Name", SqlDbType.NVarChar, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Name));
                 sqlCommand.Parameters.Add(new SqlParameter("@Max_Passengers", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Max_Passengers));
                 sqlCommand.Parameters.Add(new SqlParameter("@Max_Suitcases", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Max_Suitcases));
+                sqlCommand.Parameters.Add(new SqlParameter("@Img", SqlDbType.NVarChar, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Img));
 
 
                 MainConnection.Open();
@@ -88,6 +89,7 @@ namespace Transfer.City.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@Name", SqlDbType.NVarChar, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Name));
                 sqlCommand.Parameters.Add(new SqlParameter("@Max_Passengers", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Max_Passengers));
                 sqlCommand.Parameters.Add(new SqlParameter("@Max_Suitcases", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Max_Suitcases));
+                sqlCommand.Parameters.Add(new SqlParameter("@Img", SqlDbType.NVarChar, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Img));
 
 
                 MainConnection.Open();
@@ -248,6 +250,7 @@ namespace Transfer.City.DataLayer
             businessObject.Max_Passengers = dataReader.GetInt32(dataReader.GetOrdinal(Cars.CarsFields.Max_Passengers.ToString()));
 
             businessObject.Max_Suitcases = dataReader.GetInt32(dataReader.GetOrdinal(Cars.CarsFields.Max_Suitcases.ToString()));
+            businessObject.Img = dataReader.GetString(dataReader.GetOrdinal(Cars.CarsFields.Img.ToString()));
 
 
         }
