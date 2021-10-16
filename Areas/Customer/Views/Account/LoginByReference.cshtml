@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "Login By Reference";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+<style>
+    .site-title
+    {
+        margin-top:80px;
+    }
+</style>
+<!-- Page info -->
+<header class="site-title color">
+    <div class="wrap">
+        <div class="container">
+            <h1>Login By Booking Reference</h1>
+            <nav role="navigation" class="breadcrumbs">
+                <ul>
+                    <li><a href="/Home" title="Home">Home</a></li>
+                    <li>Login</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<!-- //Page info -->
+
+<div class="wrap">
+    <div class="row">
+        <!--- Content -->
+        <div class="content one-half modal">
+            <!--Login-->
+            <div class="box">
+                <form>
+                    <div class="f-row">
+                        <div class="full-width">
+                            <label for="username">Your email address</label>
+                            <input type="text" name="UserName" id="username" />
+                        </div>
+                    </div>
+                    <div class="f-row">
+                        <div class="full-width">
+                            <label for="password">Your booking reference</label>
+                            <input type="password" name="Password" id="password" />
+                        </div>
+                    </div>
+                    
+                    <div class="f-row">
+                        <div class="full-width">
+                            <input type="button" id="SubmitBtn" value="Login" class="btn color medium full" />
+                        </div>
+                    </div>
+                    <div class="f-row">
+                        <p id="MessageLbl" style="text-align: center;color:#CC2262"></p>
+                    </div>
+                </form>
+            </div>
+            <!--//Login-->
+        </div>
+        <!--- //Content -->
+    </div>
+</div>
+
+
+
+@section Scripts{
+
+    <script>
+        $(function () {
+            $(document).on("click", "#SubmitBtn", function () {
+                var UserName = $("#username").val();
+                var Password = $("#password").val();
+                Login(UserName, Password);
+            });
+        })
+
+        function Login(UserName, Password) {
+            $.ajax({
+                type: 'POST',
+                url: `@Url.Action("LoginByReference", "Account")`,
+                data: {
+                    UserName: UserName,
+                    Password: Password,
+                },
+                //beforeSend: function () {
+
+                //},
+
+            success: function (data) {
+
+                if (data.Message.Type == 0) {
+                    location.href = '/Customer/Home/Index';
+                }
+                else if (data.Message.Type == 2) {
+                    location.href = '/Customer/Account/Login';
+                }
+                else
+                {
+                        if (data.Message.Title != null && data.Message.Title != "") {
+                            var body = data.Message.Description;
+                            $("#MessageLbl").text(body);
+                        }
+                        else {
+                            $("#MessageLbl").text("");
+                        }
+                }
+
+                },
+                error: function (ex) {
+
+                    var r = jQuery.parseJSON(response.responseText);
+                    alert("Message: " + r.Message);
+                    alert("StackTrace: " + r.StackTrace);
+                    alert("ExceptionType: " + r.ExceptionType);
+                }
+            });
+    }
+    </script>
+
+ }

@@ -15,7 +15,8 @@ namespace Transfer.City.Models
 			Info,
 			Name,
 			Fees,
-			Icon
+			Icon,
+			RequiredInfoValue
 		}
 		#endregion
 
@@ -29,6 +30,7 @@ namespace Transfer.City.Models
 			decimal _fees;
 			string _name;
 		string _icon;
+		string _requiredInfoValue;
 
 		#endregion
 
@@ -135,6 +137,19 @@ namespace Transfer.City.Models
 				{
 					_icon = value;
 					PropertyHasChanged("Icon");
+				}
+			}
+		}
+
+		public string RequiredInfoValue
+		{
+			get { return _requiredInfoValue; }
+			set
+			{
+				if (_requiredInfoValue != value)
+				{
+					_requiredInfoValue = value;
+					PropertyHasChanged("RequiredInfoValue");
 				}
 			}
 		}

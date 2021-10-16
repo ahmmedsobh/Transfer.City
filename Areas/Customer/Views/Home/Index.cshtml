@@ -1,0 +1,384 @@
+﻿@model Transfer.City.Areas.Customer.Models.ViewModels.MyBookingViewModels
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+<style>
+    .site-title
+    {
+        margin-top:80px;
+    }
+
+    .success{
+        color:green;
+    }
+
+    .error {
+        color: #CC2262;
+    }
+</style>
+<!-- Page info -->
+<header class="site-title color">
+    <div class="wrap">
+        <div class="container">
+            <h1>My account</h1>
+            <nav role="navigation" class="breadcrumbs">
+                <ul>
+                    <li><a href="index.html" title="Home">Home</a></li>
+                    <li>My account</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<!-- //Page info -->
+
+
+<div class="wrap">
+    <div class="row">
+
+        <!--- Sidebar -->
+        <aside class="one-fourth sidebar left">
+            <!-- Widget -->
+            <div class="widget">
+                <ul class="categories">
+                    <li><a href="#tab1">My bookings</a></li>
+                    <li><a href="#tab2">Settings</a></li>
+                </ul>
+            </div>
+            <!-- //Widget -->
+        </aside>
+        <!--- //Sidebar -->
+        <!--- Content -->
+        <div class="three-fourth content">
+            <!-- Tab -->
+            <article class="single" id="tab1">
+                @if (Model.Trips != null)
+                {
+                    decimal Total = 0;
+                    var TripsStatus = new List<int>();
+                    <!-- Item -->
+                    var trips = Model.Trips.GroupBy(t => t.BookingReference).ToList();
+                    foreach (var group in trips)
+                    {
+                <div class="box history">
+
+                    @{
+                        Total = 0;
+                    }
+
+                    @{TripsStatus = new List<int>();}
+
+                    @foreach (var item in group)
+                    {
+                        TripsStatus.Add(item.TripStatus);
+                        Total = Total + Convert.ToDecimal(item.Fees);
+                        var extras = Model.TripsExtras.Where(e => e.Trip == item.ID).ToList();
+
+                        <h6>@item.FromFlightArrivalTime<br />@item.LocationFrom <small>to</small> @item.LocationTo</h6>
+                        <div class="row">
+                            <div class="one-third">
+                                <p><span>Vehicle:</span> @item.CarName</p>
+                            </div>
+                            <div class="two-third">
+                                @if (extras != null)
+                                {
+                                    if (extras.Count > 0)
+                                    {
+                                        foreach (var extra in extras)
+                                        {
+                                            <p><span>Extras:</span> @extra.Info pieces of @extra.Name</p>
+                                        }
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    }
+                    <div class="price">@Total USD</div>
+                    @if (TripsStatus.Count > 0)
+                    {
+                        if (TripsStatus[0] < 3)
+                        {
+                            <div>
+                                <a href="/Customer/Home/CancelTrip/@group.Key" title="Cancel">Cancel</a> &nbsp;|&nbsp; <a href="/Customer/Home/SearchResult/@group.Key" title="Modify">Modify</a>
+                            </div>
+                        }
+
+                        if (TripsStatus[0] > 8)
+                        {
+                            <div>
+                                <a href="/Customer/Home/TripSurvey/@group.Key" title="Survey">Trip Survey</a>
+                            </div>
+                        }
+                    }
+                    @*<a href="#" title="Book again">Book again</a>*@
+                </div>
+
+                    }
+
+
+
+                    }
+
+
+                </article>
+            <!-- //Tab -->
+            <!-- Tab -->
+            <article class="single" id="tab2">
+                @if (Model != null)
+                {
+                    if (Model.User.ID == 0 && Model.User.EmailAddress != null)
+                    {
+                        <div class="box">
+                            <h2>General settings</h2>
+                            <form id="AccountForm">
+                                <div class="f-row">
+                                    <p class="Message" style="color:#CC2262"></p>
+                                </div>
+                                <div class="f-row">
+                                    <div class="one-half">
+                                        <label for="DisplayName">Name</label>
+                                        <input type="text" id="DisplayName" name="DisplayName" value="@Model.User.DisplayName" />
+                                    </div>
+                                    <div class="one-half">
+                                        <label for="EmailAddress">Email</label>
+                                        <input type="text" id="EmailAddress" name="EmailAddress" value="@Model.User.EmailAddress" />
+                                    </div>
+                                </div>
+                                <div class="f-row">
+                                    <div >
+                                        <label for="UserName">UserName</label>
+                                        <input type="text" id="UserName" name="UserName" />
+                                    </div>
+                                </div>
+                                <div class="f-row">
+                                    <div class="one-half">
+                                        <label for="Password">Password</label>
+                                        <input type="text" id="Password" name="Password" />
+                                    </div>
+                                    <div class="one-half">
+                                        <label for="ConfirmPassword">Confirm Password</label>
+                                        <input type="text" id="ConfirmPassword" name="ConfirmPassword" />
+                                    </div>
+                                </div>
+
+                                <div class="f-row">
+                                    <input type="button" value="Save Changes" id="submit1"  class="btn color medium" />
+                                </div>
+                            </form>
+                        </div>
+                    }
+                    else if (Model.User.ID > 0)
+                    {
+                        <div class="box">
+                            <h2>General settings</h2>
+                            <fieldset>
+                                <div class="f-row">
+                                    <div class="one-half">
+                                        <label for="DisplayName">Name</label>
+                                        <input readonly type="text" id="DisplayName" name="DisplayName" value="@Model.User.DisplayName" />
+                                    </div>
+                                    <div class="one-half">
+                                        <label for="EmailAddress">Email</label>
+                                        <input readonly type="text" id="EmailAddress" name="EmailAddress" value="@Model.User.EmailAddress" />
+                                    </div>
+                                </div>
+                                <div class="f-row">
+                                    <div >
+                                        <label for="UserName">UserName</label>
+                                        <input readonly type="text" id="UserName" name="UserName" value="@Model.User.UserName" />
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                        </div>
+
+                        <div class="box">
+                            <h2>Security settings</h2>
+                            <form id="ChangePasswordForm">
+                                <div class="f-row">
+                                    <p class="Message" style="color:#CC2262"></p>
+                                </div>
+                                <div class="f-row">
+                                    <div >
+                                        <label for="OldPassword">Current password</label>
+                                        <input type="password" id="OldPassword" name="OldPassword" />
+                                    </div>
+                                </div>
+                                <div class="f-row">
+                                    <div class="one-half">
+                                        <label for="NewPassword">New password</label>
+                                        <input type="password" id="NewPassword" name="NewPassword" />
+                                    </div>
+                                    <div class="one-half">
+                                        <label for="ConfirmPassword">Confirm new password</label>
+                                        <input type="password" id="ConfirmPassword" name="ConfirmPassword" />
+                                    </div>
+                                </div>
+
+                                <div class="f-row">
+                                    <input type="button" value="Save Changes" id="submit2" class="btn color medium" />
+                                </div>
+                            </form>
+                        </div>
+                    }
+                }
+
+
+
+
+
+
+
+
+
+
+                @*<div class="box">
+            <h2>Notification settings</h2>
+            <fieldset>
+                <div class="f-row check">
+                    <input type="checkbox" id="checkbox1" />
+                    <label for="checkbox1">General promotions, updates, news about Transfers or general promotions for partner campaigns and services, user surveys, inspiration, and love from Transfers.</label>
+                </div>
+
+                <div class="f-row check">
+                    <input type="checkbox" id="checkbox2" />
+                    <label for="checkbox2">Reservation and review reminders. </label>
+                </div>
+
+                <div class="f-row">
+                    <input type="submit" value="Save Changes" id="submit2" name="submit" class="btn color medium" />
+                </div>
+            </fieldset>
+        </div>*@
+            </article>
+            <!-- //Tab -->
+
+        </div>
+        <!--- //Content -->
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.single').hide().first().show();
+            $('.categories li:first').addClass('active');
+
+            $('.categories a').on('click', function (e) {
+                e.preventDefault();
+                $(this).closest('li').addClass('active').siblings().removeClass('active');
+                $($(this).attr('href')).show().siblings('.single').hide();
+            });
+
+            var hash = $.trim(window.location.hash);
+            if (hash) $('.categories a[href$="' + hash + '"]').trigger('click');
+
+        
+
+            $(document).on("click", "#submit1", function () {
+                Insert();
+            });
+
+            $(document).on("click", "#submit2", function () {
+                var UserName = $("#UserName").val();
+                var OldPassword = $("#OldPassword").val();
+                var NewPassword = $("#NewPassword").val();
+                var ConfirmPassword = $("#ConfirmPassword").val();
+
+                ChangePassword(UserName, OldPassword, NewPassword, ConfirmPassword);
+            });
+
+        });
+
+        function Insert() {
+
+                //if (!Validation('#add_modal')) {
+                //    e.preventDefault();
+                //    return;
+                //}
+
+
+                var FormData = $("#AccountForm").serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: `@Url.Action("AccountSettings", "Home")`,
+                    processData: false,
+                    dataType: false,
+                    data: FormData,
+                    //beforeSend: function () {
+
+                    //},
+
+                success: function (data) {
+
+                    if (data.Message.Title != null && data.Message.Title != "") {
+                        var body = data.Message.Description;
+                        $(".Message").text(body);
+                    }
+                    else {
+                        $(".Message").text("");
+                    }
+
+                    if (data.Message.Type == 0) {
+                        location.href = '/Customer/Home/Index';
+                    }
+
+
+                    },
+                    error: function (ex) {
+
+                        var r = jQuery.parseJSON(response.responseText);
+                        alert("Message: " + r.Message);
+                        alert("StackTrace: " + r.StackTrace);
+                        alert("ExceptionType: " + r.ExceptionType);
+                    }
+                });
+
+            }
+
+        function ChangePassword(UserName,OldPassword,NewPassword,ConfirmPassword) {
+                $.ajax({
+                    type: 'POST',
+                    url: `@Url.Action("ChangePassword", "Home")`,
+                    data: {
+                        UserName: UserName,
+                        OldPassword: OldPassword,
+                        NewPassword: NewPassword,
+                        ConfirmPassword: ConfirmPassword
+                    },
+                    //beforeSend: function () {
+
+                    //},
+
+                success: function (data) {
+
+                    if (data.Message.Title != null && data.Message.Title != "") {
+                        var body = data.Message.Description;
+                        $(".Message").text(body);
+                    }
+                    else {
+                        $(".Message").text(body);
+                    }
+
+                    if (data.Message.Type == 0) {
+                        location.href = '/Customer/Home/Index';
+                    }
+               
+                    },
+                    error: function (ex) {
+
+                        var r = jQuery.parseJSON(response.responseText);
+                        alert("Message: " + r.Message);
+                        alert("StackTrace: " + r.StackTrace);
+                        alert("ExceptionType: " + r.ExceptionType);
+                    }
+                });
+            }
+
+
+    </script>
+}
+

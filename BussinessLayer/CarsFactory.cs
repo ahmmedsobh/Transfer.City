@@ -25,7 +25,6 @@ namespace Transfer.City.BusinessLayer
 
         #endregion
 
-
         #region Public Methods
 
         /// <summary>

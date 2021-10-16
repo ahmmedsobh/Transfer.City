@@ -20,7 +20,6 @@ namespace Transfer.City.Controllers
             model.TripStatus = TripStatus;
             return View(model);
         }
-
         public ActionResult TripsList()
         {
             try
@@ -168,7 +167,6 @@ namespace Transfer.City.Controllers
                 Message = Message,
             }, JsonRequestBehavior.AllowGet);
         }
-       
         public ActionResult CompaniesList(int TripId = 0, int CarId = 0, int TransferId = 0)
         {
             var CompaniesList = TripsInvitations.GetCompanyList(new TransferInvitations { Trip = TripId,CarId = CarId,GeneralTransferID=TransferId });

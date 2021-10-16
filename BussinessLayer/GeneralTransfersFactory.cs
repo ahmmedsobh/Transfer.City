@@ -71,6 +71,11 @@ namespace Transfer.City.BusinessLayer
             return _dataObject.SelectByID(businessObject); 
         }
 
+        public GeneralTransfers GetByLocationToAndLocationFrom(GeneralTransfers businessObject)
+        {
+            return _dataObject.SelectByLocationToAndLocationFrom(businessObject);
+        }
+
         /// <summary>
         /// get list of all GeneralTransferss
         /// </summary>

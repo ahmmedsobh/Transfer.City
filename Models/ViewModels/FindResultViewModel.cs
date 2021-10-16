@@ -15,11 +15,13 @@ namespace Transfer.City.Models.ViewModels
 		int _passngersCount = 1;
 		bool _tripType;
 		List<SelectDataAndTransferViewModel> _dateAndLocations;
+		PaymentViewModel _payment;
+		string _bookingReference;
 		#endregion
-	
+
 		#region Properties
 
-		
+
 
 		public int PassngersCount
 		{
@@ -56,6 +58,32 @@ namespace Transfer.City.Models.ViewModels
 				{
 					_dateAndLocations = value;
 					PropertyHasChanged("DateAndLocations");
+				}
+			}
+		}
+
+		public PaymentViewModel Payment
+		{
+			get { return _payment; }
+			set
+			{
+				if (_payment != value)
+				{
+					_payment = value;
+					PropertyHasChanged("Payment");
+				}
+			}
+		}
+
+		public string BookingReference
+		{
+			get { return _bookingReference; }
+			set
+			{
+				if (_bookingReference != value)
+				{
+					_bookingReference = value;
+					PropertyHasChanged("BookingReference");
 				}
 			}
 		}

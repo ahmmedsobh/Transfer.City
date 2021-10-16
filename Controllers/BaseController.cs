@@ -28,6 +28,9 @@ namespace Transfer.City.Controllers
         public UserPermissionsFactory UserPermissions = new UserPermissionsFactory();
         public PermissionsFactory Permissions = new PermissionsFactory();
         public FindTransferFactory FindTransfers = new FindTransferFactory();
+        public KpiFactory KpiFactory = new KpiFactory();
+        public TripsKpiFactory TripsKpiFactory = new TripsKpiFactory();
+        public ComplaintsFactory ComplaintsFactory = new ComplaintsFactory();
 
 
         public int UserId()
@@ -35,7 +38,13 @@ namespace Transfer.City.Controllers
             var userId = Convert.ToInt32(Session["UserId"]);
             return userId;
         }
-            
+
+        public string UserName()
+        {
+            var UserName = Convert.ToString(Session["UserName"]);
+            return UserName;
+        }
+
 
 
         public List<DropdownViewModel<int>> TripStatus = new List<DropdownViewModel<int>>()

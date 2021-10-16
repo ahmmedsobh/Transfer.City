@@ -1,0 +1,268 @@
+﻿@model  Transfer.City.Models.ViewModels.SearchResultViewModel
+
+@{
+    ViewBag.Title = "ChooseExtras";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+<style>
+    .output {
+        margin-top: 80px;
+    }
+
+    .RequiredMessage {
+        color: red;
+        display: block;
+    }
+
+    .RequiredInput {
+        border: 1px solid #CC2262;
+        width: 400px;
+        padding: 7px;
+    }
+</style>
+<!-- Search -->
+<div class="output color twoway">
+    <div class="wrap">
+
+        <div>
+            <p>@Model.SearchData[0].DateAndTransfer.DateTime.ToShortDateString() <small>at</small> @Model.SearchData[0].DateAndTransfer.DateTime.ToShortTimeString()</p>
+            <p>@Model.SearchData[0].DateAndTransfer.LocationFromName <small>to</small> @Model.SearchData[0].DateAndTransfer.LocationToName</p>
+        </div>
+        @if (Model.SearchData.Count > 1)
+        {
+            <div>
+                <p>@Model.SearchData[1].DateAndTransfer.DateTime.ToShortDateString() <small>at</small> @Model.SearchData[1].DateAndTransfer.DateTime.ToShortTimeString()</p>
+                <p>@Model.SearchData[1].DateAndTransfer.LocationFromName <small>to</small> @Model.SearchData[1].DateAndTransfer.LocationToName</p>
+            </div>
+        }
+
+    </div>
+</div>
+<!-- //Search -->
+
+<div class="wrap">
+    <div class="row">
+        <!--- Content -->
+        <div class="full-width content">
+            <h2>Baggage and extras</h2>
+            <p>Please select the total number of pieces of baggage and extras for your transfers. If you arrive with more luggage than specified at booking, we cannot guarantee to transport them. In case we are able to transport them, we will charge you an additional fee.</p>
+        </div>
+        <!--- //Content -->
+
+        <div class="three-fourth">
+            <form method="post" action="@Url.Action("PassngersAndTransfers", "Home")" id="DataForm">
+                <input type="hidden" name="DateAndLocations[0].LocationTo" value="@Model.SearchData[0].DateAndTransfer.LocationTo" />
+                <input type="hidden" name="DateAndLocations[0].LocationFrom" value="@Model.SearchData[0].DateAndTransfer.LocationFrom" />
+                <input type="hidden" name="DateAndLocations[0].DateTime" value="@Model.SearchData[0].DateAndTransfer.DateTime" />
+                <input type="hidden" name="DateAndLocations[0].CarId" value="@Model.SearchResultList[0][0].ID" />
+                <input type="hidden" name="PassngersCount" value="@Model.SearchData[0].PassngersCount" />
+                <input type="hidden" name="BookingReference" value="@Model.BookingReference[0]" />
+
+                @if (Model.SearchData.Count > 1)
+                {
+                    <input type="hidden" name="DateAndLocations[1].LocationTo" value="@Model.SearchData[1].DateAndTransfer.LocationTo" />
+                    <input type="hidden" name="DateAndLocations[1].LocationFrom" value="@Model.SearchData[1].DateAndTransfer.LocationFrom" />
+                    <input type="hidden" name="DateAndLocations[1].DateTime" value="@Model.SearchData[1].DateAndTransfer.DateTime" />
+                    <input type="hidden" name="DateAndLocations[1].CarId" value="@Model.SearchResultList[1][0].ID" />
+                }
+
+
+                <table class="data responsive">
+                    <tr>
+                        <th>Baggage type</th>
+                        <th>Price</th>
+                        <th>Departure</th>
+                        @if (Model.Extras.Count > 1)
+                        {
+                            <th>Return</th>
+                        }
+
+                    </tr>
+                    @{ var index = -1; }
+                    @foreach (var item in Model.Extras[0])
+                    {
+                        <tr>
+                            @{index++;}
+                            <td>
+                                @item.Name
+                                <i>@item.Description</i>
+                                @if ((item.RequiredInfoName != null && item.RequiredInfoName != ""))
+                                {
+                                    <label>@item.RequiredInfoName</label>
+                                    <i>@item.RequiredInfoDescription</i>
+                                    <input name="DateAndLocations[0].Extras[@index].RequiredInfoValue" placeholder="@item.RequiredInfoName" class="RequiredInput" />
+                                    <span class="RequiredMessage"></span>
+                                }
+                                <input type="hidden" name="DateAndLocations[0].Extras[@index].ID" value="@item.ID" />
+                            </td>
+                            <td>@item.Fees USD</td>
+                            <td>
+                                @if (item.RequiredInfoName == null || item.RequiredInfoName == "")
+                                {
+                                    <select name="DateAndLocations[0].Extras[@index].Count">
+                                        <option selected>0</option>
+                                        @for (var i = 0; i < item.Count; i++)
+                                        {
+                                            var count = i + 1;
+                                            <option>@count</option>
+                                        }
+                                    </select>
+                                }
+                                else
+                                {
+                                    <select class="HasInput" name="DateAndLocations[0].Extras[@index].Count">
+                                        <option selected>0</option>
+                                        @for (var i = 0; i < item.Count; i++)
+                                        {
+                                            var count = i + 1;
+                                            <option>@count</option>
+                                        }
+                                    </select>
+                                }
+
+                            </td>
+                            @if (Model.Extras.Count > 1)
+                            {
+                                <td>
+                                    <input type="hidden" name="DateAndLocations[1].Extras[@index].ID" value="@item.ID" />
+                                    @if (item.RequiredInfoName == null || item.RequiredInfoName == "")
+                                    {
+                                        <select name="DateAndLocations[1].Extras[@index].Count">
+                                            <option selected>0</option>
+                                            @{
+                                                var ReturnExtra = Model.Extras[1].FirstOrDefault(e => e.ID == item.ID);
+                                            }
+                                            @if (ReturnExtra != null)
+                                            {
+                                                for (var i = 0; i < ReturnExtra.Count; i++)
+                                                {
+                                                    var count = i + 1;
+                                                    <option>@count</option>
+                                                }
+                                            }
+                                        </select>
+                                    }
+                                    else
+                                    {
+                                        <select class="HasInput" name="DateAndLocations[1].Extras[@index].Count">
+                                            <option selected>0</option>
+                                            @{
+                                                var ReturnExtra = Model.Extras[1].FirstOrDefault(e => e.ID == item.ID);
+                                            }
+                                            @if (ReturnExtra != null)
+                                            {
+                                                for (var i = 0; i < ReturnExtra.Count; i++)
+                                                {
+                                                    var count = i + 1;
+                                                    <option>@count</option>
+                                                }
+                                            }
+                                        </select>
+                                    }
+
+                                </td>
+                            }
+                        </tr>
+                    }
+
+                </table>
+
+                <div class="actions">
+                    <a href="search-results.html" class="btn medium back">Go back</a>
+                    <button type="submit" class="btn medium color right">Continue</button>
+                </div>
+            </form>
+        </div>
+
+        <!--- Sidebar -->
+        <aside class="one-fourth sidebar right">
+            <!-- Widget -->
+            <div class="widget">
+                <h4>Booking summary</h4>
+                <div class="summary">
+                    <div>
+                        <h5>DEPARTURE</h5>
+                        <dl>
+                            <dt>Date</dt>
+                            <dd>@Model.SearchData[0].DateAndTransfer.DateTime</dd>
+                            <dt>From</dt>
+                            <dd>@Model.SearchData[0].DateAndTransfer.LocationFromName</dd>
+                            <dt>To</dt>
+                            <dd>@Model.SearchData[0].DateAndTransfer.LocationToName</dd>
+                            <dt>Vehicle</dt>
+                            <dd>@Model.SearchResultList[0][0].Name</dd>
+                        </dl>
+                    </div>
+                    @if (Model.SearchData.Count > 1)
+                    {
+                        <div>
+                            <h5>RETURN</h5>
+                            <dl>
+                                <dt>Date</dt>
+                                <dd>@Model.SearchData[1].DateAndTransfer.DateTime</dd>
+                                <dt>From</dt>
+                                <dd>@Model.SearchData[1].DateAndTransfer.LocationFromName</dd>
+                                <dt>To</dt>
+                                <dd>@Model.SearchData[1].DateAndTransfer.LocationToName</dd>
+                                <dt>Vehicle</dt>
+                                <dd>@Model.SearchResultList[1][0].Name</dd>
+                            </dl>
+                        </div>
+                    }
+
+                    @{
+                        decimal total = 0;
+                        total = Model.SearchResultList[0][0].SellingPrice;
+                        if (Model.SearchResultList.Count > 1)
+                        {
+                            total = total + Model.SearchResultList[1][0].SellingPrice;
+                        }
+
+                    }
+
+                    <dl class="total">
+                        <dt>Total</dt>
+                        <dd>@total usd</dd>
+                    </dl>
+                </div>
+            </div>
+            <!-- //Widget -->
+        </aside>
+        <!--- //Sidebar -->
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            $("#DataForm").on("submit", function (e) {
+                Validations();
+
+                $(".RequiredMessage").each(function (index, item) {
+                    if ($(item).text() != "") {
+                        e.preventDefault();
+                        return;
+                    }
+                });
+            })
+        });
+
+        function Validations() {
+            $(".RequiredMessage").text("");
+            $(".HasInput").each(function (index, item) {
+                if ($(item).val() > 0) {
+                    var inpt = $(item).closest("tr").find(".RequiredInput");
+                    if ($(inpt).val() == "") {
+                        $(item).closest("tr").find(".RequiredMessage").text("this feild is required");
+                    }
+                    else {
+                        $(item).closest("tr").find(".RequiredMessage").text("");
+                    }
+                }
+            });
+
+        }
+
+    </script>
+}

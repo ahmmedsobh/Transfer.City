@@ -74,6 +74,8 @@ namespace Transfer.City.DataLayer
 				sqlCommand.Parameters.Add(new SqlParameter("@PayementDate", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PayementDate));
 				sqlCommand.Parameters.Add(new SqlParameter("@TransactionID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.TransactionID));
 				sqlCommand.Parameters.Add(new SqlParameter("@Fees", SqlDbType.Money, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Fees));
+				sqlCommand.Parameters.Add(new SqlParameter("@CancellationProtection", SqlDbType.Money, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CancellationProtection));
+				sqlCommand.Parameters.Add(new SqlParameter("@BookingReference", SqlDbType.NVarChar, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.BookingReference));
 
 								
 				MainConnection.Open();
@@ -141,9 +143,11 @@ namespace Transfer.City.DataLayer
 				sqlCommand.Parameters.Add(new SqlParameter("@PayementDate", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PayementDate));
 				sqlCommand.Parameters.Add(new SqlParameter("@TransactionID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.TransactionID));
 				sqlCommand.Parameters.Add(new SqlParameter("@Fees", SqlDbType.Money, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Fees));
+				sqlCommand.Parameters.Add(new SqlParameter("@CancellationProtection", SqlDbType.Money, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CancellationProtection));
+				sqlCommand.Parameters.Add(new SqlParameter("@BookingReference", SqlDbType.NVarChar, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.BookingReference));
 
-                
-                MainConnection.Open();
+
+				MainConnection.Open();
 
                 sqlCommand.ExecuteNonQuery();
                 return true;
@@ -240,6 +244,40 @@ namespace Transfer.City.DataLayer
             }
 
         }
+
+		public List<Trips> SelectByReferenceAndEmail(Trips businessObject)
+		{
+			SqlCommand sqlCommand = new SqlCommand();
+			sqlCommand.CommandText = "dbo.[Trips_SelectByReferenceAndEmail]";
+			sqlCommand.CommandType = CommandType.StoredProcedure;
+
+			// Use connection object of base class
+			sqlCommand.Connection = MainConnection;
+
+			try
+			{
+				sqlCommand.Parameters.Add(new SqlParameter("@Reference", SqlDbType.NVarChar, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.BookingReference));
+				sqlCommand.Parameters.Add(new SqlParameter("@Email", SqlDbType.NVarChar, 150, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EmailAddress));
+
+
+				MainConnection.Open();
+
+				IDataReader dataReader = sqlCommand.ExecuteReader();
+
+				return PopulateObjectsFromReader(dataReader);
+
+			}
+			catch (Exception ex)
+			{
+				return null;
+			}
+			finally
+			{
+				MainConnection.Close();
+				sqlCommand.Dispose();
+			}
+
+		}
 
 		public List<Trips> SelectByCompanyId(Trips businessObject)
 		{
@@ -457,6 +495,11 @@ namespace Transfer.City.DataLayer
 					businessObject.Fees = dataReader.GetDecimal(dataReader.GetOrdinal(Trips.TripsFields.Fees.ToString()));
 				}
 
+				if (!dataReader.IsDBNull(dataReader.GetOrdinal(Trips.TripsFields.CancellationProtection.ToString())))
+				{
+					businessObject.CancellationProtection = dataReader.GetDecimal(dataReader.GetOrdinal(Trips.TripsFields.CancellationProtection.ToString()));
+				}
+
 				businessObject.LocationFrom = dataReader.GetString(dataReader.GetOrdinal(Trips.TripsFields.LocationFrom.ToString()));
 				businessObject.LocationTo = dataReader.GetString(dataReader.GetOrdinal(Trips.TripsFields.LocationTo.ToString()));
 				businessObject.TripStatusTitle = dataReader.GetString(dataReader.GetOrdinal(Trips.TripsFields.TripStatusTitle.ToString()));
@@ -464,7 +507,7 @@ namespace Transfer.City.DataLayer
 				businessObject.LocationToId = dataReader.GetInt32(dataReader.GetOrdinal(Trips.TripsFields.LocationToId.ToString()));
 				businessObject.CarName = dataReader.GetString(dataReader.GetOrdinal(Trips.TripsFields.CarName.ToString()));
 				businessObject.CompanyId = dataReader.GetInt32(dataReader.GetOrdinal(Trips.TripsFields.CompanyId.ToString()));
-
+				businessObject.BookingReference = dataReader.GetString(dataReader.GetOrdinal(Trips.TripsFields.BookingReference.ToString()));
 		}
 
 		/// <summary>

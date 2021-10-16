@@ -156,6 +156,48 @@ namespace Transfer.City.DataLayer
 
         }
 
+        public GeneralTransfers SelectByLocationToAndLocationFrom(GeneralTransfers businessObject)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[GeneralTransfers_SelectByLocationToAndLocationFrom]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+
+                sqlCommand.Parameters.Add(new SqlParameter("@LocationTo", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.LocationTo));
+                sqlCommand.Parameters.Add(new SqlParameter("@LocationFrom", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.LocationFrom));
+
+
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                if (dataReader.Read())
+                {
+                    PopulateBusinessObjectFromReader(businessObject, dataReader);
+
+                    return businessObject;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
         /// <summary>
         /// Select all rescords
         /// </summary>

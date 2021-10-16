@@ -1,0 +1,319 @@
+﻿@model  Transfer.City.Models.ViewModels.SearchResultViewModel
+
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+
+    decimal VehicleBasePrice = 0;
+    VehicleBasePrice = Model.SearchResultList[0][0].SellingPrice;
+    decimal Extras = 0;
+    decimal Discount = 0;
+    decimal SmsMessage = 0;
+    if(Model.Extras.Count > 0)
+    {
+        foreach (var item in Model.Extras[0])
+        {
+            Extras = Extras + (item.Count * item.Fees);
+        }
+    }
+
+
+    if (Model.SearchResultList.Count > 1)
+    {
+        VehicleBasePrice = VehicleBasePrice + Model.SearchResultList[1][0].SellingPrice;
+        if(Model.Extras.Count > 1)
+        {
+            foreach (var item in Model.Extras[1])
+            {
+                Extras = Extras + (item.Count * item.Fees);
+            }
+        }
+
+    }
+
+    if (Convert.ToBoolean(Model.PassengersAndTransfers[0].SMS))
+    {
+        SmsMessage = 1.75M;
+    }
+
+    decimal CancellationProtection = 0;
+    if (Model.Confirmations[0].CancellationProtection)
+    {
+        CancellationProtection = 3;
+    }
+
+    var SubTotal = VehicleBasePrice - Discount;
+    var TotalAmount = SubTotal + Extras + SmsMessage + CancellationProtection;
+}
+<style>
+    .output {
+        margin-top: 80px;
+    }
+</style>
+<!-- Search -->
+<div class="output color twoway">
+    <div class="wrap">
+
+        <div>
+            <p>@Model.SearchData[0].DateAndTransfer.DateTime.ToShortDateString() <small>at</small> @Model.SearchData[0].DateAndTransfer.DateTime.ToShortTimeString()</p>
+            <p>@Model.SearchData[0].DateAndTransfer.LocationFromName <small>to</small> @Model.SearchData[0].DateAndTransfer.LocationToName</p>
+        </div>
+        @if (Model.SearchData.Count > 1)
+        {
+            <div>
+                <p>@Model.SearchData[1].DateAndTransfer.DateTime.ToShortDateString() <small>at</small> @Model.SearchData[1].DateAndTransfer.DateTime.ToShortTimeString()</p>
+                <p>@Model.SearchData[1].DateAndTransfer.LocationFromName <small>to</small> @Model.SearchData[1].DateAndTransfer.LocationToName</p>
+            </div>
+        }
+
+    </div>
+</div>
+<!-- //Search -->
+
+<div class="wrap">
+    <div class="row">
+        <!--- Content -->
+        <div class="full-width content">
+            <h2>Payment</h2>
+        </div>
+        <!--- //Content -->
+
+        <div class="three-fourth">
+            <form method="post" action="@Url.Action("SaveDate","Home")">
+                <input type="hidden" name="DateAndLocations[0].LocationTo" value="@Model.SearchData[0].DateAndTransfer.LocationTo" />
+                <input type="hidden" name="DateAndLocations[0].LocationFrom" value="@Model.SearchData[0].DateAndTransfer.LocationFrom" />
+                <input type="hidden" name="DateAndLocations[0].DateTime" value="@Model.SearchData[0].DateAndTransfer.DateTime" />
+                <input type="hidden" name="DateAndLocations[0].CarId" value="@Model.SearchResultList[0][0].ID" />
+                <input type="hidden" name="PassngersCount" value="@Model.SearchData[0].PassngersCount" />
+
+                @{ var index = -1; }
+                @if (Model.Extras.Count > 0)
+                {
+                    foreach (var item in Model.Extras[0])
+                    {
+                        index++;
+
+                        <input type="hidden" name="DateAndLocations[0].Extras[@index].RequiredInfoValue" value="@item.RequiredInfoValue" />
+                        <input type="hidden" name="DateAndLocations[0].Extras[@index].ID" value="@item.ID" />
+                        <input type="hidden" name="DateAndLocations[0].Extras[@index].Count" value="@item.Count" />
+                    }
+                }
+
+
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.ContactName" value="@Model.PassengersAndTransfers[0].ContactName" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.ContactSurname" value="@Model.PassengersAndTransfers[0].ContactSurname" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.EmailAddress" value="@Model.PassengersAndTransfers[0].EmailAddress" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.LeadPassengerMobile" value="@Model.PassengersAndTransfers[0].LeadPassengerMobile" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.SaveQuota" value="@Model.PassengersAndTransfers[0].SaveQuota.ToString()" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.SMS" value="@Model.PassengersAndTransfers[0].SMS.ToString()" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.FromAirline" value="@Model.PassengersAndTransfers[0].FromAirline" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.FromFlightNumber" value="@Model.PassengersAndTransfers[0].FromFlightNumber" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.FromOriginatingAirport" value="@Model.PassengersAndTransfers[0].FromOriginatingAirport" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.FromFlightArrivalTime" value="@Model.PassengersAndTransfers[0].FromFlightArrivalTime" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.ToDropOfPoint" value="@Model.PassengersAndTransfers[0].ToDropOfPoint" />
+
+
+                @if (Model.SearchData.Count > 1)
+                {
+                    <input type="hidden" name="DateAndLocations[1].LocationTo" value="@Model.SearchData[1].DateAndTransfer.LocationTo" />
+                    <input type="hidden" name="DateAndLocations[1].LocationFrom" value="@Model.SearchData[1].DateAndTransfer.LocationFrom" />
+                    <input type="hidden" name="DateAndLocations[1].DateTime" value="@Model.SearchData[1].DateAndTransfer.DateTime" />
+                    <input type="hidden" name="DateAndLocations[1].CarId" value="@Model.SearchResultList[1][0].ID" />
+
+                    index = -1;
+                    if (Model.Extras.Count > 1)
+                    {
+                        foreach (var item in Model.Extras[1])
+                        {
+                            index++;
+                            <input type="hidden" name="DateAndLocations[1].Extras[@index].RequiredInfoValue" value="@item.RequiredInfoValue" />
+                            <input type="hidden" name="DateAndLocations[1].Extras[@index].ID" value="@item.ID" />
+                            <input type="hidden" name="DateAndLocations[1].Extras[@index].Count" value="@item.Count" />
+                        }
+                    }
+
+
+                    <input type="hidden" name="DateAndLocations[1].PassengersAndTransfers.FromOriginatingAirport" value="@Model.PassengersAndTransfers[1].FromOriginatingAirport" />
+                    <input type="hidden" name="DateAndLocations[1].PassengersAndTransfers.FromFlightArrivalTime" value="@Model.PassengersAndTransfers[1].FromFlightArrivalTime" />
+                }
+
+                <input type="hidden" name="DateAndLocations[0].Confirmation.CustomerFirstName"  value="@Model.Confirmations[0].CustomerFirstName"/>
+                <input type="hidden" name="DateAndLocations[0].Confirmation.CustomerLastName" value="@Model.Confirmations[0].CustomerLastName"/>
+                <input type="hidden" name="DateAndLocations[0].Confirmation.CustomerPhone" value="@Model.Confirmations[0].CustomerPhone"/>
+                <input type="hidden" name="DateAndLocations[0].Confirmation.CancellationProtection" value="@Model.Confirmations[0].CancellationProtection.ToString()"/>
+                <input type="hidden" name="DateAndLocations[0].Confirmation.PaymentType" value="@Model.Confirmations[0].PaymentType"/>
+                <input type="hidden" name="DateAndLocations[0].Confirmation.Subscribed" value="@Model.Confirmations[0].Subscribed.ToString()"/>
+
+
+
+                <div class="f-row">
+                    <div class="one-fourth"><h4>Total Price</h4></div>
+                    <div class="three-fourth"><h4>@TotalAmount</h4><p>No additional fees will be changed</p></div>
+                </div>
+
+                <h4>Payment details</h4>
+                <div class="f-row">
+                    <div>
+                        <label for="CardNumber">Card Number</label>
+                        <input required type="number" id="CardNumber" name="Payment.CardNumber" />
+                    </div>
+                </div>
+                <div class="f-row">
+                    <div class="one-half">
+                        <div class="f-row">
+                            <div class="one-half">
+                                <label for="ExpiryMonth">Expire Month</label>
+                                <input required type="text" maxlength="4" id="ExpiryMonth" name="Payment.ExpiryMonth" />
+                            </div>
+                            <div class="one-half">
+                                <label for="ExpireYear">Expire Year</label>
+                                <input required type="text" maxlength="4" id="ExpireYear" name="Payment.ExpireYear" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="one-half">
+                        <label for="CCV">Security code</label>
+                        <input required type="text" id="CCV" name="Payment.CCV" />
+                    </div>
+                </div>
+                <div class="f-row">
+                    <div>
+                        <label for="CardHolder">Cardholder name</label>
+                        <input required type="number" id="CardHolder" name="Payment.CardHolder" />
+                    </div>
+                </div>
+                <div class="actions">
+                    <button type="submit" class="btn medium color right">Pay now</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!--- Sidebar -->
+        <aside class="one-fourth sidebar right">
+            <!-- Widget -->
+            <div class="widget">
+                <h4>Booking summary</h4>
+                <div class="summary">
+                    <div>
+                        <h5>DEPARTURE</h5>
+                        <dl>
+                            <dt>Date</dt>
+                            <dd>@Model.SearchData[0].DateAndTransfer.DateTime</dd>
+                            <dt>From</dt>
+                            <dd>@Model.SearchData[0].DateAndTransfer.LocationFromName</dd>
+                            <dt>To</dt>
+                            <dd>@Model.SearchData[0].DateAndTransfer.LocationToName</dd>
+                            <dt>Vehicle</dt>
+                            <dd>@Model.SearchResultList[0][0].Name</dd>
+                            <dt>Extras</dt>
+                            <dd>:</dd>
+                            @if (Model.Extras.Count > 0)
+                            {
+                                foreach (var item in Model.Extras[0])
+                                {
+                                    <dt></dt>
+                                    <dd>@item.Count pieces of @item.Name</dd>
+                                }
+                            }
+
+                            <dt>Name</dt>
+                            <dd>@Model.PassengersAndTransfers[0].ContactName</dd>
+                            <dt>Surname</dt>
+                            <dd>@Model.PassengersAndTransfers[0].ContactSurname</dd>
+                            <dt>Email</dt>
+                            <dd>@Model.PassengersAndTransfers[0].EmailAddress</dd>
+                            <dt>Phone</dt>
+                            <dd>@Model.PassengersAndTransfers[0].LeadPassengerMobile</dd>
+                            <dt>Airline</dt>
+                            <dd>@Model.PassengersAndTransfers[0].FromAirline</dd>
+                            <dt style="width:100% !important">Flight Number</dt>
+                            <dd style="width:100% !important">@Model.PassengersAndTransfers[0].FromFlightNumber</dd>
+                            <dt style="width:100% !important">Originating Airport</dt>
+                            <dd style="width:100% !important">@Model.PassengersAndTransfers[0].FromOriginatingAirport</dd>
+                            <dt style="width:100%">Flight Arrival Time</dt>
+                            <dd style="width:100% !important">@Model.PassengersAndTransfers[0].FromFlightArrivalTime</dd>
+                            <dt style="width:100% !important">Drop Of Point</dt>
+                            <dd style="width:100% !important">@Model.PassengersAndTransfers[0].ToDropOfPoint</dd>
+                            <dt style="width:100% !important">Customer name</dt>
+                            <dd style="width:100% !important">@Model.Confirmations[0].CustomerFirstName</dd>
+                            <dt style="width:100% !important">Family name</dt>
+                            <dd style="width:100% !important"> @Model.Confirmations[0].CustomerLastName</dd>
+                            <dt>Phone</dt>
+                            <dd>@Model.Confirmations[0].CustomerPhone</dd>
+                        </dl>
+                    </div>
+                    @if (Model.SearchData.Count > 1)
+                    {
+                        <div>
+                            <h5>RETURN</h5>
+                            <dl>
+                                <dt>Date</dt>
+                                <dd>@Model.SearchData[1].DateAndTransfer.DateTime</dd>
+                                <dt>From</dt>
+                                <dd>@Model.SearchData[1].DateAndTransfer.LocationFromName</dd>
+                                <dt>To</dt>
+                                <dd>@Model.SearchData[1].DateAndTransfer.LocationToName</dd>
+                                <dt>Vehicle</dt>
+                                <dd>@Model.SearchResultList[1][0].Name</dd>
+                                <dt>Extras</dt>
+                                <dd>:</dd>
+                                @if (Model.Extras.Count > 1)
+                                {
+                                    foreach (var item in Model.Extras[1])
+                                    {
+                                        <dt></dt>
+                                        <dd>@item.Count pieces of @item.Name</dd>
+                                    }
+                                }
+
+
+                                <dt>Airline</dt>
+                                <dd>@Model.PassengersAndTransfers[1].FromAirline</dd>
+                                <dt style="width:100% !important">Flight Departure Time</dt>
+                                <dd style="width:100% !important">@Model.PassengersAndTransfers[1].FromFlightArrivalTime</dd>
+                            </dl>
+                        </div>
+                    }
+
+                    @{
+                        decimal total = 0;
+                        total = Model.SearchResultList[0][0].SellingPrice;
+                        decimal TotalExtra = 0;
+                        if(Model.Extras.Count > 0)
+                        {
+                            foreach (var item in Model.Extras[0])
+                            {
+                                TotalExtra = TotalExtra + (item.Count * item.Fees);
+                            }
+                        }
+
+
+                        if (Model.SearchResultList.Count > 1)
+                        {
+                            total = total + Model.SearchResultList[1][0].SellingPrice;
+                            if(Model.Extras.Count > 1)
+                            {
+                                foreach (var item in Model.Extras[1])
+                                {
+                                    TotalExtra = TotalExtra + (item.Count * item.Fees);
+                                }
+                            }
+                        }
+
+                        total = total + TotalExtra;
+
+                    }
+
+                    <dl class="total">
+                        <dt>Total</dt>
+                        <dd>@TotalAmount usd</dd>
+                    </dl>
+                </div>
+            </div>
+            <!-- //Widget -->
+        </aside>
+        <!--- //Sidebar -->
+    </div>
+</div>
+

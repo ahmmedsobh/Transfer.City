@@ -12,6 +12,11 @@ namespace Transfer.City.Models.ViewModels
 		string _locationFromName;
 		string _locationToName;
 		DateTime _dateTime;
+		int _carId;
+		List<Extras> _extras;
+		PassengersAndTransferViewModel _passengersAndTransfers;
+		ConfirmationViewModel _confirmation;
+		
 		public int LocationFrom
 		{
 			get { return _locationFrom; }
@@ -75,6 +80,60 @@ namespace Transfer.City.Models.ViewModels
 				}
 			}
 		}
+
+		public int CarId
+		{
+			get { return _carId; }
+			set
+			{
+				if (_carId != value)
+				{
+					_carId = value;
+					PropertyHasChanged("CarId");
+				}
+			}
+		}
+
+		public List<Extras> Extras
+		{
+			get { return _extras; }
+			set
+			{
+				if (_extras != value)
+				{
+					_extras = value;
+					PropertyHasChanged("Extras");
+				}
+			}
+		}
+
+		public PassengersAndTransferViewModel PassengersAndTransfers
+		{
+			get { return _passengersAndTransfers; }
+			set
+			{
+				if (_passengersAndTransfers != value)
+				{
+					_passengersAndTransfers = value;
+					PropertyHasChanged("PassengersAndTransfers");
+				}
+			}
+		}
+
+		public ConfirmationViewModel Confirmation
+		{
+			get { return _confirmation; }
+			set
+			{
+				if (_confirmation != value)
+				{
+					_confirmation = value;
+					PropertyHasChanged("Confirmation");
+				}
+			}
+		}
+
+		
 
 		internal override void AddValidationRules()
 		{

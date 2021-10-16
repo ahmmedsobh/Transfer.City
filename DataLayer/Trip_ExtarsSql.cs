@@ -48,6 +48,7 @@ namespace Transfer.City.DataLayer
 				sqlCommand.Parameters.Add(new SqlParameter("@Trip", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Trip));
 				sqlCommand.Parameters.Add(new SqlParameter("@Extra", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Extra));
 				sqlCommand.Parameters.Add(new SqlParameter("@Info", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Info));
+				sqlCommand.Parameters.Add(new SqlParameter("@RequiredInfoValue", SqlDbType.NVarChar, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.RequiredInfoValue));
 
 								
 				MainConnection.Open();
@@ -89,8 +90,9 @@ namespace Transfer.City.DataLayer
 				sqlCommand.Parameters.Add(new SqlParameter("@Trip", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Trip));
 				sqlCommand.Parameters.Add(new SqlParameter("@Extra", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Extra));
 				sqlCommand.Parameters.Add(new SqlParameter("@Info", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Info));
+                sqlCommand.Parameters.Add(new SqlParameter("@RequiredInfoValue", SqlDbType.NVarChar, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.RequiredInfoValue));
 
-                
+
                 MainConnection.Open();
 
                 sqlCommand.ExecuteNonQuery();
@@ -282,8 +284,8 @@ namespace Transfer.City.DataLayer
 				businessObject.Info = dataReader.GetInt32(dataReader.GetOrdinal(Trip_Extars.Trip_ExtarsFields.Info.ToString()));
 				businessObject.Fees = dataReader.GetDecimal(dataReader.GetOrdinal(Trip_Extars.Trip_ExtarsFields.Fees.ToString()));
                 businessObject.Icon = dataReader.GetString(dataReader.GetOrdinal(Trip_Extars.Trip_ExtarsFields.Icon.ToString()));
-
-            
+                businessObject.RequiredInfoValue = dataReader.GetString(dataReader.GetOrdinal(Trip_Extars.Trip_ExtarsFields.RequiredInfoValue.ToString()));
+                businessObject.Name = dataReader.GetString(dataReader.GetOrdinal(Trip_Extars.Trip_ExtarsFields.Name.ToString()));
         }
 
         /// <summary>

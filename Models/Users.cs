@@ -36,7 +36,7 @@ namespace Transfer.City.Models
 			string _displayName;
 			bool _isAdmin;
 			bool _isCompany;
-			int _isCustomer;
+			bool _isCustomer;
 			DateTime _createdDate;
 			DateTime? _modifiedDate;
 			DateTime? _lastLoginDate;
@@ -153,7 +153,7 @@ namespace Transfer.City.Models
 			 }
 		}
 
-		public int  IsCustomer
+		public bool  IsCustomer
 		{
 			 get { return _isCustomer; }
 			 set

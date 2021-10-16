@@ -195,6 +195,38 @@ namespace Transfer.City.DataLayer
 
         }
 
+        public List<Extras> Booking_ExtrasList(Extras businessObject)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[Booking_ExtrasList]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@CarId", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ID));
+
+
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReader(dataReader);
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
         /// <summary>
         /// Delete by primary key
         /// </summary>
@@ -246,7 +278,7 @@ namespace Transfer.City.DataLayer
         {
 
 
-			businessObject.RowNumber = dataReader.GetInt64(dataReader.GetOrdinal(Extras.ExtrasFields.RowNumber.ToString()));
+			    businessObject.RowNumber = dataReader.GetInt64(dataReader.GetOrdinal(Extras.ExtrasFields.RowNumber.ToString()));
 
 				businessObject.ID = dataReader.GetInt32(dataReader.GetOrdinal(Extras.ExtrasFields.ID.ToString()));
 

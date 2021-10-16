@@ -86,6 +86,10 @@ namespace Transfer.City.BusinessLayer
             return _dataObject.SelectAll();
         }
 
+        public List<Trips> GetByReferenceAndEmail(Trips businessObject)
+        {
+            return _dataObject.SelectByReferenceAndEmail(businessObject);
+        }
         public List<Trips> FilterTrips(Trips trip)
         {
             List<Trips> TripsList = _dataObject.SelectAll();

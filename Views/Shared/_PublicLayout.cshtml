@@ -8,6 +8,7 @@
     <meta name="author" content="themeenergy.com">
 
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/assets/css/tata.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/PublicAssets/css/theme-pink.css" />
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="~/PublicAssets/css/jquery-ui.theme.css" />
@@ -18,7 +19,6 @@
     <link rel="shortcut icon" href="~/PublicAssets/images/favicon.ico" />
     <script src="https://use.fontawesome.com/e808bf9397.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -180,7 +180,73 @@
     <script src="~/PublicAssets/js/jquery-ui-sliderAccess.js"></script>
     <script src="~/PublicAssets/js/search.js"></script>
     <script src="~/PublicAssets/js/scripts.js"></script>
+    <script src="~/assets/js/custom/tata.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        const MessageType = {
+            Success: 0,
+            Information: 1,
+            Error: 2,
+            Warning: 3,
+        }
+
+        function GetMessageTypeValue(messageTypeText) {
+            switch (messageTypeText) {
+                case "success":
+                    return MessageType.Success;
+                    break;
+                case "info":
+                    return MessageType.Information;
+                    break;
+                case "error":
+                    return MessageType.Error;
+                    break;
+                case "warning":
+                    return MessageType.Warning;
+                    break;
+                default:
+            }
+        }
+
+        function ShowMessage(title, body, messageType, postion = 'tm', duration = 3000, closeButton = false, modalSelector = "") {
+
+
+            $(".modal-content").animate({
+                top: "+=70",
+            }, 500);
+
+
+            var options = {
+                position: postion,
+                duration: duration,
+                closeBtn: closeButton,
+                onClose: function () {
+                    $(".modal-content").animate({
+                        top: "-=70",
+                    }, 1000)
+                },
+            }
+
+            switch (messageType) {
+                case MessageType.Information:
+                    tata.info(title, body, options)
+                    break;
+                case MessageType.Success:
+                    tata.success(title, body, options)
+                    break;
+                case MessageType.Warning:
+                    tata.warn(title, body, options)
+                    break;
+                case MessageType.Error:
+                    tata.error(title, body, options)
+                    break;
+                default:
+            }
+        }
+    </script>
+
     @RenderSection("scripts", required: false)
 
 </body>

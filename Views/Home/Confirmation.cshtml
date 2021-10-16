@@ -1,0 +1,379 @@
+﻿@model  Transfer.City.Models.ViewModels.SearchResultViewModel
+@{
+    ViewBag.Title = "Confirmation";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+
+    decimal VehicleBasePrice = 0;
+    VehicleBasePrice = Model.SearchResultList[0][0].SellingPrice;
+    decimal Extras = 0;
+    decimal Discount = 0;
+    decimal SmsMessage = 0;
+    if(Model.Extras.Count > 0)
+    {
+        foreach (var item in Model.Extras[0])
+        {
+            Extras = Extras + (item.Count * item.Fees);
+        }
+    }
+
+
+    if (Model.SearchResultList.Count > 1)
+    {
+        VehicleBasePrice = VehicleBasePrice + Model.SearchResultList[1][0].SellingPrice;
+        if(Model.Extras.Count > 1)
+        {
+            foreach (var item in Model.Extras[1])
+            {
+                Extras = Extras + (item.Count * item.Fees);
+            }
+        }
+    }
+
+    if(Convert.ToBoolean(Model.PassengersAndTransfers[0].SMS))
+    {
+        SmsMessage = 1.75M;
+    }
+
+
+    var SubTotal = VehicleBasePrice - Discount;
+    var TotalAmount = SubTotal + Extras+SmsMessage;
+
+}
+
+<style>
+    .output {
+        margin-top: 80px;
+    }
+
+    .TotalPrice{
+        float:left;
+    }
+
+    .PriceBreakdown
+    {
+        background-color:white;
+    }
+
+    .PriceBreakdownName, .PriceBreakdownValue {
+        padding: 10px !important;
+        font-weight: bold;
+        background-color: white !important;
+    }
+    .PriceBreakdownValue{
+        text-align:right
+    }
+</style>
+<!-- Search -->
+<div class="output color twoway">
+    <div class="wrap">
+
+        <div>
+            <p>@Model.SearchData[0].DateAndTransfer.DateTime.ToShortDateString() <small>at</small> @Model.SearchData[0].DateAndTransfer.DateTime.ToShortTimeString()</p>
+            <p>@Model.SearchData[0].DateAndTransfer.LocationFromName <small>to</small> @Model.SearchData[0].DateAndTransfer.LocationToName</p>
+        </div>
+        @if (Model.SearchData.Count > 1)
+        {
+            <div>
+                <p>@Model.SearchData[1].DateAndTransfer.DateTime.ToShortDateString() <small>at</small> @Model.SearchData[1].DateAndTransfer.DateTime.ToShortTimeString()</p>
+                <p>@Model.SearchData[1].DateAndTransfer.LocationFromName <small>to</small> @Model.SearchData[1].DateAndTransfer.LocationToName</p>
+            </div>
+        }
+
+    </div>
+</div>
+<!-- //Search -->
+
+<div class="wrap">
+    <div class="row">
+        <!--- Content -->
+        <div class="full-width content">
+            <h2>Passenger details</h2>
+            <p>Please ensure all of the required fields are completed at the time of booking. This information is imperative to ensure a smooth journey.<br />All fields are required.</p>
+        </div>
+        <!--- //Content -->
+
+        <div class="three-fourth">
+            <form method="post" action="@Url.Action("Payment","Home")">
+                <input type="hidden" name="DateAndLocations[0].LocationTo" value="@Model.SearchData[0].DateAndTransfer.LocationTo" />
+                <input type="hidden" name="DateAndLocations[0].LocationFrom" value="@Model.SearchData[0].DateAndTransfer.LocationFrom" />
+                <input type="hidden" name="DateAndLocations[0].DateTime" value="@Model.SearchData[0].DateAndTransfer.DateTime" />
+                <input type="hidden" name="DateAndLocations[0].CarId" value="@Model.SearchResultList[0][0].ID" />
+                <input type="hidden" name="PassngersCount" value="@Model.SearchData[0].PassngersCount" />
+
+                @{var index = -1; }
+                @if (Model.Extras.Count > 0)
+                {
+                    foreach (var item in Model.Extras[0])
+                    {
+                        index++;
+
+                        <input type="hidden" name="DateAndLocations[0].Extras[@index].RequiredInfoValue" value="@item.RequiredInfoValue" />
+                        <input type="hidden" name="DateAndLocations[0].Extras[@index].ID" value="@item.ID" />
+                        <input type="hidden" name="DateAndLocations[0].Extras[@index].Count" value="@item.Count" />
+                    }
+                }
+
+
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.ContactName" value="@Model.PassengersAndTransfers[0].ContactName" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.ContactSurname" value="@Model.PassengersAndTransfers[0].ContactSurname" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.EmailAddress" value="@Model.PassengersAndTransfers[0].EmailAddress" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.LeadPassengerMobile" value="@Model.PassengersAndTransfers[0].LeadPassengerMobile" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.SaveQuota" value="@Model.PassengersAndTransfers[0].SaveQuota.ToString()" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.SMS" value="@Model.PassengersAndTransfers[0].SMS.ToString()" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.FromAirline" value="@Model.PassengersAndTransfers[0].FromAirline" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.FromFlightNumber" value="@Model.PassengersAndTransfers[0].FromFlightNumber" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.FromOriginatingAirport" value="@Model.PassengersAndTransfers[0].FromOriginatingAirport" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.FromFlightArrivalTime" value="@Model.PassengersAndTransfers[0].FromFlightArrivalTime" />
+                <input type="hidden" name="DateAndLocations[0].PassengersAndTransfers.ToDropOfPoint" value="@Model.PassengersAndTransfers[0].ToDropOfPoint" />
+
+
+                @if (Model.SearchData.Count > 1)
+                {
+                    <input type="hidden" name="DateAndLocations[1].LocationTo" value="@Model.SearchData[1].DateAndTransfer.LocationTo" />
+                    <input type="hidden" name="DateAndLocations[1].LocationFrom" value="@Model.SearchData[1].DateAndTransfer.LocationFrom" />
+                    <input type="hidden" name="DateAndLocations[1].DateTime" value="@Model.SearchData[1].DateAndTransfer.DateTime" />
+                    <input type="hidden" name="DateAndLocations[1].CarId" value="@Model.SearchResultList[1][0].ID" />
+
+                    index = -1;
+                    if (Model.Extras.Count > 1)
+                    {
+                        foreach (var item in Model.Extras[1])
+                        {
+                            index++;
+                            <input type="hidden" name="DateAndLocations[1].Extras[@index].RequiredInfoValue" value="@item.RequiredInfoValue" />
+                            <input type="hidden" name="DateAndLocations[1].Extras[@index].ID" value="@item.ID" />
+                            <input type="hidden" name="DateAndLocations[1].Extras[@index].Count" value="@item.Count" />
+                        }
+                    }
+
+
+                    <input type="hidden" name="DateAndLocations[1].PassengersAndTransfers.FromOriginatingAirport" value="@Model.PassengersAndTransfers[1].FromOriginatingAirport" />
+                    <input type="hidden" name="DateAndLocations[1].PassengersAndTransfers.FromFlightArrivalTime" value="@Model.PassengersAndTransfers[1].FromFlightArrivalTime" />
+                }
+
+                <h4>Customer details</h4>
+                <div class="f-row">
+                    <div class="one-half">
+                        <label for="CustomerFirstName">Name</label>
+                        <input type="text" id="CustomerFirstName" name="DateAndLocations[0].Confirmation.CustomerFirstName" />
+                    </div>
+                    <div class="one-half">
+                        <label for="CustomerLastName">Family name</label>
+                        <input type="text" id="CustomerLastName" name="DateAndLocations[0].Confirmation.CustomerLastName" />
+                    </div>
+                </div>
+                <div class="f-row">
+                    <div>
+                        <label for="CustomerPhone">Phone</label>
+                        <input type="number" id="CustomerPhone" name="DateAndLocations[0].Confirmation.CustomerPhone" />
+                    </div>
+                </div>
+
+                <h4>Cancellation protection</h4>
+                <div class="f-row">
+                    <input type="checkbox" name="DateAndLocations[0].Confirmation.CancellationProtection" value="true" id="CancellationProtection" />
+                    <label for="CancellationProtection">Only 3.00 for complete peace of mind <a href="#">Show details</a></label>
+                </div>
+
+                <h4>Price breakdown</h4>
+                <div class="f-row PriceBreakdownRow">
+                    <div class="one-fourth PriceBreakdownName">Vehicle base price:</div>
+                    <div  class="three-fourth PriceBreakdownValue">@VehicleBasePrice</div>
+                </div>
+                <div class="f-row PriceBreakdownRow">
+                    <div class="one-fourth PriceBreakdownName">Discount:</div>
+                    <div  class="three-fourth PriceBreakdownValue">@Discount</div>
+                </div>
+                <div class="f-row PriceBreakdownRow">
+                    <div class="one-fourth PriceBreakdownName">Subtotal:</div>
+                    <div  class="three-fourth PriceBreakdownValue">@SubTotal</div>
+                </div>
+                <div class="f-row PriceBreakdownRow">
+                    <div class="one-fourth PriceBreakdownName">Optional extras:</div>
+                    <div  class="three-fourth PriceBreakdownValue">@Extras</div>
+                </div>
+                <div class="f-row PriceBreakdownRow">
+                    <div class="one-fourth PriceBreakdownName">Cancellation protection:</div>
+                    <div  id="CancellationProtectionLable" class="three-fourth PriceBreakdownValue">0</div>
+                </div>
+                <div class="f-row PriceBreakdownRow">
+                    <div class="one-fourth PriceBreakdownName">SMS message confirmation:</div>
+                    <div class="three-fourth PriceBreakdownValue">@SmsMessage</div>
+                </div>
+                <div class="f-row PriceBreakdownRow">
+                    <div class="one-fourth PriceBreakdownName">Total amount to pay:</div>
+                    <div  id="TotalAmountLable" class="three-fourth PriceBreakdownValue">@TotalAmount</div>
+                </div>
+               
+                <br />
+                <h4>Payment method</h4>
+                <div class="f-row">
+                    <div class="one-half">
+                        <label for="PaymentType">Select payment type</label>
+                        <select id="PaymentType" name="DateAndLocations[0].Confirmation.PaymentType">
+                            <option value="1" selected>Paypal</option>
+                            <option value="2">Credit card</option>
+                            <option value="3">Bank transfer</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h4>Terms & conditions</h4>
+                <div class="f-row">
+                    <input type="checkbox" value="true" id="Terms" />
+                    <label for="Terms">I accept the Terms & <a href="#">Conditions</a> and <a href="#">Privacy Policy</a>. </label>
+                </div>
+                <div class="f-row">
+                    <input type="checkbox" name="DateAndLocations[0].Confirmation.Subscribed" value="true" id="Subscribed" />
+                    <label style="width:750px" for="Subscribed">I want to subscribe to DomainName.com’s special deals newsletter to learn about deals that could save me up to 20% on future bookings. Please visit our Privacy Policy. </label>
+                </div>
+
+                <div class="actions">
+                    <a href="booking-step1.html" class="btn medium back">Go back</a>
+                    <button type="submit" class="btn medium color right">Continue</button>
+                </div>
+            </form>
+        </div>
+
+        <!--- Sidebar -->
+        <aside class="one-fourth sidebar right">
+            <!-- Widget -->
+            <div class="widget">
+                <h4>Booking summary</h4>
+                <div class="summary">
+                    <div>
+                        <h5>DEPARTURE</h5>
+                        <dl>
+                            <dt>Date</dt>
+                            <dd>@Model.SearchData[0].DateAndTransfer.DateTime</dd>
+                            <dt>From</dt>
+                            <dd>@Model.SearchData[0].DateAndTransfer.LocationFromName</dd>
+                            <dt>To</dt>
+                            <dd>@Model.SearchData[0].DateAndTransfer.LocationToName</dd>
+                            <dt>Vehicle</dt>
+                            <dd>@Model.SearchResultList[0][0].Name</dd>
+                            <dt>Extras</dt>
+                            <dd>:</dd>
+                            @if (Model.Extras.Count > 0)
+                            {
+                                foreach (var item in Model.Extras[0])
+                                {
+                                    <dt></dt>
+                                    <dd>@item.Count pieces of @item.Name</dd>
+                                }
+                            }
+
+                            <dt>Name</dt>
+                            <dd>@Model.PassengersAndTransfers[0].ContactName</dd>
+                            <dt>Surname</dt>
+                            <dd>@Model.PassengersAndTransfers[0].ContactSurname</dd>
+                            <dt>Email</dt>
+                            <dd>@Model.PassengersAndTransfers[0].EmailAddress</dd>
+                            <dt>Phone</dt>
+                            <dd>@Model.PassengersAndTransfers[0].LeadPassengerMobile</dd>
+                            <dt>Airline</dt>
+                            <dd>@Model.PassengersAndTransfers[0].FromAirline</dd>
+                            <dt style="width:100% !important">Flight Number</dt>
+                            <dd style="width:100% !important">@Model.PassengersAndTransfers[0].FromFlightNumber</dd>
+                            <dt style="width:100% !important">Originating Airport</dt>
+                            <dd style="width:100% !important">@Model.PassengersAndTransfers[0].FromOriginatingAirport</dd>
+                            <dt style="width:100% !important">Flight Arrival Time</dt>
+                            <dd style="width:100% !important">@Model.PassengersAndTransfers[0].FromFlightArrivalTime</dd>
+                            <dt style="width:100% !important">Drop Of Point</dt>
+                            <dd style="width:100% !important">@Model.PassengersAndTransfers[0].ToDropOfPoint</dd>
+                        </dl>
+                    </div>
+                    @if (Model.SearchData.Count > 1)
+                    {
+                        <div>
+                            <h5>RETURN</h5>
+                            <dl>
+                                <dt>Date</dt>
+                                <dd>@Model.SearchData[1].DateAndTransfer.DateTime</dd>
+                                <dt>From</dt>
+                                <dd>@Model.SearchData[1].DateAndTransfer.LocationFromName</dd>
+                                <dt>To</dt>
+                                <dd>@Model.SearchData[1].DateAndTransfer.LocationToName</dd>
+                                <dt>Vehicle</dt>
+                                <dd>@Model.SearchResultList[1][0].Name</dd>
+                                <dt>Extras</dt>
+                                <dd></dd>
+                                @if (Model.Extras.Count > 1)
+                                {
+                                    foreach (var item in Model.Extras[1])
+                                    {
+                                        <dt></dt>
+                                        <dd>@item.Count pieces of @item.Name</dd>
+                                    }
+                                }
+
+                                <dt>Airline</dt>
+                                <dd>@Model.PassengersAndTransfers[1].FromAirline</dd>
+                                <dt style="width:100% !important">Flight Departure Time</dt>
+                                <dd style="width:100% !important">@Model.PassengersAndTransfers[1].FromFlightArrivalTime</dd>
+                            </dl>
+                        </div>
+                    }
+
+                    @{
+                        decimal total = 0;
+                        total = Model.SearchResultList[0][0].SellingPrice;
+                        decimal TotalExtra = 0;
+                        if(Model.Extras.Count > 0)
+                        {
+                            foreach (var item in Model.Extras[0])
+                            {
+                                TotalExtra = TotalExtra + (item.Count * item.Fees);
+                            }
+                        }
+
+
+                        if (Model.SearchResultList.Count > 1)
+                        {
+                            total = total + Model.SearchResultList[1][0].SellingPrice;
+                            if(Model.Extras.Count > 1)
+                            {
+                                foreach (var item in Model.Extras[1])
+                                {
+                                    TotalExtra = TotalExtra + (item.Count * item.Fees);
+                                }
+                            }
+
+                        }
+
+                        total = total + TotalExtra;
+
+                    }
+
+                    <dl class="total">
+                        <dt>Total</dt>
+                        <dd>@total usd</dd>
+                    </dl>
+                </div>
+            </div>
+            <!-- //Widget -->
+        </aside>
+        <!--- //Sidebar -->
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            $(document).on("click", "#CancellationProtection", function () {
+                if ($(this).closest('span').hasClass("checked")) {
+                    $("#CancellationProtectionLable").text("3");
+                    var TotalAmount = $("#TotalAmountLable").text();
+                    $("#TotalAmountLable").text(Number(TotalAmount) + 3);
+                }
+                else {
+                    $("#CancellationProtectionLable").text("0");
+                    var TotalAmount = $("#TotalAmountLable").text();
+                    $("#TotalAmountLable").text(Number(TotalAmount) - 3);
+                }
+            });
+        });
+    </script>
+}
+

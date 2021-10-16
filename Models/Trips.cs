@@ -45,7 +45,9 @@ namespace Transfer.City.Models
 			LocationFromId,
 			LocationToId,
 			CarName,
-			CompanyId
+			CompanyId,
+			CancellationProtection,
+			BookingReference
 
 		}
 		#endregion
@@ -90,7 +92,8 @@ namespace Transfer.City.Models
 			int _locationToId;
 		string _carName;
 		int _companyId;
-
+		decimal _cancellationProtection;
+		string _bookingReference;
 		#endregion
 
 		#region Properties
@@ -587,6 +590,33 @@ namespace Transfer.City.Models
 				}
 			}
 		}
+
+		public decimal CancellationProtection
+		{
+			get { return _cancellationProtection; }
+			set
+			{
+				if (_cancellationProtection != value)
+				{
+					_cancellationProtection = value;
+					PropertyHasChanged("CancellationProtection");
+				}
+			}
+		}
+
+		public string BookingReference
+		{
+			get { return _bookingReference; }
+			set
+			{
+				if (_bookingReference != value)
+				{
+					_bookingReference = value;
+					PropertyHasChanged("BookingReference");
+				}
+			}
+		}
+
 
 		#endregion
 

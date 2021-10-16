@@ -1,26 +1,25 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Data;
+using System.Linq;
+using System.Web;
 using Transfer.City.DataLayer;
 using Transfer.City.Models;
 
 namespace Transfer.City.BusinessLayer
 {
-    public class ExtrasFactory
+    public class TripsKpiFactory
     {
-
         #region data Members
 
-        ExtrasSql _dataObject = null;
+        TripsKpiSql _dataObject = null;
 
         #endregion
 
         #region Constructor
 
-        public ExtrasFactory()
+        public TripsKpiFactory()
         {
-            _dataObject = new ExtrasSql();
+            _dataObject = new TripsKpiSql();
         }
 
         #endregion
@@ -29,11 +28,11 @@ namespace Transfer.City.BusinessLayer
         #region Public Methods
 
         /// <summary>
-        /// Insert new Extras
+        /// Insert new Cars
         /// </summary>
-        /// <param name="businessObject">Extras object</param>
+        /// <param name="businessObject">Cars object</param>
         /// <returns>true for successfully saved</returns>
-        public bool Insert(Extras businessObject)
+        public bool Insert(TripsKpi businessObject)
         {
             if (!businessObject.IsValid)
             {
@@ -46,11 +45,11 @@ namespace Transfer.City.BusinessLayer
         }
 
         /// <summary>
-        /// Update existing Extras
+        /// Update existing Cars
         /// </summary>
-        /// <param name="businessObject">Extras object</param>
+        /// <param name="businessObject">Cars object</param>
         /// <returns>true for successfully saved</returns>
-        public bool Update(Extras businessObject)
+        public bool Update(TripsKpi businessObject)
         {
             if (!businessObject.IsValid)
             {
@@ -62,40 +61,38 @@ namespace Transfer.City.BusinessLayer
         }
 
         /// <summary>
-        /// get Extras by primary key.
+        /// get Cars by primary key.
         /// </summary>
         /// <param name="keys">primary key</param>
         /// <returns>Student</returns>
-        public Extras GetByID(Extras businessObject)
+        public TripsKpi GetByID(TripsKpi businessObject)
         {
-            return _dataObject.SelectByID(businessObject); 
+            return _dataObject.SelectByID(businessObject);
         }
 
         /// <summary>
-        /// get list of all Extrass
+        /// get list of all Carss
         /// </summary>
         /// <returns>list</returns>
-        public List<Extras> GetAll()
+        public List<TripsKpi> GetAll()
         {
-            return _dataObject.SelectAll(); 
+            return _dataObject.SelectAll();
         }
 
-
-        public List<Extras> Booking_ExtrasList(Extras businessObject)
+        public List<TripsKpi> GetByTripId(TripsKpi businessObject)
         {
-            return _dataObject.Booking_ExtrasList(businessObject);
+            return _dataObject.SelectByTripId(businessObject);
         }
         /// <summary>
         /// delete by primary key
         /// </summary>
         /// <param name="keys">primary key</param>
         /// <returns>true for succesfully deleted</returns>
-        public bool Delete(Extras businessObject)
+        public bool Delete(TripsKpi businessObject)
         {
-            return _dataObject.Delete(businessObject); 
+            return _dataObject.Delete(businessObject);
         }
 
         #endregion
-
     }
 }

@@ -1,8 +1,9 @@
-﻿@model  Transfer.City.Models.ViewModels.SearchResultViewModel
+﻿@model Transfer.City.Models.ViewModels.SearchResultViewModel
 @{
-    ViewBag.Title = "Search Result";
+    ViewBag.Title = "SearchResult";
     Layout = "~/Views/Shared/_PublicLayout.cshtml";
 }
+
 
 <style>
     .select2-selection__arrow {
@@ -17,25 +18,26 @@
         line-height: 48px !important;
     }
 
-    .advanced-search
-    {
-        margin-top:80px !important;
+    .advanced-search {
+        margin-top: 80px !important;
     }
 
-    .content
-    {
-        margin-top:50px;
+    .content {
+        margin-top: 50px;
     }
 </style>
 <!-- Search -->
 <div class="advanced-search color" id="booking">
     <div class="wrap">
         <form role="form" id="SearchForm" action="@Url.Action("SearchResult","Home")" method="post">
-            
+
             <!-- Row -->
             <div class="f-row">
                 <input type="hidden" name="DateAndLocations[0].CarId" id="DepartureCarId" />
                 <input type="hidden" name="DateAndLocations[1].CarId" id="ReturnCarId" />
+                <input type="hidden" name="BookingReference" value="@Model.BookingReference[0]" />
+
+                
                 <div class="form-group datepicker one-third">
                     <label for="dep-date">Departure date and time</label>
                     <input type="text" id="dep-date" class="DateTime1" name="DateAndLocations[0].DateTime" value="@Model.SearchData[0].DateAndTransfer.DateTime" />
@@ -137,7 +139,7 @@
         <!--- Content -->
         <div class="full-width content">
             <h2>Select transfer type for your DEPARTURE</h2>
-            <input  type="hidden"/>
+            <input type="hidden" />
             <div class="results" id="DepartureSection">
                 @if (Model.SearchResultList.Count > 0)
                 {
@@ -191,55 +193,55 @@
 
             @if (Model.SearchResultList.Count > 1)
             {
-                <h2 >Select transfer for your RETURN</h2>
+                <h2>Select transfer for your RETURN</h2>
 
-                <div id="ReturnSection" class="results" >
+                <div id="ReturnSection" class="results">
 
 
                     @foreach (var item in Model.SearchResultList[1])
                     {
-                    <!-- Item -->
-                    <article class="result">
-                        <div class="one-fourth heightfix">
-                            @if (item.Img == "false")
-                            {
-                                <img src="/Content/Images/default.png" alt="" />
-                            }
-                            else
-                            {
-                                <img src="/Content/Images/Cars/@item.Img" alt="" />
-                            }
-                        </div>
-                        <div class="one-half heightfix">
-                            <h3>@item.Name <a href="javascript:void(0)" class="trigger color" title="Read more">?</a></h3>
-                            <ul>
-                                <li>
-                                    <span class="icon icon-themeenergy_user-3"></span>
-                                    <p>Max <strong>@item.Max_Passengers people</strong> <br />per vehicle</p>
-                                </li>
-                                <li>
-                                    <span class="icon icon-themeenergy_travel-bag"></span>
-                                    <p>Max <strong>@item.Max_Suitcases suitcases</strong> <br />per vehicle</p>
-                                </li>
-                                <li>
-                                    <span class="icon icon-themeenergy_clock"></span>
-                                    <p>Estimated time <br /><strong>@item.EstimatedTime mins</strong></p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="one-fourth heightfix">
-                            <div>
-                                <div class="price">@item.SellingPrice <small>USD</small></div>
-                                <span class="meta">per passenger</span>
-                                <a href="#" CarId="@item.ID" class="btn grey large SelectReturnCar">select</a>
+                        <!-- Item -->
+                        <article class="result">
+                            <div class="one-fourth heightfix">
+                                @if (item.Img == "false")
+                                {
+                                    <img src="/Content/Images/default.png" alt="" />
+                                }
+                                else
+                                {
+                                    <img src="/Content/Images/Cars/@item.Img" alt="" />
+                                }
                             </div>
-                        </div>
-                        <div class="full-width information">
-                            <a href="javascript:void(0)" class="close color" title="Close">x</a>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                        </div>
-                    </article>
-                    <!-- //Item -->
+                            <div class="one-half heightfix">
+                                <h3>@item.Name <a href="javascript:void(0)" class="trigger color" title="Read more">?</a></h3>
+                                <ul>
+                                    <li>
+                                        <span class="icon icon-themeenergy_user-3"></span>
+                                        <p>Max <strong>@item.Max_Passengers people</strong> <br />per vehicle</p>
+                                    </li>
+                                    <li>
+                                        <span class="icon icon-themeenergy_travel-bag"></span>
+                                        <p>Max <strong>@item.Max_Suitcases suitcases</strong> <br />per vehicle</p>
+                                    </li>
+                                    <li>
+                                        <span class="icon icon-themeenergy_clock"></span>
+                                        <p>Estimated time <br /><strong>@item.EstimatedTime mins</strong></p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="one-fourth heightfix">
+                                <div>
+                                    <div class="price">@item.SellingPrice <small>USD</small></div>
+                                    <span class="meta">per passenger</span>
+                                    <a href="#" CarId="@item.ID" class="btn grey large SelectReturnCar">select</a>
+                                </div>
+                            </div>
+                            <div class="full-width information">
+                                <a href="javascript:void(0)" class="close color" title="Close">x</a>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                            </div>
+                        </article>
+                        <!-- //Item -->
                     }
                 </div>
             }
@@ -263,7 +265,7 @@
             })
 
             $(document).on("click", "#FindTransferBtn", function () {
-                $("#SearchForm").attr("action", "/Home/SearchResult");
+                $("#SearchForm").attr("action", "/Customer/Home/SearchResult");
             });
 
 
@@ -274,7 +276,7 @@
                     $(this).attr("href", "#ReturnSection");
                 }
                 else {
-                    $("#SearchForm").attr("action","/Home/ChooseExtras");
+                    $("#SearchForm").attr("action","/Customer/Home/ChooseExtras");
                     $("#SearchForm").submit();
                 }
             });
@@ -284,7 +286,7 @@
             $(document).on("click", ".SelectReturnCar", function () {
                 var CarId = $(this).attr("CarId");
                 $("#ReturnCarId").val(CarId);
-                $("#SearchForm").attr("action", "/Home/ChooseExtras");
+                $("#SearchForm").attr("action", "/Customer/Home/ChooseExtras");
                 if ($("#DepartureCarId").val() != "") {
                     $("#SearchForm").submit();
                 }
@@ -422,4 +424,6 @@
 
     </script>
 }
+
+
 

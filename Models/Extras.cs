@@ -21,7 +21,9 @@ namespace Transfer.City.Models
 			RequiredInfoDescription,
 			Count,
 			ExtraType,
-			File
+			File,
+			RequiredInfoValue,
+
 		}
 		#endregion
 
@@ -38,6 +40,7 @@ namespace Transfer.City.Models
 		int _count;
 		bool _extraType;
 		HttpPostedFileBase _file;
+		string _requiredInfoValue;
 		#endregion
 
 		#region Properties
@@ -184,6 +187,20 @@ namespace Transfer.City.Models
 				}
 			}
 		}
+
+		public string RequiredInfoValue
+		{
+			get { return _requiredInfoValue; }
+			set
+			{
+				if (_requiredInfoValue != value)
+				{
+					_requiredInfoValue = value;
+					PropertyHasChanged("RequiredInfoValue");
+				}
+			}
+		}
+
 
 
 		#endregion

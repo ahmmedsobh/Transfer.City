@@ -1,0 +1,183 @@
+﻿@model List<Transfer.City.Models.TripsKpi>
+@{
+    ViewBag.Title = "Trip Survey";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<h2>TripSurvey</h2>
+<style>
+    .site-title {
+        margin-top: 80px;
+    }
+    .slidecontainer {
+        width: 20%;
+    }
+
+    .slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 15px;
+        border-radius: 5px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #CC2262;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #CC2262;
+            cursor: pointer;
+        }
+
+        .Description , .Details
+        {
+            height:120px !important;
+            width:40% !important;
+        }
+
+    .actions
+    {
+        padding:20px;
+    }
+</style>
+
+
+
+
+<!-- Page info -->
+<header class="site-title color">
+    <div class="wrap">
+        <div class="container">
+            <h1>Trip Survey</h1>
+            <nav role="navigation" class="breadcrumbs">
+                <ul>
+                    <li><a href="/Home" title="Home">Home</a></li>
+                    <li>Trip Survey</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<!-- //Page info -->
+
+
+<div class="wrap">
+    <div class="row">
+        <!--- Content -->
+        <div class="full-width content">
+            <!-- Post -->
+            <form method="post" action="@Url.Action("TripSurvey", "Home")" id="SurveyForm">
+                <article class="single hentry">
+                    <div class="entry-content">
+                        <h2>Trip Survey</h2>
+                        @{var index = -1; }
+                        @foreach (var item in Model)
+                        {
+                            index++;
+
+                            <div class="part">
+                                <div class="f-row">
+                                    <label>@item.Name</label>
+                                    <div class="slidecontainer">
+                                        <input name="model[@index].Value" type="range" min="1" step="0.5" max="5" value="0" class="slider" id="myRange">
+                                        <input type="hidden" name="model[@index].ReferenceId" value="@item.ReferenceId" />
+                                        <input type="hidden" name="model[@index].KpiId" value="@item.KpiId" />
+                                        <p>Value: <span class="ShowValue"></span></p>
+                                    </div>
+                                </div>
+                                <div class="BadRaitingSection" style="display:none">
+                                    <div class="f-row">
+                                        <div>
+                                            <label for="comments">Why did you rate this review</label>
+                                            <textarea name="model[@index].Decription" class="Description"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="f-row">
+                                        <div>
+                                            <label for="comments">Your suggestions for better service</label>
+                                            <textarea name="model[@index].Details" class="Details"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                           
+                        }
+
+                    </div>
+                    <div class="actions">
+                        <a href="/Customer/Home" class="btn medium back">Go back</a>
+                        <button type="submit" class="btn medium color">Submit</button>
+                    </div>
+                </article>
+              
+            </form>
+            
+            <!-- //Post -->
+        </div>
+        <!--- //Content -->
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).on("input", ".slider", function () {
+            $(this).closest('div').find('.ShowValue').text($(this).val());
+
+            var Section = $(this).closest('.part').find('.BadRaitingSection');
+            var Description = $(this).closest('.part').find('.Description');
+            var Details = $(this).closest('.part').find('.Details');
+            if ($(this).val() < 2.5) {
+                $(Section).attr("style", "display:block")
+                $(Description).attr("required", "required");
+                $(Details).attr("required", "required");
+            }
+            else {
+                $(Section).attr("style", "display:none")
+                $(Description).attr("required", false);
+                $(Details).attr("required", false);
+            }
+        });
+
+        $(document).on("submit", "#SurveyForm", function (e) {
+            $(".slider").each(function (index, item) {
+                var Section = $(this).closest('.part').find('.BadRaitingSection');
+                var Description = $(this).closest('.part').find('.Description');
+                var Details = $(this).closest('.part').find('.Details');
+
+                if ($(item).val() < 2.5) {
+                    $(Section).attr("style", "display:block")
+                    $(Description).attr("required", "required");
+                    $(Details).attr("required", "required");
+                    e.preventDefault();
+                    return;
+                }
+                else {
+                    $(Section).attr("style", "display:none")
+                    $(Description).attr("required", false);
+                    $(Details).attr("required", false);
+                }
+            });
+        });
+
+    </script>
+}

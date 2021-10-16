@@ -51,7 +51,7 @@ namespace Transfer.City.DataLayer
 				sqlCommand.Parameters.Add(new SqlParameter("@DisplayName", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DisplayName));
 				sqlCommand.Parameters.Add(new SqlParameter("@IsAdmin", SqlDbType.Bit, 1, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.IsAdmin));
 				sqlCommand.Parameters.Add(new SqlParameter("@IsCompany", SqlDbType.Bit, 1, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.IsCompany));
-				sqlCommand.Parameters.Add(new SqlParameter("@IsCustomer", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.IsCustomer));
+				sqlCommand.Parameters.Add(new SqlParameter("@IsCustomer", SqlDbType.Bit, 1, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.IsCustomer));
 				sqlCommand.Parameters.Add(new SqlParameter("@CreatedDate", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CreatedDate));
 				sqlCommand.Parameters.Add(new SqlParameter("@ModifiedDate", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ModifiedDate));
 				sqlCommand.Parameters.Add(new SqlParameter("@LastLoginDate", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.LastLoginDate));
@@ -102,7 +102,7 @@ namespace Transfer.City.DataLayer
 				sqlCommand.Parameters.Add(new SqlParameter("@DisplayName", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DisplayName));
 				sqlCommand.Parameters.Add(new SqlParameter("@IsAdmin", SqlDbType.Bit, 1, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.IsAdmin));
 				sqlCommand.Parameters.Add(new SqlParameter("@IsCompany", SqlDbType.Bit, 1, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.IsCompany));
-				sqlCommand.Parameters.Add(new SqlParameter("@IsCustomer", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.IsCustomer));
+				sqlCommand.Parameters.Add(new SqlParameter("@IsCustomer", SqlDbType.Bit, 1, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.IsCustomer));
 				sqlCommand.Parameters.Add(new SqlParameter("@CreatedDate", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CreatedDate));
 				sqlCommand.Parameters.Add(new SqlParameter("@ModifiedDate", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ModifiedDate));
 				sqlCommand.Parameters.Add(new SqlParameter("@LastLoginDate", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.LastLoginDate));
@@ -277,7 +277,7 @@ namespace Transfer.City.DataLayer
                     return null;
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 return null;
             }
@@ -422,7 +422,7 @@ namespace Transfer.City.DataLayer
 
 				businessObject.IsCompany = dataReader.GetBoolean(dataReader.GetOrdinal(Users.UsersFields.IsCompany.ToString()));
 
-				businessObject.IsCustomer = dataReader.GetInt32(dataReader.GetOrdinal(Users.UsersFields.IsCustomer.ToString()));
+				businessObject.IsCustomer = dataReader.GetBoolean(dataReader.GetOrdinal(Users.UsersFields.IsCustomer.ToString()));
 
 				businessObject.CreatedDate = dataReader.GetDateTime(dataReader.GetOrdinal(Users.UsersFields.CreatedDate.ToString()));
 

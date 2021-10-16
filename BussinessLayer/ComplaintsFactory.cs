@@ -1,39 +1,37 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Data;
+using System.Linq;
+using System.Web;
 using Transfer.City.DataLayer;
 using Transfer.City.Models;
 
 namespace Transfer.City.BusinessLayer
 {
-    public class ExtrasFactory
+    public class ComplaintsFactory
     {
-
         #region data Members
 
-        ExtrasSql _dataObject = null;
+        ComplaintsSql _dataObject = null;
 
         #endregion
 
         #region Constructor
 
-        public ExtrasFactory()
+        public ComplaintsFactory()
         {
-            _dataObject = new ExtrasSql();
+            _dataObject = new ComplaintsSql();
         }
 
         #endregion
 
-
         #region Public Methods
 
         /// <summary>
-        /// Insert new Extras
+        /// Insert new Cars
         /// </summary>
-        /// <param name="businessObject">Extras object</param>
+        /// <param name="businessObject">Cars object</param>
         /// <returns>true for successfully saved</returns>
-        public bool Insert(Extras businessObject)
+        public bool Insert(Complaints businessObject)
         {
             if (!businessObject.IsValid)
             {
@@ -46,11 +44,11 @@ namespace Transfer.City.BusinessLayer
         }
 
         /// <summary>
-        /// Update existing Extras
+        /// Update existing Cars
         /// </summary>
-        /// <param name="businessObject">Extras object</param>
+        /// <param name="businessObject">Cars object</param>
         /// <returns>true for successfully saved</returns>
-        public bool Update(Extras businessObject)
+        public bool Update(Complaints businessObject)
         {
             if (!businessObject.IsValid)
             {
@@ -62,40 +60,34 @@ namespace Transfer.City.BusinessLayer
         }
 
         /// <summary>
-        /// get Extras by primary key.
+        /// get Cars by primary key.
         /// </summary>
         /// <param name="keys">primary key</param>
         /// <returns>Student</returns>
-        public Extras GetByID(Extras businessObject)
+        public Complaints GetByID(Complaints businessObject)
         {
-            return _dataObject.SelectByID(businessObject); 
+            return _dataObject.SelectByID(businessObject);
         }
 
         /// <summary>
-        /// get list of all Extrass
+        /// get list of all Carss
         /// </summary>
         /// <returns>list</returns>
-        public List<Extras> GetAll()
+        public List<Complaints> GetAll()
         {
-            return _dataObject.SelectAll(); 
+            return _dataObject.SelectAll();
         }
 
-
-        public List<Extras> Booking_ExtrasList(Extras businessObject)
-        {
-            return _dataObject.Booking_ExtrasList(businessObject);
-        }
         /// <summary>
         /// delete by primary key
         /// </summary>
         /// <param name="keys">primary key</param>
         /// <returns>true for succesfully deleted</returns>
-        public bool Delete(Extras businessObject)
+        public bool Delete(Complaints businessObject)
         {
-            return _dataObject.Delete(businessObject); 
+            return _dataObject.Delete(businessObject);
         }
 
         #endregion
-
     }
 }

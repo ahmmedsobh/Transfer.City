@@ -39,7 +39,7 @@ namespace Transfer.City.Models
 		int _locationTo;
 		int _passngersCount;
 		bool _tripType;
-		List<SelectDataAndTransferViewModel> _dateAndTransfer;
+		SelectDataAndTransferViewModel _dateAndTransfer;
 		#endregion
 
 		#region Properties
@@ -201,7 +201,7 @@ namespace Transfer.City.Models
 			}
 		}
 
-		public List<SelectDataAndTransferViewModel> DateAndTransfer
+		public SelectDataAndTransferViewModel DateAndTransfer
 		{
 			get { return _dateAndTransfer; }
 			set

@@ -131,10 +131,15 @@
     <Compile Include="Areas\Company\Controllers\HomeController.cs" />
     <Compile Include="Areas\Company\Controllers\TripsController.cs" />
     <Compile Include="Areas\Company\Models\ViewModel\ChangePasswordViewModel.cs" />
+    <Compile Include="Areas\Customer\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Customer\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Customer\CustomerAreaRegistration.cs" />
+    <Compile Include="Areas\Customer\Models\ViewModels\MyBookingViewModels.cs" />
     <Compile Include="BussinessLayer\CarsFactory.cs" />
     <Compile Include="BussinessLayer\CompaniesFactory.cs" />
     <Compile Include="BussinessLayer\Company_CarsFactory.cs" />
     <Compile Include="BussinessLayer\Company_LocationsFactory.cs" />
+    <Compile Include="BussinessLayer\ComplaintsFactory.cs" />
     <Compile Include="BussinessLayer\CountriesFactory.cs" />
     <Compile Include="BussinessLayer\CurrenciesFactory.cs" />
     <Compile Include="BussinessLayer\CustomerPricesFactory.cs" />
@@ -142,6 +147,7 @@
     <Compile Include="BussinessLayer\Extra_CarsFactory.cs" />
     <Compile Include="BussinessLayer\FindTransferFactory.cs" />
     <Compile Include="BussinessLayer\GeneralTransfersFactory.cs" />
+    <Compile Include="BussinessLayer\KpiFactory.cs" />
     <Compile Include="BussinessLayer\LanguagesFactory.cs" />
     <Compile Include="BussinessLayer\LocationsFactory.cs" />
     <Compile Include="BussinessLayer\PermissionsFactory.cs" />
@@ -150,6 +156,7 @@
     <Compile Include="BussinessLayer\TransferInvitationsFactory.cs" />
     <Compile Include="BussinessLayer\TranslatesFactory.cs" />
     <Compile Include="BussinessLayer\TripsFactory.cs" />
+    <Compile Include="BussinessLayer\TripsKpiFactory.cs" />
     <Compile Include="BussinessLayer\Trip_ExtarsFactory.cs" />
     <Compile Include="BussinessLayer\UserAgentsFactory.cs" />
     <Compile Include="BussinessLayer\UserLoginLogFactory.cs" />
@@ -173,6 +180,7 @@
     <Compile Include="DataLayer\CompaniesSql.cs" />
     <Compile Include="DataLayer\Company_CarsSql.cs" />
     <Compile Include="DataLayer\Company_LocationsSql.cs" />
+    <Compile Include="DataLayer\ComplaintsSql.cs" />
     <Compile Include="DataLayer\CountriesSql.cs" />
     <Compile Include="DataLayer\CurrenciesSql.cs" />
     <Compile Include="DataLayer\CustomerPricesSql.cs" />
@@ -181,6 +189,7 @@
     <Compile Include="DataLayer\Extra_CarSql.cs" />
     <Compile Include="DataLayer\FindTransferSql.cs" />
     <Compile Include="DataLayer\GeneralTransfersSql.cs" />
+    <Compile Include="DataLayer\KpiSql.cs" />
     <Compile Include="DataLayer\LanguagesSql.cs" />
     <Compile Include="DataLayer\LocationsSql.cs" />
     <Compile Include="DataLayer\PermissionsSql.cs" />
@@ -188,6 +197,7 @@
     <Compile Include="DataLayer\SiteInfoSql.cs" />
     <Compile Include="DataLayer\TransferInvitationsSql.cs" />
     <Compile Include="DataLayer\TranslatesSql.cs" />
+    <Compile Include="DataLayer\TripsKpiSql.cs" />
     <Compile Include="DataLayer\TripsSql.cs" />
     <Compile Include="DataLayer\Trip_ExtarsSql.cs" />
     <Compile Include="DataLayer\UserAgentsSql.cs" />
@@ -209,6 +219,7 @@
     <Compile Include="Models\Companies.cs" />
     <Compile Include="Models\Company_Cars.cs" />
     <Compile Include="Models\Company_Locations.cs" />
+    <Compile Include="Models\Complaints.cs" />
     <Compile Include="Models\Countries.cs" />
     <Compile Include="Models\Currencies.cs" />
     <Compile Include="Models\Customer_Prices.cs" />
@@ -237,6 +248,7 @@
     <Compile Include="Models\Keys\UserLoginLogKeys.cs" />
     <Compile Include="Models\Keys\UserPermissionsKeys.cs" />
     <Compile Include="Models\Keys\UsersKeys.cs" />
+    <Compile Include="Models\Kpi.cs" />
     <Compile Include="Models\Languages.cs" />
     <Compile Include="Models\Locations.cs" />
     <Compile Include="Models\Permissions.cs" />
@@ -246,6 +258,7 @@
     <Compile Include="Models\TransferInvitations.cs" />
     <Compile Include="Models\Translates.cs" />
     <Compile Include="Models\Trips.cs" />
+    <Compile Include="Models\TripsKpi.cs" />
     <Compile Include="Models\Trip_Extars.cs" />
     <Compile Include="Models\UserAgents.cs" />
     <Compile Include="Models\UserLoginLog.cs" />
@@ -253,11 +266,14 @@
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\ViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="Models\ViewModels\CompanyViewModel.cs" />
+    <Compile Include="Models\ViewModels\ConfirmationViewModel.cs" />
     <Compile Include="Models\ViewModels\CustomerPricesViewModel.cs" />
     <Compile Include="Models\ViewModels\DropdownViewModel.cs" />
     <Compile Include="Models\ViewModels\FindResultViewModel.cs" />
     <Compile Include="Models\ViewModels\InvitationsViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Models\ViewModels\PassengersAndTransferViewModel.cs" />
+    <Compile Include="Models\ViewModels\PaymentViewModel.cs" />
     <Compile Include="Models\ViewModels\SearchResultViewModel.cs" />
     <Compile Include="Models\ViewModels\SelectDataAndTransferViewModel.cs" />
     <Compile Include="Models\ViewModels\TripsViewModel.cs" />
@@ -2470,6 +2486,17 @@
     <Content Include="Areas\Company\Views\Trips\Index.cshtml" />
     <Content Include="Areas\Company\Views\Trips\Details.cshtml" />
     <Content Include="PublicAssets\fonts\fonts\themeenergy.eot" />
+    <Content Include="Areas\Customer\Views\web.config" />
+    <Content Include="Areas\Customer\Views\Account\LoginByReference.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Customer\Views\Account\Login.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\SearchResult.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\ChooseExtras.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\PassngersAndTransfers.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\Confirmation.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\SaveData.cshtml" />
+    <Content Include="Areas\Customer\Views\Account\Register.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\TripSurvey.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2523,10 +2550,17 @@
     <Content Include="Views\Shared\_PublicLayout.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Home\SearchResult.cshtml" />
+    <Content Include="Views\Home\ChooseExtras.cshtml" />
+    <Content Include="Views\Home\PassngersAndTransfers.cshtml" />
+    <Content Include="Views\Home\Confirmation.cshtml" />
+    <Content Include="Views\Home\Payment.cshtml" />
+    <Content Include="Views\Home\SaveDate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Company\Data\" />
+    <Folder Include="Areas\Customer\Data\" />
+    <Folder Include="Areas\Customer\Views\Shared\" />
     <Folder Include="Content\Images\Cars\" />
     <Folder Include="Content\Images\Extras\" />
     <Folder Include="Views\Base\" />
