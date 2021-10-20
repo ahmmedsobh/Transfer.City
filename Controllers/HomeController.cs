@@ -17,6 +17,34 @@ namespace Transfer.City.Controllers
         {
             return View();
         }
+
+        public ActionResult Overview()
+        {
+            OverviewViewModel model = new OverviewViewModel();
+            model.CarsCount = Cars.GetAll().Count;
+            model.CountriesCount = Countries.GetAll().Count;
+            model.LocationsCount = Locations.GetAll().Count;
+            model.TransfersCount = Transfers.GetAll().Count;
+            model.CurrenciesCount = Currencies.GetAll().Count;
+            model.kpiCount = KpiFactory.GetAll().Count;
+
+            model.CompanyTotalCount = Companies.GetAll().Count;
+            model.CompanyApprovedCount = Companies.GetAll().Where(c => c.ApprovedDate != null).ToList().Count;
+            model.CompanyNotApprovedCount = Companies.GetAll().Where(c => c.ApprovedDate == null).ToList().Count;
+
+            model.TripsWaitCount = Trips.GetAll().Where(t => t.TripStatus == 0).ToList().Count;
+            model.TripsInProgressCount = Trips.GetAll().Where(t => t.TripStatus == 8).ToList().Count;
+            model.TripsDoneCount = Trips.GetAll().Where(t => t.TripStatus > 8).ToList().Count;
+
+            model.InvitationsSentCount = TripsInvitations.GetAll().Where(i => i.AcceptionStatus == 5).ToList().Count;
+            model.InvitationsAcceptedCount = TripsInvitations.GetAll().Where(i => i.AcceptionStatus == 6).ToList().Count;
+            model.InvitationsRefusedCount = TripsInvitations.GetAll().Where(i => i.AcceptionStatus == 7).ToList().Count;
+
+            model.UsersTotalCount = Users.GetAll().Count;
+            model.UsersEnabledCount = Users.GetAll().Where(u => u.IsEnabled).ToList().Count;
+            model.UsersNotEnabledCount = Users.GetAll().Where(u => u.IsEnabled == false).ToList().Count;
+            return View(model);
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -946,7 +974,5 @@ namespace Transfer.City.Controllers
 
 
         }
-
-
     }
 }

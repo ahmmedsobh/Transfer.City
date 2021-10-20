@@ -1,8 +1,6 @@
-﻿@{
-    ViewBag.Title = "Transfers";
+﻿@{ 
+    ViewBag.Title = "Kpi list";
 }
-
-@model GeneralTransfers
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
@@ -12,7 +10,7 @@
             <!--begin::Page title-->
             <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                 <!--begin::Title-->
-                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Transfers List</h1>
+                <h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-3">Kpi List</h1>
                 <!--end::Title-->
                 <!--begin::Separator-->
                 <span class="h-20px border-gray-200 border-start mx-4"></span>
@@ -30,7 +28,7 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">Transfers</li>
+                    <li class="breadcrumb-item text-muted">Kpies</li>
                     <!--end::Item-->
                     <!--begin::Item-->
                     <li class="breadcrumb-item">
@@ -38,7 +36,7 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-dark">Transfer Listing</li>
+                    <li class="breadcrumb-item text-dark">Kpi Listing</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -62,9 +60,17 @@
                     <div class="card-title">
                         <!--begin::Search-->
                         <div class="d-flex align-items-center position-relative my-1">
+                            <!--begin::Svg Icon | path: icons/duotone/General/Search.svg-->
                             <span class="svg-icon svg-icon-1 position-absolute ms-6">
-                                @Html.Raw(SVG_General.Search.GetMyDescription())
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24" />
+                                        <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                        <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
+                                    </g>
+                                </svg>
                             </span>
+                            <!--end::Svg Icon-->
                             <input type="text" id="tableSearchInput" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-15" placeholder="Search" />
                         </div>
                         <!--end::Search-->
@@ -79,7 +85,14 @@
                             <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#export_modal">
                                 <!--begin::Svg Icon | path: icons/duotone/Files/Export.svg-->
                                 <span class="svg-icon svg-icon-2">
-                                    @Html.Raw(SVG_Files.Export.GetMyDescription())
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24" />
+                                            <path d="M17,8 C16.4477153,8 16,7.55228475 16,7 C16,6.44771525 16.4477153,6 17,6 L18,6 C20.209139,6 22,7.790861 22,10 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,9.99305689 C2,7.7839179 3.790861,5.99305689 6,5.99305689 L7.00000482,5.99305689 C7.55228957,5.99305689 8.00000482,6.44077214 8.00000482,6.99305689 C8.00000482,7.54534164 7.55228957,7.99305689 7.00000482,7.99305689 L6,7.99305689 C4.8954305,7.99305689 4,8.88848739 4,9.99305689 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,10 C20,8.8954305 19.1045695,8 18,8 L17,8 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                            <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 8.000000) scale(1, -1) rotate(-180.000000) translate(-12.000000, -8.000000)" x="11" y="2" width="2" height="12" rx="1" />
+                                            <path d="M12,2.58578644 L14.2928932,0.292893219 C14.6834175,-0.0976310729 15.3165825,-0.0976310729 15.7071068,0.292893219 C16.0976311,0.683417511 16.0976311,1.31658249 15.7071068,1.70710678 L12.7071068,4.70710678 C12.3165825,5.09763107 11.6834175,5.09763107 11.2928932,4.70710678 L8.29289322,1.70710678 C7.90236893,1.31658249 7.90236893,0.683417511 8.29289322,0.292893219 C8.68341751,-0.0976310729 9.31658249,-0.0976310729 9.70710678,0.292893219 L12,2.58578644 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 2.500000) scale(1, -1) translate(-12.000000, -2.500000)" />
+                                        </g>
+                                    </svg>
                                 </span>
                                 <!--end::Svg Icon-->Export
                             </button>
@@ -88,21 +101,17 @@
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_modal">
                                 <!--begin::Svg Icon | path: icons/duotone/Navigation/Plus.svg-->
                                 <span class="svg-icon svg-icon-2">
-                                    @Html.Raw(SVG_Navigation.Plus.GetMyDescription())
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1" />
+                                        <rect fill="#000000" opacity="0.5" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)" x="4" y="11" width="16" height="2" rx="1" />
+                                    </svg>
                                 </span>
-                                <!--end::Svg Icon-->Add Transfer
+                                <!--end::Svg Icon-->Add Kpi
                             </button>
                             <!--end::Add Country-->
                         </div>
                         <!--end::Toolbar-->
-                        <!--begin::Group actions-->
-                        <div class="d-flex justify-content-end align-items-center d-none" data-kt-customer-table-toolbar="selected">
-                            <div class="fw-bolder me-5">
-                                <span class="me-2" data-kt-customer-table-select="selected_count"></span>Selected
-                            </div>
-                            <button type="button" class="btn btn-danger" data-kt-customer-table-select="delete_selected">Delete Selected</button>
-                        </div>
-                        <!--end::Group actions-->
+                      
                     </div>
                     <!--end::Card toolbar-->
                 </div>
@@ -115,18 +124,16 @@
                         <thead>
                             <!--begin::Table row-->
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                <th class="min-w-125px">To Location</th>
-                                <th class="min-w-125px">From Location</th>
-                                <th class="min-w-125px">Estimated Distance</th>
-                                <th class="min-w-125px">Estimated Time</th>
+                                <th class="min-w-125px">Name</th>
+                                <th class="min-w-125px">Weight</th>
                                 <th class="text-end min-w-70px">Actions</th>
                             </tr>
                             <!--end::Table row-->
                         </thead>
                         <!--end::Table head-->
                         <!--begin::Table body-->
-                        @*<tbody class="fw-bold text-gray-600">
-                            </tbody>*@
+                        <tbody class="fw-bold text-gray-600">
+                        </tbody>
                         <!--end::Table body-->
                     </table>
 
@@ -149,7 +156,7 @@
                             <!--begin::Modal header-->
                             <div class="modal-header" id="modal_add_header">
                                 <!--begin::Modal title-->
-                                <h2 class="fw-bolder">Add a Transfer</h2>
+                                <h2 class="fw-bolder">Add a kpi</h2>
                                 <!--end::Modal title-->
                                 <!--begin::Close-->
                                 <div id="modal_add_close" class="btn btn-icon btn-sm btn-active-icon-primary " data-bs-dismiss="modal">
@@ -174,66 +181,25 @@
                                     <div class="row g-9 mb-7">
                                         <!--begin::Col-->
                                         <div class="col-md-6 fv-row">
-                                            <!--begin::Input group-->
-                                            <div class="d-flex flex-column mb-5 fv-row">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Location From</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Select-->
-                                                <select name="LocationFrom" data-control="select2" data-dropdown-parent="#add_modal" data-placeholder="Select Location From..." class="form-select form-select-solid LocationFrom Location">
-                                                </select>
-                                                <!--end::Select-->
-                                            </div>
-                                            <!--end::Input group-->
-                                        </div>
-                                        <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Input group-->
-                                            <div class="d-flex flex-column mb-5 fv-row">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Location To</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Select-->
-                                                <select name="LocationTo" data-control="select2" data-dropdown-parent="#add_modal" data-placeholder="Select Location To..." class="form-select form-select-solid LocationTo Location">
-                                                </select>
-                                                <!--end::Select-->
-                                            </div>
-                                            <!--end::Input group-->
-                                        </div>
-                                        <!--end::Col-->
-
-
-
-                                    </div>
-                                    <div class="row g-9 mb-7">
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
                                             <!--begin::Label-->
-                                            <label class="required fs-6 fw-bold mb-2">Estimated Distance</label>
+                                            <label class="required fs-6 fw-bold mb-2">Name</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <input class="form-control form-control-solid EstimatedDistance" placeholder="Estimated Distance" name="EstimatedDistance" />
+                                            <input class="form-control form-control-solid Name" placeholder="Kpi Name" name="Name" />
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Col-->
                                         <!--begin::Col-->
                                         <div class="col-md-6 fv-row">
                                             <!--begin::Label-->
-                                            <label class="required fs-6 fw-bold mb-2">Estimated Time</label>
+                                            <label class="required fs-6 fw-bold mb-2">Weight</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <input class="form-control form-control-solid EstimatedTime" placeholder="Estimated Time" name="EstimatedTime" />
+                                            <input class="form-control form-control-solid Weight" placeholder="Weight" name="Weight" />
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Col-->
                                     </div>
-
-
 
                                 </div>
                                 <!--end::Scroll-->
@@ -275,7 +241,7 @@
                             <!--begin::Modal header-->
                             <div class="modal-header" id="modal_edit_header">
                                 <!--begin::Modal title-->
-                                <h2 class="fw-bolder">Edit Country</h2>
+                                <h2 class="fw-bolder">Edit kpi</h2>
                                 <!--end::Modal title-->
                                 <!--begin::Close-->
                                 <div id="modal_edit_close" class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
@@ -300,61 +266,26 @@
                                     <div class="row g-9 mb-7">
                                         <!--begin::Col-->
                                         <div class="col-md-6 fv-row">
-                                            <!--begin::Input group-->
-                                            <div class="d-flex flex-column mb-5 fv-row">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Location From</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Select-->
-                                                <select name="LocationFrom" data-control="select2" data-dropdown-parent="#edit_modal" data-placeholder="Select Location From..." class="form-select form-select-solid LocationFrom Location">
-                                                </select>
-                                                <!--end::Select-->
-                                            </div>
-                                            <!--end::Input group-->
-                                        </div>
-                                        <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Input group-->
-                                            <div class="d-flex flex-column mb-5 fv-row">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Location To</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Select-->
-                                                <select name="LocationTo" data-control="select2" data-dropdown-parent="#edit_modal" data-placeholder="Select Location To..." class="form-select form-select-solid LocationTo Location">
-                                                </select>
-                                                <!--end::Select-->
-                                            </div>
-                                            <!--end::Input group-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <div class="row g-9 mb-7">
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
                                             <!--begin::Label-->
-                                            <label class="required fs-6 fw-bold mb-2">Estimated Distance</label>
+                                            <label class="required fs-6 fw-bold mb-2">Name</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <input class="form-control form-control-solid EstimatedDistance" placeholder="Estimated Distance" name="EstimatedDistance" />
+                                            <input class="form-control form-control-solid Name" placeholder="Currency Name" name="Name" />
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Col-->
                                         <!--begin::Col-->
                                         <div class="col-md-6 fv-row">
                                             <!--begin::Label-->
-                                            <label class="required fs-6 fw-bold mb-2">Estimated Time</label>
+                                            <label class="required fs-6 fw-bold mb-2">Weight</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <input class="form-control form-control-solid EstimatedTime" placeholder="Estimated Time" name="EstimatedTime" />
+                                            <input class="form-control form-control-solid Weight" placeholder="Weight" name="Weight" />
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Col-->
                                     </div>
+
                                 </div>
                                 <!--end::Scroll-->
                             </div>
@@ -395,7 +326,7 @@
                             <!--begin::Modal header-->
                             <div class="modal-header" id="modal_view_header">
                                 <!--begin::Modal title-->
-                                <h2 class="fw-bolder">view Country</h2>
+                                <h2 class="fw-bolder">View Kpi</h2>
                                 <!--end::Modal title-->
                                 <!--begin::Close-->
                                 <div id="modal_view_close" class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
@@ -420,61 +351,26 @@
                                     <div class="row g-9 mb-7">
                                         <!--begin::Col-->
                                         <div class="col-md-6 fv-row">
-                                            <!--begin::Input group-->
-                                            <div class="d-flex flex-column mb-5 fv-row">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Location From</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Select-->
-                                                <select name="LocationFrom" disabled data-control="select2" data-dropdown-parent="#view_modal" data-placeholder="Select Location From..." class="form-select form-select-solid LocationFrom">
-                                                </select>
-                                                <!--end::Select-->
-                                            </div>
-                                            <!--end::Input group-->
-                                        </div>
-                                        <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Input group-->
-                                            <div class="d-flex flex-column mb-5 fv-row">
-                                                <!--begin::Label-->
-                                                <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                    <span class="required">Location To</span>
-                                                </label>
-                                                <!--end::Label-->
-                                                <!--begin::Select-->
-                                                <select name="LocationTo" disabled data-control="select2" data-dropdown-parent="#view_modal" data-placeholder="Select Location To..." class="form-select form-select-solid LocationTo">
-                                                </select>
-                                                <!--end::Select-->
-                                            </div>
-                                            <!--end::Input group-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                    <div class="row g-9 mb-7">
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
                                             <!--begin::Label-->
-                                            <label class="required fs-6 fw-bold mb-2">Estimated Distance</label>
+                                            <label class="required fs-6 fw-bold mb-2">Name</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <input class="form-control form-control-solid EstimatedDistance" readonly placeholder="Estimated Distance" name="EstimatedDistance" />
+                                            <input class="form-control form-control-solid Name" readonly placeholder="Currency Name" name="Name" />
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Col-->
                                         <!--begin::Col-->
                                         <div class="col-md-6 fv-row">
                                             <!--begin::Label-->
-                                            <label class="required fs-6 fw-bold mb-2">Estimated Time</label>
+                                            <label class="required fs-6 fw-bold mb-2">Weight</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <input class="form-control form-control-solid EstimatedTime" readonly placeholder="Estimated Time" name="EstimatedTime" />
+                                            <input class="form-control form-control-solid Weight" readonly placeholder="Weight" name="Weight" />
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Col-->
                                     </div>
+
                                 </div>
                                 <!--end::Scroll-->
                             </div>
@@ -510,7 +406,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bolder">Export Countries</h2>
+                            <h2 class="fw-bolder">Export Kpi</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div id="export_close" class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
@@ -580,10 +476,8 @@
         var dataTable;
 
         $(function () {
+
             FillTable();
-            FillDropdowns();
-
-
 
             $(document).on("click", "#modal_add_submit", function () {
                 Insert();
@@ -622,16 +516,20 @@
 
 
 
+
         });
 
         function FillTable() {
-           var Url = "@Url.Action("GeneralTransersList", "GeneralTransfers")";
+            var Url = "@Url.Action("KpiList", "Kpi")";
             var Columns = [
 
-                { data: 'LocationFromName', 'name': 'LocationFromName' },
-                { data: 'LocationToName', 'name': 'LocationToName' },
-                { data: 'EstimatedDistance', 'name': 'EstimatedDistance' },
-                { data: 'EstimatedTime', 'name': 'EstimatedTime'},
+                {
+                    data: null, render: function (data, type, row) {
+                        return `<a href="#" class="text-gray-800 text-hover-primary mb-1 ViewBtn" Value="${data.ID}">${data.Name}</a>`;
+                    }
+                },
+                { data: 'Weight', 'name': 'Weight' },
+
                 {
                     data: null, render: function (data, type, row) {
                         return `<div class="ActionContainer">
@@ -654,14 +552,14 @@
                                             <a href="#" class="menu-link px-3 ViewBtn" value="${data.ID}">View</a>
                                         </div>
                                         <div class="menu-item px-3">
-                                            <a href="#" class="menu-link px-3 DeleteBtn" value="${data.ID}"  data-kt-customer-table-filter="delete_row">Delete</a>
+                                            <a href="#" class="menu-link px-3 DeleteBtn" value="${data.ID}" NameValue="${data.Name}"  data-kt-customer-table-filter="delete_row">Delete</a>
                                         </div>
                                     </div>
                                 </div>`;
                     }
                 },
             ];
-            BuildAjaxDataTable($("#table"), Url, Columns,[],"TransfersList");
+            BuildAjaxDataTable($("#table"), Url, Columns, [],"KpiList",false);
         }
 
 
@@ -681,7 +579,7 @@
             var FormData = $("#modal_add_form").serialize();
             $.ajax({
                 type: 'POST',
-                url: `@Url.Action("Insert", "GeneralTransfers")`,
+                url: `@Url.Action("Insert", "Kpi")`,
                 processData: false,
                 dataType: false,
                 data: FormData,
@@ -691,12 +589,6 @@
 
             success: function (data) {
 
-                if (data.Message.Title != null && data.Message.Title != "") {
-                    var title = data.Message.Title;
-                    var body = data.Message.Description;
-                    var type = data.Message.Type;
-                    ShowMessage(title, body, type);
-                }
 
                 if (data.Message.Type == 0) {
                     EmptyFields();
@@ -704,8 +596,12 @@
                     FillTable(data);
                 }
 
-
-
+                if (data.Message.Title != null && data.Message.Title != "" ) {
+                    var title = data.Message.Title;
+                    var body = data.Message.Description;
+                    var type = data.Message.Type;
+                    ShowMessage(title, body, type);
+                }
                 },
                 error: function (ex) {
 
@@ -723,7 +619,7 @@
             var FormData = $("#modal_edit_form").serialize();
             $.ajax({
                 type: 'POST',
-                url: `@Url.Action("UpdatePost", "GeneralTransfers")`,
+                url: `@Url.Action("UpdatePost", "Kpi")`,
                 processData: false,
                 dataType: false,
                 data: FormData,
@@ -758,9 +654,10 @@
         }
 
         function UpdateGet(Id) {
+            console.log(Id);
             $.ajax({
                 type: 'POST',
-                url: `@Url.Action("UpdateGet", "GeneralTransfers")`,
+                url: `@Url.Action("UpdateGet", "Kpi")`,
                 data: {
                     Id:Id
                 },
@@ -770,21 +667,15 @@
 
             success: function (data) {
 
-                if (data.Transfer.ID > 0) {
-
-                    var LocationToOption = `<option  value="${data.Transfer.LocationTo}">${data.Transfer.LocationToName}</option>`
-                    var LocationFromOption = `<option  value="${data.Transfer.LocationFrom}">${data.Transfer.LocationFromName}</option>`
+                if (data.Kpi.ID > 0) {
 
 
-                    $("#edit_modal .ID").val(data.Transfer.ID);
-                    $("#edit_modal .LocationFrom").append(LocationFromOption);
 
-                    $("#edit_modal .LocationTo").append(LocationToOption);
+                    $("#edit_modal .ID").val(data.Kpi.ID);
+                    $("#edit_modal .Name").val(data.Kpi.Name);
+                    $("#edit_modal .Weight").val(data.Kpi.Weight);
 
-                    $("#edit_modal .EstimatedDistance").val(data.Transfer.EstimatedDistance);
-                    $("#edit_modal .EstimatedTime").val(data.Transfer.EstimatedTime);
 
-                    FillDropdowns();
 
                     $('#edit_modal').modal('show');
                 }
@@ -804,7 +695,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: `@Url.Action("UpdateGet", "GeneralTransfers")`,
+                url: `@Url.Action("UpdateGet", "Kpi")`,
                 data: {
                     Id:Id
                 },
@@ -814,19 +705,13 @@
 
             success: function (data) {
 
-                if (data.Transfer.ID > 0) {
+                if (data.Kpi.ID > 0) {
 
 
 
-                    var LocationToOption = `<option  value="${data.Transfer.LocationTo}">${data.Transfer.LocationToName}</option>`
-                    var LocationFromOption = `<option  value="${data.Transfer.LocationFrom}">${data.Transfer.LocationFromName}</option>`
-
-
-                    $("#view_modal .ID").val(data.Transfer.ID);
-                    $("#view_modal .LocationFrom").append(LocationFromOption);
-                    $("#view_modal .LocationTo").append(LocationToOption);
-                    $("#view_modal .EstimatedDistance").val(data.Transfer.EstimatedDistance);
-                    $("#view_modal .EstimatedTime").val(data.Transfer.EstimatedTime);
+                    $("#view_modal .ID").val(data.Kpi.ID);
+                    $("#view_modal .Name").val(data.Kpi.Name);
+                    $("#view_modal .Weight").val(data.Kpi.Weight);
 
 
                     $('#view_modal').modal('show');
@@ -865,7 +750,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: `@Url.Action("Delete", "GeneralTransfers")`,
+                        url: `@Url.Action("Delete", "Kpi")`,
                         data: {
                             Id:Id
                         },
@@ -877,7 +762,7 @@
 
 
                             if (data.Message.Type == 0) {
-                                FillTable();
+                                FillTable(data);
                             }
 
                             if (data.Message.Title != null && data.Message.Title != "") {
@@ -946,36 +831,8 @@
         }
 
         function EmptyFields() {
-            $("#add_modal .LocationFrom").val("");
-            $("#add_modal .LocationTo").val("");
-            $("#add_modal .EstimatedDistance").val("");
-            $("#add_modal .EstimatedTime").val("");
-        }
-
-        function FillDropdowns() {
-            $(".Location").select2({
-                minimumInputLength: 2,
-                //tags: [],
-                ajax: {
-                    url: `@Url.Action("LocationsList", "GeneralTransfers")`,
-                    dataType: 'json',
-                    type: "POST",
-                    quietMillis: 50,
-                    data: function (param) {
-                        return {
-                            term: param.term
-                        };
-                    },
-                    processResults: function (response) {
-                        return {
-                            results: response.Locations
-                        };
-                    },
-                    /*cache: true*/
-                }
-            });
-
-
+            $("#add_modal .Name").val("");
+            $("#add_modal .Weight").val("");
         }
 
 

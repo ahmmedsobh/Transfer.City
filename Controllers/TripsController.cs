@@ -108,11 +108,16 @@ namespace Transfer.City.Controllers
             {
                 if (TripExtras.Count > 0)
                 {
-                    ExtraTotal = TripExtras.Sum(t=>t.Fees);
+                    ExtraTotal = (from t in TripExtras select t.Info*t.Fees).Sum();
                 }
             }
 
             decimal TotalAmount = Convert.ToDecimal(VehiclePrice) + ExtraTotal;
+
+
+            var TripsKpi = TripsKpiFactory.GetByTripId(new Models.TripsKpi { TripId = Id });
+            var Complaints = ComplaintsFactory.GetByTripId(new Models.Complaints { TripId = Id });
+
 
 
             model.Trip = Trip;
@@ -121,7 +126,10 @@ namespace Transfer.City.Controllers
             model.TransferInvitations = tripInvitations;
             model.VehiclePrice = VehiclePrice;
             model.ExtrasTotal = ExtraTotal;
-            model.TotalAmount = TotalAmount;
+            model.TotalAmount = Convert.ToDecimal(Trip.Fees);
+            model.TripsKpis = TripsKpi;
+            model.Complaints = Complaints;
+
 
 
 

@@ -1,4 +1,7 @@
-﻿<!--begin::Content-->
+﻿@{
+    ViewBag.Title = "Currencies";
+}
+<!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
@@ -77,7 +80,7 @@
                     <div class="card-toolbar">
                         <!--begin::Toolbar-->
                         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                           
+
                             <!--begin::Export-->
                             <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#export_modal">
                                 <!--begin::Svg Icon | path: icons/duotone/Files/Export.svg-->
@@ -204,7 +207,7 @@
                                         </div>
                                         <!--end::Col-->
                                     </div>
-                                    
+
                                 </div>
                                 <!--end::Scroll-->
                             </div>
@@ -533,7 +536,7 @@
                     }
                 },
                 { data: 'Symbol', 'name': 'Symbol' },
-               
+
                 {
                     data: null, render: function (data, type, row) {
                         return `<div class="ActionContainer">

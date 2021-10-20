@@ -68,10 +68,11 @@
                     }
 
                     @{TripsStatus = new List<int>();}
-
+                    @{var TripsId = new List<int>(); }
                     @foreach (var item in group)
                     {
                         TripsStatus.Add(item.TripStatus);
+                        TripsId.Add(item.ID);
                         Total = Total + Convert.ToDecimal(item.Fees);
                         var extras = Model.TripsExtras.Where(e => e.Trip == item.ID).ToList();
 
@@ -100,6 +101,7 @@
                     {
                         if (TripsStatus[0] < 3)
                         {
+
                             <div>
                                 <a href="/Customer/Home/CancelTrip/@group.Key" title="Cancel">Cancel</a> &nbsp;|&nbsp; <a href="/Customer/Home/SearchResult/@group.Key" title="Modify">Modify</a>
                             </div>
@@ -108,8 +110,22 @@
                         if (TripsStatus[0] > 8)
                         {
                             <div>
-                                <a href="/Customer/Home/TripSurvey/@group.Key" title="Survey">Trip Survey</a>
+                                Departure : <a href="/Customer/Home/TripSurvey/@TripsId[0]" title="Survey">Trip Survey</a> &nbsp;|&nbsp; <a href="/Customer/Home/Complaints/@TripsId[0]">Send complaints</a>
                             </div>
+
+                        }
+
+                        if (TripsStatus.Count > 1)
+                        {
+                            if (TripsStatus[1] > 8)
+                            {
+                                if (TripsId.Count > 1)
+                                {
+                                    <div>
+                                        Return : <a href="/Customer/Home/TripSurvey/@TripsId[1]" title="Survey">Trip Survey</a> &nbsp;|&nbsp; <a href="/Customer/Home/Complaints/@TripsId[1]">Send complaints</a>
+                                    </div>
+                                }
+                            }
                         }
                     }
                     @*<a href="#" title="Book again">Book again</a>*@

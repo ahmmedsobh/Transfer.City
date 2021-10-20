@@ -1,5 +1,7 @@
 ﻿@model  IEnumerable<Transfer.City.Models.ViewModels.DropdownViewModel<int>>
-
+@{
+    ViewBag.Title = "Users List";
+}
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
@@ -111,7 +113,7 @@
                                             <label class="form-label fs-5 fw-bold mb-3">Permission:</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <select class="form-select form-select-solid fw-bolder"  id="PermissionId" data-kt-select2="true" data-placeholder="Select permission" data-allow-clear="true">
+                                            <select class="form-select form-select-solid fw-bolder" id="PermissionId" data-kt-select2="true" data-placeholder="Select permission" data-allow-clear="true">
                                                 <option></option>
                                                 @foreach (var item in Model)
                                                 {
@@ -294,7 +296,7 @@
                 var Name = $(this).attr("NameValue")
                 Delete(Id, Name);
             });
-           
+
             $(document).on("keyup", `#tableSearchInput`, function () {
                 $("#table").DataTable().search($(this).val()).draw();
             });

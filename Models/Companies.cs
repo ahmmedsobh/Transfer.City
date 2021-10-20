@@ -35,7 +35,8 @@ namespace Transfer.City.Models
 			ConfirmPassword, 
 			IsActive,
 			IsEnabled,
-			IsApproved
+			IsApproved,
+			QOS
 		}
 		#endregion
 
@@ -66,6 +67,7 @@ namespace Transfer.City.Models
 		bool _isActive;
 		bool _isEnabled;
 		bool _isApproved;
+		int _qOS;
 		#endregion
 
 		#region Properties
@@ -394,7 +396,19 @@ namespace Transfer.City.Models
 				}
 			}
 		}
-		
+
+		public int QOS
+		{
+			get { return _qOS; }
+			set
+			{
+				if (_qOS != value)
+				{
+					_qOS = value;
+					PropertyHasChanged("QOS");
+				}
+			}
+		}
 
 		#endregion
 

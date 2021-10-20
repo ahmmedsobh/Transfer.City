@@ -1,5 +1,7 @@
 ﻿@model Transfer.City.Models.ViewModels.CompanyViewModel
-
+@{
+    ViewBag.Title = "Update Company";
+}
 <!--begin::Toolbar-->
 <div class="toolbar" id="kt_toolbar">
     <!--begin::Container-->
@@ -324,9 +326,9 @@
                         @foreach (var item in Model.Locations)
                         {
                             <tr>
-                                <td >@item.LocationName</td>
-                                <td >@item.LocationTypeName</td>
-                                <td >@item.CountryName</td>
+                                <td>@item.LocationName</td>
+                                <td>@item.LocationTypeName</td>
+                                <td>@item.CountryName</td>
                                 @if (item.Enabled)
                                 {
                                     <td>
@@ -375,8 +377,8 @@
                             </div>
                         </div>
                     </div>
-                    
-                    
+
+
                     <table id="PricesTable" class="table">
                         <thead>
                             <tr>

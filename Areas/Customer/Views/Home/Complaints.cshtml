@@ -1,12 +1,11 @@
-﻿@{
-    ViewBag.Title = "Contact";
+﻿@model int
+@{
+    ViewBag.Title = "Complaints";
     Layout = "~/Views/Shared/_PublicLayout.cshtml";
 }
 <style>
-
-    .site-title
-    {
-        margin-top:80px;
+    .site-title {
+        margin-top: 80px;
     }
 </style>
 <!-- Page info -->
@@ -17,48 +16,44 @@
             <nav role="navigation" class="breadcrumbs">
                 <ul>
                     <li><a href="/Home" title="Home">Home</a></li>
-                    <li>Contact</li>
+                    <li>Complaints</li>
                 </ul>
             </nav>
         </div>
     </div>
 </header>
 <!-- //Page info -->
-<!--- Google map -->
-<div id="map_canvas" class="gmap"></div>
-<!--- //Google map -->
+
+
 
 <div class="wrap">
     <div class="row">
 
         <!--- Content -->
         <div class="full-width content textongrey">
-            <h2>Send us a message</h2>
+            <h2>Send us a complaint</h2>
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit. All fields are required.</p>
         </div>
         <!--- //Content -->
         <!-- Form -->
         <div class="three-fourth">
-            <form method="post" action="contact_form_message.php" name="contactform" id="contactform">
+            <form method="post" id="ComplaintsForm" action="@Url.Action("Complaints","Home")">
                 <div id="message"></div>
+                <input type="hidden" name="TripId" value="@Model" />
                 <div class="f-row">
-                    <div class="one-half">
-                        <label for="name">Name and surname</label>
-                        <input type="text" id="name" />
-                    </div>
-                    <div class="one-half">
-                        <label for="email">Email address</label>
-                        <input type="email" id="email" />
+                    <div class="full-width">
+                        <label for="Tilte">Title</label>
+                        <input required type="text" id="Tilte" name="Title" />
                     </div>
                 </div>
                 <div class="f-row">
                     <div class="full-width">
-                        <label for="comments">Message</label>
-                        <textarea id="comments"></textarea>
+                        <label for="Decription">Message</label>
+                        <textarea required id="Decription" name="Decription"></textarea>
                     </div>
                 </div>
                 <div class="f-row">
-                    <input type="submit" value="Submit" id="submit" name="submit" class="btn color medium right" />
+                    <input type="submit" value="Submit" id="SubmitBtn" name="submit" class="btn color medium right" />
                 </div>
             </form>
         </div>
@@ -84,3 +79,17 @@
         <!--- //Sidebar -->
     </div>
 </div>
+
+@section Scripts{
+
+    <script>
+
+        $(function () {
+
+        })
+
+
+
+    </script>
+
+}

@@ -9,6 +9,7 @@
     .site-title {
         margin-top: 80px;
     }
+
     .slidecontainer {
         width: 20%;
     }
@@ -47,15 +48,13 @@
             cursor: pointer;
         }
 
-        .Description , .Details
-        {
-            height:120px !important;
-            width:40% !important;
-        }
+    .Description, .Details {
+        height: 120px !important;
+        width: 40% !important;
+    }
 
-    .actions
-    {
-        padding:20px;
+    .actions {
+        padding: 20px;
     }
 </style>
 
@@ -66,11 +65,11 @@
 <header class="site-title color">
     <div class="wrap">
         <div class="container">
-            <h1>Trip Survey</h1>
+            <h1>Survey Details</h1>
             <nav role="navigation" class="breadcrumbs">
                 <ul>
                     <li><a href="/Home" title="Home">Home</a></li>
-                    <li>Trip Survey</li>
+                    <li>Survey Details</li>
                 </ul>
             </nav>
         </div>
@@ -84,53 +83,71 @@
         <!--- Content -->
         <div class="full-width content">
             <!-- Post -->
-            <form method="post" action="@Url.Action("TripSurvey", "Home")" id="SurveyForm">
+            <div>
                 <article class="single hentry">
                     <div class="entry-content">
-                        <h2>Trip Survey</h2>
+                        <h2>Survey Details</h2>
                         @{var index = -1; }
                         @foreach (var item in Model)
                         {
                             index++;
 
-                            <div class="part">
+                            var InputValue = item.PercentValue / item.Value * 5;
+
+                    <div class="part">
+                        <div class="f-row">
+                            <label>@item.Name</label>
+                            <div class="slidecontainer">
+                                <input readonly type="range" min="1" step="0.5" max="5" value="@decimal.Round(InputValue,1)" class="slider" id="myRange">
+                                <p>Value: <span class="ShowValue">@decimal.Round(InputValue, 1)</span></p>
+                            </div>
+                        </div>
+                        @if (item.Details != "" || item.Decription != "")
+                        {
+                            <div class="BadRaitingSection" >
                                 <div class="f-row">
-                                    <label>@item.Name</label>
-                                    <div class="slidecontainer">
-                                        <input name="model[@index].Value" type="range" min="1" step="0.5" max="5" value="0" class="slider" id="myRange">
-                                        <input type="hidden" name="model[@index].TripId" value="@item.TripId" />
-                                        <input type="hidden" name="model[@index].KpiId" value="@item.KpiId" />
-                                        <p>Value: <span class="ShowValue"></span></p>
+                                    <div>
+                                        <label for="comments">Why did you rate this review</label>
+                                        <textarea readonly class="Description">@item.Decription</textarea>
                                     </div>
                                 </div>
-                                <div class="BadRaitingSection" style="display:none">
-                                    <div class="f-row">
-                                        <div>
-                                            <label for="comments">Why did you rate this review</label>
-                                            <textarea name="model[@index].Decription" class="Description"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="f-row">
-                                        <div>
-                                            <label for="comments">Your suggestions for better service</label>
-                                            <textarea name="model[@index].Details" class="Details"></textarea>
-                                        </div>
+                                <div class="f-row">
+                                    <div>
+                                        <label for="comments">Your suggestions for better service</label>
+                                        <textarea readonly class="Details">@item.Details</textarea>
                                     </div>
                                 </div>
                             </div>
-                           
-                           
+                        }
+                        else
+                        {
+                            <div class="BadRaitingSection" style="display:none">
+                                <div class="f-row">
+                                    <div>
+                                        <label for="comments">Why did you rate this review</label>
+                                        <textarea readonly class="Description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="f-row">
+                                    <div>
+                                        <label for="comments">Your suggestions for better service</label>
+                                        <textarea readonly class="Details"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
                         }
 
                     </div>
                     <div class="actions">
                         <a href="/Customer/Home" class="btn medium back">Go back</a>
-                        <button type="submit" class="btn medium color">Submit</button>
                     </div>
                 </article>
-              
-            </form>
-            
+
+            </div>
+
             <!-- //Post -->
         </div>
         <!--- //Content -->
@@ -165,13 +182,11 @@
                 var Details = $(this).closest('.part').find('.Details');
 
                 if ($(item).val() < 2.5) {
-                    if ($(Description).val() == "" || $(Details).val() == "") {
-                        $(Section).attr("style", "display:block")
-                        $(Description).attr("required", "required");
-                        $(Details).attr("required", "required");
-                        e.preventDefault();
-                        return;
-                    }
+                    $(Section).attr("style", "display:block")
+                    $(Description).attr("required", "required");
+                    $(Details).attr("required", "required");
+                    e.preventDefault();
+                    return;
                 }
                 else {
                     $(Section).attr("style", "display:none")

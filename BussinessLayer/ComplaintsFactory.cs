@@ -78,6 +78,11 @@ namespace Transfer.City.BusinessLayer
             return _dataObject.SelectAll();
         }
 
+        public List<Complaints> GetByTripId(Complaints businessObject)
+        {
+            return _dataObject.SelectByTripId(businessObject);
+        }
+
         /// <summary>
         /// delete by primary key
         /// </summary>

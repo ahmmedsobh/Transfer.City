@@ -1,4 +1,7 @@
-﻿@model Transfer.City.Models.ViewModels.UserViewModel
+﻿@{
+    ViewBag.Title = "User Details";
+}
+@model Transfer.City.Models.ViewModels.UserViewModel
 <!--begin::Toolbar-->
 <div class="toolbar" id="kt_toolbar">
     <!--begin::Container-->
@@ -69,7 +72,7 @@
                             <label class="required fs-6 fw-bold mb-2">Name</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-solid DisplayName" placeholder="Display Name" name="User.DisplayName" value="@Model.User.DisplayName" readonly/>
+                            <input class="form-control form-control-solid DisplayName" placeholder="Display Name" name="User.DisplayName" value="@Model.User.DisplayName" readonly />
                             <!--end::Input-->
                         </div>
                         <!--end::Col-->
@@ -83,7 +86,7 @@
                             <label class="required fs-6 fw-bold mb-2">UserName</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-solid UserName" placeholder="UserName" name="User.UserName" value="@Model.User.UserName" readonly/>
+                            <input class="form-control form-control-solid UserName" placeholder="UserName" name="User.UserName" value="@Model.User.UserName" readonly />
                             <!--end::Input-->
                         </div>
                         <!--end::Col-->
@@ -93,7 +96,7 @@
                             <label class="required fs-6 fw-bold mb-2">Email Address</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-solid EmailAddress" placeholder="Email Address" name="User.EmailAddress" value="@Model.User.EmailAddress" readonly/>
+                            <input class="form-control form-control-solid EmailAddress" placeholder="Email Address" name="User.EmailAddress" value="@Model.User.EmailAddress" readonly />
                             <!--end::Input-->
                         </div>
                         <!--end::Col-->
@@ -104,11 +107,11 @@
                             <div class="form-check form-check-custom form-check-solid">
                                 @if (Model.User.IsActive)
                                 {
-                                    <input class="form-check-input IsActive" type="checkbox" value="true" name="User.IsActive" id="IsActive" checked="checked" disabled/>
+                                    <input class="form-check-input IsActive" type="checkbox" value="true" name="User.IsActive" id="IsActive" checked="checked" disabled />
                                 }
                                 else
                                 {
-                                    <input class="form-check-input IsActive" type="checkbox" value="true" name="User.IsActive" id="IsActive" disabled/>
+                                    <input class="form-check-input IsActive" type="checkbox" value="true" name="User.IsActive" id="IsActive" disabled />
                                 }
                                 <label class="form-check-label fs-6 fw-bold" for="IsActive">
                                     Is Active
@@ -121,11 +124,11 @@
                             <div class="form-check form-check-custom form-check-solid">
                                 @if (Model.User.IsActive)
                                 {
-                                    <input class="form-check-input IsEnabled" type="checkbox" value="true" id="IsEnabled" name="User.IsEnabled" checked="checked"  disabled/>
+                                    <input class="form-check-input IsEnabled" type="checkbox" value="true" id="IsEnabled" name="User.IsEnabled" checked="checked" disabled />
                                 }
                                 else
                                 {
-                                    <input class="form-check-input IsEnabled" type="checkbox" value="true" id="IsEnabled" name="User.IsEnabled" disabled/>
+                                    <input class="form-check-input IsEnabled" type="checkbox" value="true" id="IsEnabled" name="User.IsEnabled" disabled />
                                 }
                                 <label class="form-check-label fs-6 fw-bold" for="IsEnabled">
                                     Is Enabled
@@ -150,7 +153,7 @@
                 <!--end::Card header-->
 
                 <div class="card-body pt-0">
-                  
+
                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="PermissionsTable">
                         <!--begin::Table head-->
                         <thead>
@@ -165,30 +168,30 @@
                         <!--end::Table head-->
                         <!--begin::Table body-->
                         <tbody class="fw-bold text-gray-600">
-                            @foreach(var item in Model.UserPermissions)
+                            @foreach (var item in Model.UserPermissions)
                             {
-                            <tr>
-                                <td>@item.PermissionName</td>
-                                <td>@item.RuleName</td>
-                                @if (item.Enabled)
-                                {
-                                    <td>
-                                        <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                            <input disabled class="form-check-input" type="checkbox" checked='checked' value="1" />
-                                        </div>
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>
-                                        <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                            <input disabled class="form-check-input" type="checkbox" value="1" />
-                                        </div>
-                                    </td>
-                                }
+                                <tr>
+                                    <td>@item.PermissionName</td>
+                                    <td>@item.RuleName</td>
+                                    @if (item.Enabled)
+                                    {
+                                        <td>
+                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                <input disabled class="form-check-input" type="checkbox" checked='checked' value="1" />
+                                            </div>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                <input disabled class="form-check-input" type="checkbox" value="1" />
+                                            </div>
+                                        </td>
+                                    }
 
 
-                            </tr>
+                                </tr>
                             }
                         </tbody>
                         <!--end::Table body-->
@@ -199,7 +202,7 @@
             <div class="card mt-10">
                 <div class="card-body">
                     <!--begin::Button-->
-                    <a  href="/Users" class="btn btn-white me-3">Back To List</a>
+                    <a href="/Users" class="btn btn-white me-3">Back To List</a>
                     <!--end::Button-->
                     <!--begin::Button-->
                     <a href="/users/update/@Model.User.ID" id="edit_submit" class="btn btn-primary">
@@ -210,14 +213,14 @@
                         </span>
                     </a>
                     <!--end::Button-->
-                   
+
                 </div>
             </div>
 
         </form>
         <!--end::Form-->
 
-        
+
 
 
 
@@ -231,5 +234,5 @@
 @section Scripts
 {
 
-  
+
 }

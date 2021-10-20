@@ -1,4 +1,7 @@
-﻿<!--begin::Content-->
+﻿@{
+    ViewBag.Title = "Countries";
+}
+<!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
@@ -40,7 +43,6 @@
             </div>
             <!--end::Page title-->
             <!--begin::Actions-->
-            
             <!--end::Actions-->
         </div>
         <!--end::Container-->
@@ -78,7 +80,7 @@
                     <div class="card-toolbar">
                         <!--begin::Toolbar-->
                         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                           
+
                             <!--begin::Export-->
                             <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#export_modal">
                                 <!--begin::Svg Icon | path: icons/duotone/Files/Export.svg-->
@@ -110,7 +112,7 @@
                         </div>
                         <!--end::Toolbar-->
                         <!--begin::Group actions-->
-                        <div class="d-flex justify-content-end align-items-center d-none" id="TableToolbar" >
+                        <div class="d-flex justify-content-end align-items-center d-none" id="TableToolbar">
                             <div class="fw-bolder me-5">
                                 <span class="me-2" data-kt-customer-table-select="selected_count"></span>Selected
                             </div>
@@ -129,7 +131,7 @@
                         <thead>
                             <!--begin::Table row-->
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                
+
                                 <th class="min-w-125px">Country</th>
                                 <th class="min-w-125px">Phone Code</th>
                                 <th class="min-w-125px">Latitude</th>
@@ -362,7 +364,6 @@
                 </div>
             </div>
             <!--end::Modal - Edit -->
-
             <!--begin::Modal - view -->
             <div class="modal fade" id="view_modal" tabindex="-1" aria-hidden="true">
                 <!--begin::Modal dialog-->
@@ -454,12 +455,12 @@
                                 <!--end::Button-->
                                 <!--begin::Button-->
                                 @*<button type="button" id="modal_view_close" class="btn btn-primary">
-                                    <span class="indicator-label">close</span>
-                                    <span class="indicator-progress">
-                                        Please wait...
-                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                    </span>
-                                </button>*@
+                                        <span class="indicator-label">close</span>
+                                        <span class="indicator-progress">
+                                            Please wait...
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                        </span>
+                                    </button>*@
                                 <!--end::Button-->
                             </div>
                             <!--end::Modal footer-->

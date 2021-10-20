@@ -280,6 +280,8 @@ namespace Transfer.City.DataLayer
             businessObject.PercentValue = dataReader.GetInt32(dataReader.GetOrdinal(TripsKpi.TripsKpiFields.PercentValue.ToString()));
             businessObject.Details = dataReader.GetString(dataReader.GetOrdinal(TripsKpi.TripsKpiFields.Details.ToString()));
             businessObject.Decription = dataReader.GetString(dataReader.GetOrdinal(TripsKpi.TripsKpiFields.Decription.ToString()));
+            businessObject.Name = dataReader.GetString(dataReader.GetOrdinal(TripsKpi.TripsKpiFields.Name.ToString()));
+            businessObject.Value = dataReader.GetInt32(dataReader.GetOrdinal(TripsKpi.TripsKpiFields.Value.ToString()));
         }
 
         /// <summary>

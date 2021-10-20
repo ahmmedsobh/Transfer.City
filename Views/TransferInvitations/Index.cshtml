@@ -1,5 +1,7 @@
 ﻿@model Transfer.City.Models.ViewModels.InvitationsViewModel
-
+@{
+    ViewBag.Title = "Trnsfers Invitation";
+}
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Toolbar-->
@@ -223,7 +225,6 @@
             </div>
             <!--end::Card-->
             <!--begin::Modals-->
-         
             <!--begin::Modal - Adjust Balance-->
             <div class="modal fade" id="export_modal" tabindex="-1" aria-hidden="true">
                 <!--begin::Modal dialog-->
@@ -319,7 +320,7 @@
             });
 
         });
-        
+
         function FillTable() {
            var Url = "@Url.Action("InvitationsList", "TransferInvitations")";
             var Columns = TableColumns();
@@ -358,7 +359,7 @@
         function FillTableWithFilter() {
             var Url = "@Url.Action("FilterInvitations", "TransferInvitations")";
             var Columns = TableColumns();
-           
+
             var Company = $("#Filter #Company").val();
             var AcceptionStatus = $("#Filter #AcceptionStatus").val();
             var data = {

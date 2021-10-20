@@ -1,4 +1,7 @@
-﻿@model Transfer.City.Models.ViewModels.CompanyViewModel
+﻿@{
+    ViewBag.Title = "Company Data";
+}
+@model Transfer.City.Models.ViewModels.CompanyViewModel
 
 <!--begin::Toolbar-->
 <div class="toolbar" id="kt_toolbar">
@@ -69,7 +72,7 @@
                             <label class="required fs-6 fw-bold mb-2">Name</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-solid Company_Name" placeholder="Company Name" name="Company_Name" value="@Model.Company.Company_Name"/>
+                            <input class="form-control form-control-solid Company_Name" placeholder="Company Name" name="Company_Name" value="@Model.Company.Company_Name" />
                             <!--end::Input-->
                         </div>
                         <!--end::Col-->
@@ -79,7 +82,7 @@
                             <label class="required fs-6 fw-bold mb-2">Trade Name</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-solid Trading_Name" placeholder="Company Trade Name" name="Trading_Name" value="@Model.Company.Trading_Name"/>
+                            <input class="form-control form-control-solid Trading_Name" placeholder="Company Trade Name" name="Trading_Name" value="@Model.Company.Trading_Name" />
                             <!--end::Input-->
                         </div>
                         <!--end::Col-->
@@ -91,7 +94,7 @@
                             <label class="required fs-6 fw-bold mb-2">Admin Email</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-solid Admin_Email" placeholder="Admin Email" name="Admin_Email" value="@Model.Company.Admin_Email"/>
+                            <input class="form-control form-control-solid Admin_Email" placeholder="Admin Email" name="Admin_Email" value="@Model.Company.Admin_Email" />
                             <!--end::Input-->
                         </div>
                         <!--end::Col-->
@@ -101,7 +104,7 @@
                             <label class="required fs-6 fw-bold mb-2">Finance Email</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-solid Finance_Email" placeholder="Finance Email" name="Finance_Email" value="@Model.Company.Finance_Email"/>
+                            <input class="form-control form-control-solid Finance_Email" placeholder="Finance Email" name="Finance_Email" value="@Model.Company.Finance_Email" />
                             <!--end::Input-->
                         </div>
                         <!--end::Col-->
@@ -144,7 +147,7 @@
                             <label class="required fs-6 fw-bold mb-2">Phone</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-solid Phone" placeholder="Phone" name="Phone" value="@Model.Company.Phone"/>
+                            <input class="form-control form-control-solid Phone" placeholder="Phone" name="Phone" value="@Model.Company.Phone" />
                             <!--end::Input-->
                         </div>
                         <!--end::Col-->
@@ -156,7 +159,7 @@
                             <label class="required fs-6 fw-bold mb-2">WebSite</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-solid WebSite" placeholder="WebSite" name="WebSite" value="@Model.Company.WebSite"/>
+                            <input class="form-control form-control-solid WebSite" placeholder="WebSite" name="WebSite" value="@Model.Company.WebSite" />
                             <!--end::Input-->
                         </div>
                         <!--end::Col-->
@@ -168,7 +171,7 @@
                             <label class="required fs-6 fw-bold mb-2">Account Administrator</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-solid Account_Administrator" placeholder="Account Administrator" name="Account_Administrator" value="@Model.Company.Account_Administrator"/>
+                            <input class="form-control form-control-solid Account_Administrator" placeholder="Account Administrator" name="Account_Administrator" value="@Model.Company.Account_Administrator" />
                             <!--end::Input-->
                         </div>
                         <!--end::Col-->
@@ -178,7 +181,7 @@
                             <label class="required fs-6 fw-bold mb-2">Account Administrator Email</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-solid Account_Administrator_Email" placeholder="Account Administrator Email" name="Account_Administrator_Email" value="@Model.Company.Account_Administrator_Email"/>
+                            <input class="form-control form-control-solid Account_Administrator_Email" placeholder="Account Administrator Email" name="Account_Administrator_Email" value="@Model.Company.Account_Administrator_Email" />
                             <!--end::Input-->
                         </div>
                         <!--end::Col-->
@@ -205,7 +208,7 @@
                             <label class="required fs-6 fw-bold mb-2">Registration Number</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-solid Registration_Number" placeholder="Registration Number" name="Registration_Number" value="@Model.Company.Registration_Number"/>
+                            <input class="form-control form-control-solid Registration_Number" placeholder="Registration Number" name="Registration_Number" value="@Model.Company.Registration_Number" />
                             <!--end::Input-->
                         </div>
                         <!--end::Col-->
@@ -248,7 +251,7 @@
                             <label class="required fs-6 fw-bold mb-2">VAT Number</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-solid VAT_Number" placeholder="VAT Number" name="VAT_Number" value="@Model.Company.VAT_Number"/>
+                            <input class="form-control form-control-solid VAT_Number" placeholder="VAT Number" name="VAT_Number" value="@Model.Company.VAT_Number" />
                             <!--end::Input-->
                         </div>
                         <!--end::Col-->
@@ -258,7 +261,7 @@
                             <label class="required fs-6 fw-bold mb-2">Billing_Address</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-solid Billing_Address" placeholder="Billing Address" name="Billing_Address" value="@Model.Company.VAT_Number"/>
+                            <input class="form-control form-control-solid Billing_Address" placeholder="Billing Address" name="Billing_Address" value="@Model.Company.VAT_Number" />
                             <!--end::Input-->
                         </div>
                         <!--end::Col-->
@@ -377,7 +380,7 @@
                                 </span>
                             </button>
                             <!--end::Button-->
-                            
+
                         </div>
                         <!--end::Modal footer-->
                     </form>

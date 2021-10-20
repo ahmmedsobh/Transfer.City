@@ -168,10 +168,10 @@
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\CurrenciesController.cs" />
-    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ExtrasController.cs" />
     <Compile Include="Controllers\GeneralTransfersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KpiController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\TransferInvitationsController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
@@ -272,6 +272,7 @@
     <Compile Include="Models\ViewModels\FindResultViewModel.cs" />
     <Compile Include="Models\ViewModels\InvitationsViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Models\ViewModels\OverviewViewModel.cs" />
     <Compile Include="Models\ViewModels\PassengersAndTransferViewModel.cs" />
     <Compile Include="Models\ViewModels\PaymentViewModel.cs" />
     <Compile Include="Models\ViewModels\SearchResultViewModel.cs" />
@@ -2497,6 +2498,8 @@
     <Content Include="Areas\Customer\Views\Home\SaveData.cshtml" />
     <Content Include="Areas\Customer\Views\Account\Register.cshtml" />
     <Content Include="Areas\Customer\Views\Home\TripSurvey.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\Complaints.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\SurveyDetails.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2555,6 +2558,8 @@
     <Content Include="Views\Home\Confirmation.cshtml" />
     <Content Include="Views\Home\Payment.cshtml" />
     <Content Include="Views\Home\SaveDate.cshtml" />
+    <Content Include="Views\Kpi\Index.cshtml" />
+    <Content Include="Views\Home\Overview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

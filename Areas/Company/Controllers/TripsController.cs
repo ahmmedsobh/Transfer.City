@@ -136,6 +136,25 @@ namespace Transfer.City.Areas.Company.Controllers
                     Message = new Message("Accept Invitation", "Trip in progress", MessageType.success);
                     return Json(new { Result = true, Message = Message }, JsonRequestBehavior.AllowGet);
                 }
+                else if (Status == 4)
+                {
+                    Trip.TripStatus = 9;
+                    TripInvitation.AcceptionStatus = 9;
+                    Trips.Update(Trip);
+                    TripsInvitations.Update(TripInvitation);
+                    Message = new Message("Accept Invitation", "Trip done", MessageType.success);
+                    return Json(new { Result = true, Message = Message }, JsonRequestBehavior.AllowGet);
+                }
+                else if (Status == 5)
+                {
+                    Trip.TripStatus = 11;
+                    TripInvitation.AcceptionStatus = 11;
+                    Trips.Update(Trip);
+                    TripsInvitations.Update(TripInvitation);
+                    Message = new Message("Accept Invitation", "Trip Not implemented", MessageType.success);
+                    return Json(new { Result = true, Message = Message }, JsonRequestBehavior.AllowGet);
+                }
+
 
                 return Json(new { Result = true, Message = Message }, JsonRequestBehavior.AllowGet);
             }
@@ -200,11 +219,14 @@ namespace Transfer.City.Areas.Company.Controllers
             {
                 if (TripExtras.Count > 0)
                 {
-                    ExtraTotal = TripExtras.Sum(t => t.Fees);
+                    ExtraTotal = (from t in TripExtras select t.Info * t.Fees).Sum();
                 }
             }
 
             decimal TotalAmount = Convert.ToDecimal(VehiclePrice) + ExtraTotal;
+
+            var TripsKpi = TripsKpiFactory.GetByTripId(new TripsKpi { TripId = Id });
+            var Complaints = ComplaintsFactory.GetByTripId(new Complaints { TripId = Id });
 
 
             model.Trip = Trip;
@@ -213,8 +235,9 @@ namespace Transfer.City.Areas.Company.Controllers
             model.TransferInvitations = tripInvitations.Where(ti=>ti.Company == CompanyId).ToList();
             model.VehiclePrice = VehiclePrice;
             model.ExtrasTotal = ExtraTotal;
-            model.TotalAmount = TotalAmount;
-
+            model.TotalAmount = Convert.ToDecimal(Trip.Fees);
+            model.TripsKpis = TripsKpi;
+            model.Complaints = Complaints;
 
 
 

@@ -1,4 +1,7 @@
-﻿@model Transfer.City.Models.Users
+﻿@{
+    ViewBag.Title = "Update User";
+}
+@model Transfer.City.Models.Users
 <!--begin::Toolbar-->
 <div class="toolbar" id="kt_toolbar">
     <!--begin::Container-->
@@ -51,7 +54,7 @@
 
         <!--begin::Form-->
         <form class="form" id="edit_form" action="">
-            <input name="User.ID" type="hidden" value="@Model.ID"/>
+            <input name="User.ID" type="hidden" value="@Model.ID" />
             <div class="card">
                 <!--begin::Card header-->
                 <div class="card-header border-0 pt-6">
@@ -248,7 +251,7 @@
                             <!--begin::Scroll-->
                             <div class="scroll-y me-n7 pe-7" id="modal_add_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#modal_add_header" data-kt-scroll-wrappers="#modal_add_scroll" data-kt-scroll-offset="300px">
                                 <div class="row g-9 mb-7">
-                                    
+
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
@@ -271,7 +274,7 @@
                                     <!--end::Col-->
 
                                 </div>
-                                
+
                             </div>
                             <!--end::Scroll-->
                         </div>

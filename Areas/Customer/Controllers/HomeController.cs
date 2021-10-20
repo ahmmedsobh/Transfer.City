@@ -1373,7 +1373,7 @@ namespace Transfer.City.Areas.Customer.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        public ActionResult TripSurvey(string id = "")
+        public ActionResult TripSurvey(int id = 0)
         {
            
 
@@ -1384,25 +1384,25 @@ namespace Transfer.City.Areas.Customer.Controllers
                 email = user.EmailAddress;
             }
 
-            var trips = Trips.GetByReferenceAndEmail(new City.Models.Trips { BookingReference = id, EmailAddress = "" });
-            trips = trips.Where(t => t.EmailAddress == email).ToList();
+            var trip = Trips.GetByID(new City.Models.Trips { ID = id});
 
-            if(trips != null)
+            if(trip != null)
             {
-                if(trips.Count > 0)
+                if(trip.EmailAddress == email)
                 {
-                    var Survey = TripsKpiFactory.GetByTripId(new TripsKpi { TripId = trips[0].ID });
+                    var Survey = TripsKpiFactory.GetByTripId(new TripsKpi { TripId = trip.ID });
                     if(Survey != null)
                     {
                         if (Survey.Count > 0)
                         {
-                            return RedirectToAction(nameof(Index));
+                            return RedirectToAction(nameof(SurveyDetails), new { id = trip.ID });
                         }
                     }
                     var kpis = (from k in KpiFactory.GetAll()
                                select new TripsKpi
                                {
-                                   ReferenceId = trips[0].BookingReference,
+                                   ReferenceId = trip.BookingReference,
+                                   TripId = trip.ID,
                                    KpiId = k.ID,
                                    Name = k.Name
                                }).ToList();
@@ -1426,62 +1426,107 @@ namespace Transfer.City.Areas.Customer.Controllers
                     email = user.EmailAddress;
                 }
 
-                var trips = Trips.GetByReferenceAndEmail(new City.Models.Trips { BookingReference = model[0].ReferenceId, EmailAddress = "" });
-                trips = trips.Where(t => t.EmailAddress == email).ToList();
-                if(trips != null && trips.Count > 0)
+                var trip = Trips.GetByID(new City.Models.Trips { ID = model[0].TripId});
+                if(trip != null)
                 {
-                    foreach (var item in model)
+                    if(trip.EmailAddress == email)
                     {
-                        var kpi = KpiFactory.GetByID(new Kpi {ID = item.KpiId});
-                        
-                        if(item.Details == null)
+                        decimal TotalWeight = 0;
+                        decimal TotalPercentOfWeight = 0;
+                        foreach (var item in model)
                         {
-                            item.Details = "";
-                        }
+                            var kpi = KpiFactory.GetByID(new Kpi { ID = item.KpiId });
 
-                        if (item.Decription == null)
-                        {
-                            item.Decription = "";
-                        }
-
-                        if (kpi != null)
-                        {
-                            decimal Percent = item.Value / 5;
-                            int PercentFromWeight = Convert.ToInt32(Percent * kpi.Weight);
-                            var tripKpi = new TripsKpi
+                            if (item.Details == null)
                             {
-                                TripId = trips[0].ID,
-                                KpiId = kpi.ID,
-                                PercentValue = PercentFromWeight,
-                                Decription = item.Decription,
-                                Details = item.Details
-                            };
+                                item.Details = "";
+                            }
 
-                            TripsKpiFactory.Insert(tripKpi);
+                            if (item.Decription == null)
+                            {
+                                item.Decription = "";
+                            }
 
-                            //if(trips.Count > 1)
-                            //{
-                            //    tripKpi = new TripsKpi
-                            //    {
-                            //        TripId = trips[1].ID,
-                            //        KpiId = kpi.ID,
-                            //        PercentValue = PercentFromWeight,
-                            //        Decription = item.Decription,
-                            //        Details = item.Details
-                            //    };
+                            if (kpi != null)
+                            {
+                                decimal Percent = item.Value / 5;
+                                int PercentFromWeight = Convert.ToInt32(Percent * kpi.Weight);
+                                TotalWeight += kpi.Weight;
+                                TotalPercentOfWeight += PercentFromWeight;
+                                var tripKpi = new TripsKpi
+                                {
+                                    TripId = trip.ID,
+                                    KpiId = kpi.ID,
+                                    PercentValue = PercentFromWeight,
+                                    Decription = item.Decription,
+                                    Details = item.Details
+                                };
 
-                            //    TripsKpiFactory.Insert(tripKpi);
-                            //}
+                                TripsKpiFactory.Insert(tripKpi);
+                            }
+                        }
 
+                        decimal TripQOS = TotalPercentOfWeight / TotalWeight*100;
+                        var Invitations = TripsInvitations.GetSentInvitations(new TransferInvitations { Trip = trip.ID });
+                        if (Invitations != null)
+                        {
+                            if (Invitations.Count > 0)
+                            {
+                                var Invitation = Invitations.FirstOrDefault(i => i.AcceptionStatus > 8);
+                                Invitation.QOS = Convert.ToInt32(TripQOS);
+                                TripsInvitations.Update(Invitation);
+                                var Company = Companies.GetByID(new City.Models.Companies { ID = Invitation.Company });
+                                if (Company != null)
+                                {
+                                    var CompanyTrips = Trips.GetByCompanyId(new City.Models.Trips { CompanyId = Company.ID });
+                                    if (CompanyTrips != null)
+                                    {
+                                        if (CompanyTrips.Count > 0)
+                                        {
+                                            var CompanyDoneTrips = CompanyTrips.Where(i => i.TripStatus > 8).ToList();
+                                            if (CompanyDoneTrips != null)
+                                            {
+                                                if (CompanyDoneTrips.Count > 0)
+                                                {
+                                                    decimal CompanyTotalQOS = Company.QOS * (CompanyTrips.Count - 1);
+                                                    Company.QOS = Convert.ToInt32((CompanyTotalQOS + TripQOS) / CompanyDoneTrips.Count);
+                                                    Companies.Update(Company);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
+
+                    
+
                 }
             }
 
             return RedirectToAction(nameof(Index));
         }
+        public ActionResult SurveyDetails(int id = 0)
+        {
+            if(id == 0)
+            {
+                return RedirectToAction(nameof(Index));
+            }
 
-        public ActionResult Complaints(int TripId)
+            var Survey = TripsKpiFactory.GetByTripId(new TripsKpi {TripId = id});
+            if(Survey != null)
+            {
+                if(Survey.Count > 0)
+                {
+                    return View(Survey);
+                }
+            }
+
+            return RedirectToAction(nameof(Index));
+
+        }
+        public ActionResult Complaints(int id = 0)
         {
             var email = UserName();
             var user = Users.GetByUserNameOrEmail(new City.Models.Users { UserName = UserName(), EmailAddress = "" });
@@ -1490,21 +1535,19 @@ namespace Transfer.City.Areas.Customer.Controllers
                 email = user.EmailAddress;
             }
 
-            var trip = Trips.GetByID(new City.Models.Trips { ID = TripId });
-            if(trip != null)
-            {
-                if(trip.EmailAddress != email)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
+            var trip = Trips.GetByID(new City.Models.Trips { ID = id});
 
-                return View(trip.ID);
+            if (trip != null)
+            {
+                if(trip.EmailAddress == email)
+                {
+                    return View(trip.ID);
+                }
             }
 
             return RedirectToAction(nameof(Index));
-
         }
-
+        [HttpPost]
         public ActionResult Complaints(Complaints model)
         {
             if(model.IsValid)

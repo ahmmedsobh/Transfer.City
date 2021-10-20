@@ -62,6 +62,7 @@ namespace Transfer.City.DataLayer
 				sqlCommand.Parameters.Add(new SqlParameter("@RegisteredDate", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.RegisteredDate));
 				sqlCommand.Parameters.Add(new SqlParameter("@ApprovedDate", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ApprovedDate));
 				sqlCommand.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.UserID));
+				sqlCommand.Parameters.Add(new SqlParameter("@QOS", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.QOS));
 
 								
 				MainConnection.Open();
@@ -116,8 +117,9 @@ namespace Transfer.City.DataLayer
 				sqlCommand.Parameters.Add(new SqlParameter("@RegisteredDate", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.RegisteredDate));
 				sqlCommand.Parameters.Add(new SqlParameter("@ApprovedDate", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ApprovedDate));
 				sqlCommand.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.UserID));
+                sqlCommand.Parameters.Add(new SqlParameter("@QOS", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.QOS));
 
-                
+
                 MainConnection.Open();
 
                 sqlCommand.ExecuteNonQuery();
@@ -391,6 +393,7 @@ namespace Transfer.City.DataLayer
 				businessObject.UserID = dataReader.GetInt32(dataReader.GetOrdinal(Companies.CompaniesFields.UserID.ToString()));
 			    businessObject.CurrencyName = dataReader.GetString(dataReader.GetOrdinal(Companies.CompaniesFields.CurrencyName.ToString()));
                 businessObject.CountryName = dataReader.GetString(dataReader.GetOrdinal(Companies.CompaniesFields.CountryName.ToString()));
+                businessObject.QOS = dataReader.GetInt32(dataReader.GetOrdinal(Companies.CompaniesFields.QOS.ToString()));
 
 
         }

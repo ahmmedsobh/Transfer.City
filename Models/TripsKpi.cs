@@ -16,7 +16,9 @@ namespace Transfer.City.Models
 			KpiId,
 			PercentValue,
 			Decription,
-			Details
+			Details,
+			Name,
+			Value
 		}
 		#endregion
 

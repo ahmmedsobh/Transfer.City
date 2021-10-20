@@ -1,5 +1,7 @@
 ﻿@model Transfer.City.Models.ViewModels.TripsViewModel
-
+@{
+    ViewBag.Title = "Trip Details";
+}
 <!--begin::Toolbar-->
 <div class="toolbar" id="kt_toolbar">
     <!--begin::Container-->
@@ -276,7 +278,90 @@
                     </table>
                 </div>
             </div>
+            @if (Model.TripsKpis != null)
+            {
+                if (Model.TripsKpis.Count > 0)
+                {
+                    <div class="card mt-10">
+                        <!--begin::Card header-->
+                        <div class="card-header border-0 pt-6">
+                            <!--begin::Card title-->
+                            <div class="card-title">
+                                <h3>Trip Kpis</h3>
+                            </div>
+                        </div>
+                        <!--end::Card header-->
 
+                        <div class="card-body pt-0">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Details</th>
+                                        <th>Percent</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model.TripsKpis)
+                                    {
+                                        int Percent = Convert.ToInt32(item.PercentValue / item.Value * 100);
+                                        <tr>
+                                            <td>@item.Name</td>
+                                            <td>@item.Decription</td>
+                                            <td>@item.Details</td>
+                                            <td>@item.PercentValue of @item.Value (@Percent %)</td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+
+                            </table>
+                        </div>
+                    </div>
+                }
+
+            }
+
+            @if (Model.Complaints != null)
+            {
+                if (Model.Complaints.Count > 0)
+                {
+                    <div class="card mt-10">
+                        <!--begin::Card header-->
+                        <div class="card-header border-0 pt-6">
+                            <!--begin::Card title-->
+                            <div class="card-title">
+                                <h3>Trip Complaints</h3>
+                            </div>
+                        </div>
+                        <!--end::Card header-->
+
+                        <div class="card-body pt-0">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model.Complaints)
+                                    {
+                                        <tr>
+                                            <td>@item.Title</td>
+                                            <td>@item.Decription</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                }
+
+            }
 
             <div class="card mt-10">
                 <div class="card-body">

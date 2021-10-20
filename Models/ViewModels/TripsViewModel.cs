@@ -18,7 +18,8 @@ namespace Transfer.City.Models.ViewModels
         public List<TransferInvitations> TransferInvitations { get; set; } = new List<TransferInvitations>();
         public List<DropdownViewModel<int>> Cars { get; set; } = new List<DropdownViewModel<int>>();
         public List<DropdownViewModel<int>> TripStatus { get; set; }
-
+        public List<TripsKpi> TripsKpis { get; set; } = new List<TripsKpi>();
+        public List<Complaints> Complaints { get; set; } = new List<Complaints>();
 
     }
 }
